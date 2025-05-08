@@ -4,7 +4,6 @@ namespace UmengOpenApiBundle\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use DoctrineEnhanceBundle\Repository\CommonRepositoryAware;
 use UmengOpenApiBundle\Entity\DailyPerLaunchDuration;
 
 /**
@@ -15,7 +14,6 @@ use UmengOpenApiBundle\Entity\DailyPerLaunchDuration;
  */
 class DailyPerLaunchDurationRepository extends ServiceEntityRepository
 {
-    use CommonRepositoryAware;
 
     public function __construct(ManagerRegistry $registry)
     {

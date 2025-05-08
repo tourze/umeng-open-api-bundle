@@ -4,7 +4,6 @@ namespace UmengOpenApiBundle\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use DoctrineEnhanceBundle\Repository\CommonRepositoryAware;
 use UmengOpenApiBundle\Entity\WeeklyNewUsers;
 
 /**
@@ -15,7 +14,6 @@ use UmengOpenApiBundle\Entity\WeeklyNewUsers;
  */
 class WeeklyNewUsersRepository extends ServiceEntityRepository
 {
-    use CommonRepositoryAware;
 
     public function __construct(ManagerRegistry $registry)
     {
