@@ -17,7 +17,7 @@ class SDKDomainUtil
         } elseif (is_array($resultValue)) {
             $sdkDomainSubArrayArray = [];
             foreach ($resultValue as $tempValue) {
-                $result = processSDKDomain($tempValue);
+                $result = $this->processSDKDomain($tempValue);
                 array_push($sdkDomainSubArrayArray, $result);
             }
 
@@ -52,7 +52,7 @@ class SDKDomainUtil
                 } elseif (is_array($resultValue)) {
                     $sdkDomainSubArrayArray = [];
                     foreach ($resultValue as $tempValue) {
-                        $result = processSDKDomain($tempValue);
+                        $result = $this->processSDKDomain($tempValue);
                         array_push($sdkDomainSubArrayArray, $result);
                     }
                     $serializedResult[$propertyName] = $sdkDomainSubArrayArray;
