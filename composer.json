@@ -18,9 +18,11 @@
     "symfony/config": "^6.4",
     "symfony/console": "^6.4",
     "symfony/dependency-injection": "^6.4",
+    "symfony/framework-bundle": "^6.4",
     "symfony/http-kernel": "^6.4",
     "symfony/property-access": "^6.4",
     "symfony/serializer": "^6.4",
+    "symfony/yaml": "^6.4 || ^7.1",
     "tourze/bundle-dependency": "0.0.*",
     "tourze/doctrine-indexed-bundle": "0.0.*",
     "tourze/doctrine-random-bundle": "0.1.*",
@@ -33,7 +35,8 @@
   },
   "require-dev": {
     "phpstan/phpstan": "^2.1",
-    "phpunit/phpunit": "^10.0"
+    "phpunit/phpunit": "^10.0",
+    "symfony/phpunit-bridge": "^6.4"
   },
   "autoload": {
     "psr-4": {
@@ -42,5 +45,10 @@
     "classmap": [
       "sdk/"
     ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "UmengOpenApiBundle\\Tests\\": "tests/"
+    }
   }
 }
