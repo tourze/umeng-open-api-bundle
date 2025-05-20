@@ -9,6 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Tourze\Symfony\CronJob\Attribute\AsCronTask;
 use UmengOpenApiBundle\Entity\HourlyNewUsers;
@@ -22,7 +23,7 @@ class GetHourlyNewUsersCommand extends Command
     public function __construct(
         private readonly AppRepository $appRepository,
         private readonly HourlyNewUsersRepository $newUsersRepository,
-        private readonly PropertyAccessor $propertyAccessor,
+        #[Autowire(service: 'umeng-open-api.property-accessor')] private readonly PropertyAccessor $propertyAccessor,
         private readonly EntityManagerInterface $entityManager,
     ) {
         parent::__construct();

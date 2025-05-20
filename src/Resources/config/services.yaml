@@ -10,3 +10,7 @@ services:
     resource: '../../EventSubscriber/'
   UmengOpenApiBundle\Repository\:
     resource: '../../Repository/'
+
+  umeng-open-api.property-accessor:
+    class: Symfony\Component\PropertyAccess\PropertyAccessor
+    factory: [ 'Symfony\Component\PropertyAccess\PropertyAccess', 'createPropertyAccessor' ]
