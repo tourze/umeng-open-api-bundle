@@ -4,9 +4,8 @@ namespace UmengOpenApiBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
 use UmengOpenApiBundle\Repository\DailyDurationRepository;
 
 /**
@@ -15,10 +14,8 @@ use UmengOpenApiBundle\Repository\DailyDurationRepository;
 #[ORM\Entity(repositoryClass: DailyDurationRepository::class)]
 #[ORM\Table(name: 'ims_umeng_daily_duration', options: ['comment' => 'App使用时长'])]
 #[ORM\UniqueConstraint(name: 'ims_umeng_daily_duration_idx_uniq', columns: ['app_id', 'date', 'name'])]
-class DailyDuration
+class DailyDuration implements Stringable
 {
-    #[ListColumn(order: -1)]
-    #[ExportColumn]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
@@ -34,7 +31,7 @@ class DailyDuration
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '字段说明'])]
     private ?\DateTimeInterface $date;
 
     #[ORM\Column(options: ['comment' => '时间区间单位秒'])]
@@ -100,5 +97,10 @@ class DailyDuration
     public function setPercent(?float $percent): void
     {
         $this->percent = $percent;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
     }
 }

@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\DailyNewUsersRepository;
 #[AsCommand(name: 'umeng-open-api:get-daily-new-users', description: '获取App新增用户数(天)')]
 class GetDailyNewUsersCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-daily-new-users';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly DailyNewUsersRepository $newUsersRepository,
         private readonly EntityManagerInterface $entityManager,

@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\WeeklyActiveUsersRepository;
 #[AsCommand(name: 'umeng-open-api:get-weekly-active-users', description: '获取App活跃用户数(周)')]
 class GetWeeklyActiveUsersCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-weekly-active-users';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly WeeklyActiveUsersRepository $activeUsersRepository,
         private readonly EntityManagerInterface $entityManager,

@@ -4,9 +4,8 @@ namespace UmengOpenApiBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
 use UmengOpenApiBundle\Repository\HourlyActiveUsersRepository;
 
 /**
@@ -15,11 +14,9 @@ use UmengOpenApiBundle\Repository\HourlyActiveUsersRepository;
 #[ORM\Entity(repositoryClass: HourlyActiveUsersRepository::class)]
 #[ORM\Table(name: 'ims_umeng_hourly_active_users', options: ['comment' => '活跃用户数by小时'])]
 #[ORM\UniqueConstraint(name: 'ims_umeng_hourly_active_users_idx_uniq', columns: ['app_id', 'date'])]
-class HourlyActiveUsers
+class HourlyActiveUsers implements Stringable
 {
     use HourTrait;
-    #[ListColumn(order: -1)]
-    #[ExportColumn]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
@@ -35,7 +32,7 @@ class HourlyActiveUsers
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '字段说明'])]
     private ?\DateTimeInterface $date;
 
     public function getApp(): App
@@ -60,5 +57,10 @@ class HourlyActiveUsers
         $this->date = $date;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
     }
 }

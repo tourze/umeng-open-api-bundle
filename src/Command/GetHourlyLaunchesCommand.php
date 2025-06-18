@@ -20,7 +20,9 @@ use UmengOpenApiBundle\Repository\HourlyLaunchesRepository;
 #[AsCommand(name: 'umeng-open-api:get-hourly-launches', description: '获取App启动次数(小时)')]
 class GetHourlyLaunchesCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-hourly-launches';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly HourlyLaunchesRepository $launchesRepository,
         #[Autowire(service: 'umeng-open-api.property-accessor')] private readonly PropertyAccessor $propertyAccessor,

@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\WeeklyRetentionsRepository;
 #[AsCommand(name: 'umeng-open-api:get-weekly-retentions', description: '获取App新增用户留存率(周)')]
 class GetWeeklyRetentionsCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-weekly-retentions';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly WeeklyRetentionsRepository $retentionsRepository,
         private readonly EntityManagerInterface $entityManager,

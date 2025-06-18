@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\WeeklyLaunchesRepository;
 #[AsCommand(name: 'umeng-open-api:get-weekly-launches', description: '获取App启动次数(周)')]
 class GetWeeklyLaunchesCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-weekly-launches';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly WeeklyLaunchesRepository $launchesRepository,
         private readonly EntityManagerInterface $entityManager,

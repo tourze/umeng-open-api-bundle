@@ -4,9 +4,8 @@ namespace UmengOpenApiBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
 use UmengOpenApiBundle\Repository\DailyDataRepository;
 
 /**
@@ -15,10 +14,8 @@ use UmengOpenApiBundle\Repository\DailyDataRepository;
 #[ORM\Entity(repositoryClass: DailyDataRepository::class)]
 #[ORM\Table(name: 'ims_umeng_daily_data', options: ['comment' => 'App日统计数据'])]
 #[ORM\UniqueConstraint(name: 'ims_umeng_daily_data_idx_uniq', columns: ['app_id', 'date'])]
-class DailyData
+class DailyData implements Stringable
 {
-    #[ListColumn(order: -1)]
-    #[ExportColumn]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
@@ -34,7 +31,7 @@ class DailyData
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['comment' => '统计日期'])]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '统计日期'])]
     private ?\DateTimeInterface $date;
 
     #[ORM\Column(nullable: true, options: ['comment' => '活跃用户数'])]
@@ -134,5 +131,10 @@ class DailyData
         $this->payUsers = $payUsers;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
     }
 }

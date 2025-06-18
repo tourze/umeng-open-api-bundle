@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\SevenDaysActiveUsersRepository;
 #[AsCommand(name: 'umeng-open-api:get-seven-day-active-users', description: '获取App活跃用户数(7天)')]
 class GetSevenDaysActiveUsersCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-seven-day-active-users';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly SevenDaysActiveUsersRepository $sevenDaysActiveUsersRepository,
         private readonly EntityManagerInterface $entityManager,

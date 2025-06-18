@@ -95,14 +95,14 @@ class AccountTest extends TestCase
 
     public function testCreateUpdateTime(): void
     {
-        $now = new \DateTime();
+        $now = new \DateTimeImmutable();
         
         // 测试设置/获取创建时间
         $this->account->setCreateTime($now);
         $this->assertEquals($now, $this->account->getCreateTime());
         
         // 测试设置/获取更新时间
-        $updateTime = new \DateTime('+1 hour');
+        $updateTime = new \DateTimeImmutable('+1 hour');
         $this->account->setUpdateTime($updateTime);
         $this->assertEquals($updateTime, $this->account->getUpdateTime());
     }

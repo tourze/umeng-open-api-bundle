@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\MonthlyLaunchesRepository;
 #[AsCommand(name: 'umeng-open-api:get-monthly-launches', description: '获取App启动次数(月)')]
 class GetMonthlyLaunchesCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-monthly-launches';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly MonthlyLaunchesRepository $launchesRepository,
         private readonly EntityManagerInterface $entityManager,

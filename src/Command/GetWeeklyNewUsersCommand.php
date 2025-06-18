@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\WeeklyNewUsersRepository;
 #[AsCommand(name: 'umeng-open-api:get-weekly-new-users', description: '获取App新增用户数(周)')]
 class GetWeeklyNewUsersCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-weekly-new-users';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly WeeklyNewUsersRepository $newUsersRepository,
         private readonly EntityManagerInterface $entityManager,

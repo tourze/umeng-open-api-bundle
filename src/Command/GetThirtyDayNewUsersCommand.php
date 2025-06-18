@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\ThirtyDayNewUsersRepository;
 #[AsCommand(name: 'umeng-open-api:get-thirty-day-new-users', description: '获取App新增用户数(30天)')]
 class GetThirtyDayNewUsersCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-thirty-day-new-users';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly ThirtyDayNewUsersRepository $thirtyDaysNewUsersRepository,
         private readonly EntityManagerInterface $entityManager,

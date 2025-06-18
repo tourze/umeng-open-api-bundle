@@ -19,7 +19,9 @@ use UmengOpenApiBundle\Repository\DailyPerLaunchDurationRepository;
 #[AsCommand(name: 'umeng-open-api:get-daily-per-launch-duration', description: '获取App使用时长-daily_per_launch')]
 class GetDailyPerLaunchDurationCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-daily-per-launch-duration';
+public function __construct(
         private readonly DailyPerLaunchDurationRepository $durationRepository,
         private readonly AppRepository $appRepository,
         private readonly EntityManagerInterface $entityManager,

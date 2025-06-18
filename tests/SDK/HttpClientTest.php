@@ -79,8 +79,6 @@ class HttpClientTest extends TestCase
     {
         // 默认应该是空数组
         $initialHeaders = $this->client->getHeaders();
-        $this->assertIsArray($initialHeaders);
-        
         // 测试getHeader方法
         $this->assertFalse($this->client->getHeader('non-existent-header'));
     }

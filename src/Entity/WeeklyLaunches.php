@@ -4,9 +4,8 @@ namespace UmengOpenApiBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
 use UmengOpenApiBundle\Repository\WeeklyLaunchesRepository;
 
 /**
@@ -15,10 +14,8 @@ use UmengOpenApiBundle\Repository\WeeklyLaunchesRepository;
 #[ORM\Entity(repositoryClass: WeeklyLaunchesRepository::class)]
 #[ORM\Table(name: 'ims_umeng_weekly_launches', options: ['comment' => '启动次数by周'])]
 #[ORM\UniqueConstraint(name: 'ims_umeng_weekly_launches_idx_uniq', columns: ['app_id', 'date'])]
-class WeeklyLaunches
+class WeeklyLaunches implements Stringable
 {
-    #[ListColumn(order: -1)]
-    #[ExportColumn]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
@@ -34,7 +31,7 @@ class WeeklyLaunches
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '字段说明'])]
     private ?\DateTimeInterface $date;
 
     #[ORM\Column]
@@ -74,5 +71,10 @@ class WeeklyLaunches
         $this->value = $value;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
     }
 }

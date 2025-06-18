@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\MonthlyRetentionsRepository;
 #[AsCommand(name: 'umeng-open-api:get-monthly-retentions', description: '获取App新增用户留存率(月)')]
 class GetMonthlyRetentionsCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-monthly-retentions';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly MonthlyRetentionsRepository $retentionsRepository,
         private readonly EntityManagerInterface $entityManager,

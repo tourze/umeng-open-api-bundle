@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\DailyRetentionsRepository;
 #[AsCommand(name: 'umeng-open-api:get-daily-retentions', description: '获取App新增用户留存率(天)')]
 class GetDailyRetentionsCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-daily-retentions';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly DailyRetentionsRepository $retentionsRepository,
         private readonly EntityManagerInterface $entityManager,

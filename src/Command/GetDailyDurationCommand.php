@@ -19,7 +19,9 @@ use UmengOpenApiBundle\Repository\DailyDurationRepository;
 #[AsCommand(name: 'umeng-open-api:get-daily-duration', description: '获取App使用时长-daily')]
 class GetDailyDurationCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-daily-duration';
+public function __construct(
         private readonly DailyDurationRepository $durationRepository,
         private readonly AppRepository $appRepository,
         private readonly EntityManagerInterface $entityManager,

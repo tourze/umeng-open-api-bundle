@@ -19,7 +19,9 @@ use UmengOpenApiBundle\Repository\DailyDataRepository;
 #[AsCommand(name: 'umeng-open-api:get-daily-data', description: '获取App统计数据')]
 class GetDailyDataCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-daily-data';
+public function __construct(
         private readonly DailyDataRepository $dailyDataRepository,
         private readonly AppRepository $appRepository,
         private readonly EntityManagerInterface $entityManager,

@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\SevenDaysLaunchesRepository;
 #[AsCommand(name: 'umeng-open-api:get-seven-day-launches', description: '获取App启动次数(7天)')]
 class GetSevenDayLaunchesCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-seven-day-launches';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly SevenDaysLaunchesRepository $sevenDaysLaunchesRepository,
         private readonly EntityManagerInterface $entityManager,

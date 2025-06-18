@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\SevenDaysNewUsersRepository;
 #[AsCommand(name: 'umeng-open-api:get-seven-day-new-users', description: '获取App新增用户数(7天)')]
 class GetSevenDayNewUsersCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-seven-day-new-users';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly SevenDaysNewUsersRepository $sevenDaysNewUsersRepository,
         private readonly EntityManagerInterface $entityManager,

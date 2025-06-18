@@ -4,10 +4,9 @@ namespace UmengOpenApiBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
 use UmengOpenApiBundle\Repository\DailyNewUsersRepository;
 
 /**
@@ -16,10 +15,8 @@ use UmengOpenApiBundle\Repository\DailyNewUsersRepository;
 #[ORM\Entity(repositoryClass: DailyNewUsersRepository::class)]
 #[ORM\Table(name: 'ims_umeng_daily_new_users', options: ['comment' => '新增用户数by天'])]
 #[ORM\UniqueConstraint(name: 'ims_umeng_daily_new_users_idx_uniq', columns: ['app_id', 'date'])]
-class DailyNewUsers
+class DailyNewUsers implements Stringable
 {
-    #[ListColumn(order: -1)]
-    #[ExportColumn]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
@@ -37,7 +34,7 @@ class DailyNewUsers
     private App $app;
 
     #[Groups(['restful_read'])]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '字段说明'])]
     private ?\DateTimeInterface $date;
 
     #[Groups(['restful_read'])]
@@ -78,5 +75,10 @@ class DailyNewUsers
         $this->value = $value;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
     }
 }

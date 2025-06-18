@@ -6,15 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Serializer\Attribute\Ignore;
 use Tourze\DoctrineRandomBundle\Attribute\RandomStringColumn;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
-use Tourze\EasyAdmin\Attribute\Field\FormField;
-use Tourze\EasyAdmin\Attribute\Filter\Keyword;
 use UmengOpenApiBundle\Repository\ChannelRepository;
 
 /**
@@ -22,11 +19,9 @@ use UmengOpenApiBundle\Repository\ChannelRepository;
  */
 #[ORM\Entity(repositoryClass: ChannelRepository::class)]
 #[ORM\Table(name: 'ims_umeng_channel', options: ['comment' => 'APP渠道信息'])]
-class Channel
+class Channel implements Stringable
 {
     use TimestampableAware;
-    #[ExportColumn]
-    #[ListColumn(order: -1, sorter: true)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(SnowflakeIdGenerator::class)]
@@ -35,17 +30,13 @@ class Channel
 
     #[RandomStringColumn(length: 10)]
     #[Groups(['admin_curd'])]
-    #[FormField(title: '编码', order: -1)]
-    #[Keyword]
-    #[ListColumn(order: -1)]
-    #[ORM\Column(type: Types::STRING, length: 100, unique: true, nullable: true, options: ['comment' => '编码'])]
     private ?string $code = null;
 
     #[ORM\ManyToOne(inversedBy: 'channels')]
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-    #[ORM\Column(length: 60)]
+#[ORM\Column(length: 60, options: ['comment' => '字段说明'])]
     private string $name;
 
     #[Ignore]
@@ -126,4 +117,9 @@ class Channel
         }
 
         return $this;
-    }}
+    }
+    public function __toString(): string
+    {
+        return (string) $this->id;
+    }
+}

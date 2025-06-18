@@ -141,12 +141,12 @@ class AppTest extends TestCase
 
     public function testCreateUpdateTime(): void
     {
-        $now = new \DateTime();
+        $now = new \DateTimeImmutable();
         
         $this->app->setCreateTime($now);
         $this->assertEquals($now, $this->app->getCreateTime());
         
-        $updateTime = new \DateTime('+1 hour');
+        $updateTime = new \DateTimeImmutable('+1 hour');
         $this->app->setUpdateTime($updateTime);
         $this->assertEquals($updateTime, $this->app->getUpdateTime());
     }

@@ -21,7 +21,9 @@ use UmengOpenApiBundle\Repository\DailyChannelDataRepository;
 #[AsCommand(name: 'umeng-open-api:get-channel-data', description: '获取渠道维度统计数据')]
 class GetChannelDataCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-channel-data';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly ChannelRepository $channelRepository,
         private readonly DailyChannelDataRepository $dailyChannelDataRepository,

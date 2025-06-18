@@ -17,7 +17,9 @@ use UmengOpenApiBundle\Repository\AppRepository;
 #[AsCommand(name: 'umeng-open-api:get-app-list', description: '获取App列表')]
 class GetAppListCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-app-list';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly AccountRepository $accountRepository,
         private readonly EntityManagerInterface $entityManager,

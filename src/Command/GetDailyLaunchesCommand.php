@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\DailyLaunchesRepository;
 #[AsCommand(name: 'umeng-open-api:get-daily-launches', description: '获取App启动次数(天)')]
 class GetDailyLaunchesCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-daily-launches';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly DailyLaunchesRepository $launchesRepository,
         private readonly EntityManagerInterface $entityManager,

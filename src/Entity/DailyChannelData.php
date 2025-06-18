@@ -4,9 +4,8 @@ namespace UmengOpenApiBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
 use UmengOpenApiBundle\Repository\DailyChannelDataRepository;
 
 /**
@@ -15,10 +14,8 @@ use UmengOpenApiBundle\Repository\DailyChannelDataRepository;
 #[ORM\Entity(repositoryClass: DailyChannelDataRepository::class)]
 #[ORM\Table(name: 'ims_umeng_daily_channel_data', options: ['comment' => '渠道维度日统计'])]
 #[ORM\UniqueConstraint(name: 'ims_umeng_daily_channel_data_idx_uniq', columns: ['channel_id', 'date'])]
-class DailyChannelData
+class DailyChannelData implements Stringable
 {
-    #[ListColumn(order: -1)]
-    #[ExportColumn]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
@@ -34,7 +31,7 @@ class DailyChannelData
     #[ORM\JoinColumn(nullable: false)]
     private Channel $channel;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['comment' => '日期'])]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '日期'])]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(nullable: true, options: ['comment' => '启动数'])]
@@ -149,5 +146,10 @@ class DailyChannelData
         $this->totalUser = $totalUser;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
     }
 }

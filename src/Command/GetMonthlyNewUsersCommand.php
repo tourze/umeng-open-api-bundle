@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\MonthlyNewUsersRepository;
 #[AsCommand(name: 'umeng-open-api:get-monthly-new-users', description: '获取App新增用户数(月)')]
 class GetMonthlyNewUsersCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-monthly-new-users';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly MonthlyNewUsersRepository $newUsersRepository,
         private readonly EntityManagerInterface $entityManager,

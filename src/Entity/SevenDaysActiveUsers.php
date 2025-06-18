@@ -4,9 +4,8 @@ namespace UmengOpenApiBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
 use UmengOpenApiBundle\Repository\SevenDaysActiveUsersRepository;
 
 /**
@@ -15,10 +14,8 @@ use UmengOpenApiBundle\Repository\SevenDaysActiveUsersRepository;
 #[ORM\Entity(repositoryClass: SevenDaysActiveUsersRepository::class)]
 #[ORM\Table(name: 'ims_umeng_seven_day_active_users', options: ['comment' => '活跃用户数by7天'])]
 #[ORM\UniqueConstraint(name: 'ims_umeng_seven_day_active_users_idx_uniq', columns: ['app_id', 'date'])]
-class SevenDaysActiveUsers
+class SevenDaysActiveUsers implements Stringable
 {
-    #[ListColumn(order: -1)]
-    #[ExportColumn]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
@@ -34,7 +31,7 @@ class SevenDaysActiveUsers
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '字段说明'])]
     private ?\DateTimeInterface $date;
 
     #[ORM\Column]
@@ -74,5 +71,10 @@ class SevenDaysActiveUsers
         $this->value = $value;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
     }
 }

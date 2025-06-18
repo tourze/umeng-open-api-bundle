@@ -4,9 +4,8 @@ namespace UmengOpenApiBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
 use UmengOpenApiBundle\Repository\WeeklyRetentionsRepository;
 
 /**
@@ -15,10 +14,8 @@ use UmengOpenApiBundle\Repository\WeeklyRetentionsRepository;
 #[ORM\Entity(repositoryClass: WeeklyRetentionsRepository::class)]
 #[ORM\Table(name: 'ims_umeng_weekly_retentions', options: ['comment' => 'App新增用户留存率by周'])]
 #[ORM\UniqueConstraint(name: 'ims_umeng_weekly_retentions_idx_uniq', columns: ['app_id', 'date'])]
-class WeeklyRetentions
+class WeeklyRetentions implements Stringable
 {
-    #[ListColumn(order: -1)]
-    #[ExportColumn]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
@@ -34,15 +31,12 @@ class WeeklyRetentions
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '字段说明'])]
     private ?\DateTimeInterface $date;
 
     #[ORM\Column(nullable: true, options: ['comment' => '当日安装用户数'])]
     private ?int $totalInstallUser = null;
 
-    /**
-     * @var float|null 安装日期到今日之间7天（每天），14天后，30天后留存用户占比（不包含今日）
-     */
     #[ORM\Column(nullable: true, options: ['comment' => '相对之后几日的留存用户数'])]
     private ?float $retentionRate = null;
 
@@ -92,5 +86,10 @@ class WeeklyRetentions
         $this->retentionRate = $retentionRate;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
     }
 }

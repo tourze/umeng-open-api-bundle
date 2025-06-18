@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\MonthlyActiveUsersRepository;
 #[AsCommand(name: 'umeng-open-api:get-monthly-active-users', description: '获取App活跃用户数(月)')]
 class GetMonthlyActiveUsersCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-monthly-active-users';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly MonthlyActiveUsersRepository $activeUsersRepository,
         private readonly EntityManagerInterface $entityManager,

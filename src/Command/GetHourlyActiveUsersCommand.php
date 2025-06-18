@@ -20,7 +20,9 @@ use UmengOpenApiBundle\Repository\HourlyActiveUsersRepository;
 #[AsCommand(name: 'umeng-open-api:get-hourly-active-users', description: '获取App活跃用户数(小时)')]
 class GetHourlyActiveUsersCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-hourly-active-users';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly HourlyActiveUsersRepository $activeUsersRepository,
         #[Autowire(service: 'umeng-open-api.property-accessor')] private readonly PropertyAccessor $propertyAccessor,

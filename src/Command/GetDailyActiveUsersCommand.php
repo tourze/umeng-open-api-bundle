@@ -18,7 +18,9 @@ use UmengOpenApiBundle\Repository\DailyActiveUsersRepository;
 #[AsCommand(name: 'umeng-open-api:get-daily-active-users', description: '获取App活跃用户数(天)')]
 class GetDailyActiveUsersCommand extends Command
 {
-    public function __construct(
+    
+    public const NAME = 'umeng-open-api:get-daily-active-users';
+public function __construct(
         private readonly AppRepository $appRepository,
         private readonly DailyActiveUsersRepository $activeUsersRepository,
         private readonly EntityManagerInterface $entityManager,

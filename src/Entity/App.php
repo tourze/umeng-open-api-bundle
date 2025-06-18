@@ -6,31 +6,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
-use Tourze\EasyAdmin\Attribute\Action\Creatable;
-use Tourze\EasyAdmin\Attribute\Action\Deletable;
-use Tourze\EasyAdmin\Attribute\Action\Editable;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
-use Tourze\EasyAdmin\Attribute\Permission\AsPermission;
 use UmengOpenApiBundle\Repository\AppRepository;
 
 /**
  * @see https://developer.umeng.com/open-api/docs/com.umeng.uapp/umeng.uapp.getAppList/umeng.uapp.AppInfoData%5B%5D/1/2#contHeader
  */
-#[AsPermission(title: '开放平台')]
-#[Creatable]
-#[Editable]
-#[Deletable]
 #[ORM\Entity(repositoryClass: AppRepository::class)]
 #[ORM\Table(name: 'ims_umeng_open_api_app', options: ['comment' => '应用'])]
-class App
+class App implements Stringable
 {
     use TimestampableAware;
 
-    #[ExportColumn]
-    #[ListColumn(order: -1, sorter: true)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(SnowflakeIdGenerator::class)]
@@ -43,9 +32,6 @@ class App
     #[ORM\Column(length: 40, options: ['comment' => '应用ID'])]
     private ?string $appKey = null;
 
-    /**
-     * @var string|null iphone,android
-     */
     #[ORM\Column(length: 20, options: ['comment' => '平台'])]
     private ?string $platform = null;
 
@@ -205,5 +191,10 @@ class App
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
     }
 }
