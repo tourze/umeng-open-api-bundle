@@ -2,7 +2,7 @@
 
 namespace UmengOpenApiBundle\Command;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -77,7 +77,7 @@ public function __construct(
                 $app->setPlatform($appInfo->getPlatform());
                 $app->setPopular((bool) $appInfo->getPopular());
                 $app->setUseGameSdk((bool) $appInfo->getUseGameSdk());
-                $app->setCreateTime(Carbon::parse($appInfo->getCreatedAt()));
+                $app->setCreateTime(CarbonImmutable::parse($appInfo->getCreatedAt()));
                 $this->entityManager->persist($app);
                 $this->entityManager->flush();
             }
