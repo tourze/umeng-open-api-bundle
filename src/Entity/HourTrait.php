@@ -8,99 +8,99 @@ use Symfony\Component\Serializer\Attribute\Groups;
 trait HourTrait
 {
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '0时数据'])]
     private ?int $hour0 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '1时数据'])]
     private ?int $hour1 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '2时数据'])]
     private ?int $hour2 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '3时数据'])]
     private ?int $hour3 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '4时数据'])]
     private ?int $hour4 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '5时数据'])]
     private ?int $hour5 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '6时数据'])]
     private ?int $hour6 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '7时数据'])]
     private ?int $hour7 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '8时数据'])]
     private ?int $hour8 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '9时数据'])]
     private ?int $hour9 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '10时数据'])]
     private ?int $hour10 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '11时数据'])]
     private ?int $hour11 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '12时数据'])]
     private ?int $hour12 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '13时数据'])]
     private ?int $hour13 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '14时数据'])]
     private ?int $hour14 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '15时数据'])]
     private ?int $hour15 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '16时数据'])]
     private ?int $hour16 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '17时数据'])]
     private ?int $hour17 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '18时数据'])]
     private ?int $hour18 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '19时数据'])]
     private ?int $hour19 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '20时数据'])]
     private ?int $hour20 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '21时数据'])]
     private ?int $hour21 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '22时数据'])]
     private ?int $hour22 = null;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(nullable: true, options: ['comment' => '字段说明'])]
+#[ORM\Column(nullable: true, options: ['comment' => '23时数据'])]
     private ?int $hour23 = null;
 
     public function getHour0(): ?int

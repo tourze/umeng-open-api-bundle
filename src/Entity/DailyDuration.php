@@ -31,14 +31,14 @@ class DailyDuration implements Stringable
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '字段说明'])]
-    private ?\DateTimeInterface $date;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '统计日期'])]
+    private \DateTimeInterface $date;
 
     #[ORM\Column(options: ['comment' => '时间区间单位秒'])]
     private ?string $name;
 
     #[ORM\Column(options: ['comment' => '启动次数/用户数'])]
-    private ?int $value;
+    private int $value;
 
     #[ORM\Column(options: ['comment' => '此区间的时长占'])]
     private ?float $percent;

@@ -34,12 +34,12 @@ class DailyActiveUsers implements Stringable
     private App $app;
 
     #[Groups(['restful_read'])]
-#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '字段说明'])]
-    private ?\DateTimeInterface $date;
+#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '统计日期'])]
+    private \DateTimeInterface $date;
 
     #[Groups(['restful_read'])]
-    #[ORM\Column]
-    private ?int $value;
+    #[ORM\Column(options: ['comment' => '活跃用户数'])]
+    private int $value;
 
     public function getApp(): App
     {

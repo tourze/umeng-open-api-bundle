@@ -32,8 +32,8 @@ class HourlyNewUsers implements Stringable
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '字段说明'])]
-    private ?\DateTimeInterface $date;
+#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '统计日期'])]
+    private \DateTimeInterface $date;
 
     public function getApp(): App
     {

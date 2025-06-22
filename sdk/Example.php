@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/autoload.php';
+
 $exampleFacade = new ExampleFacade();
 $exampleFacade->setAppKey('Your appKey');
 $exampleFacade->setSecKey('Your appSecret');

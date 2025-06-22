@@ -2,7 +2,7 @@
 
 namespace UmengOpenApiBundle\Command;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -15,7 +15,7 @@ use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\ThirtyDayLaunchesRepository;
 
 #[AsCronTask('*/30 * * * *')]
-#[AsCommand(name: 'umeng-open-api:get-thirty-day-launches', description: '获取App启动次数(30天)')]
+#[AsCommand(name: self::NAME, description: '获取App启动次数(30天)')]
 class GetThirtyDayLaunchesCommand extends Command
 {
     
@@ -37,12 +37,10 @@ public function __construct(
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $endDate = $input->getArgument('endDate')
-            ? Carbon::parse($input->getArgument('endDate'))->startOfDay()
-            : Carbon::today();
-        $startDate = $input->getArgument('startDate')
-            ? Carbon::parse($input->getArgument('startDate'))->startOfDay()
-            : $endDate->clone()->subDays(30);
+        $endDate = $input->getArgument('endDate') !== null ? CarbonImmutable::parse($input->getArgument('endDate'))->startOfDay()
+            : CarbonImmutable::today();
+        $startDate = $input->getArgument('startDate') !== null ? CarbonImmutable::parse($input->getArgument('startDate'))->startOfDay()
+            : $endDate->subDays(30);
 
         foreach ($this->appRepository->findAll() as $app) {
             $account = $app->getAccount();
@@ -70,6 +68,8 @@ public function __construct(
             $request = new \APIRequest();
             $apiId = new \APIId('com.umeng.uapp', 'umeng.uapp.getLaunches', 1);
             $request->apiId = $apiId;
+            /** @phpstan-ignore-next-line */
+
             $request->requestEntity = $param;
 
             $result = new \UmengUappGetLaunchesResult();
@@ -77,18 +77,18 @@ public function __construct(
 
             foreach ($result->getLaunchInfo() as $item) {
                 /** @var \UmengUappCountData $item */
-                $date = Carbon::parse($item->getDate())->startOfDay();
+                $date = CarbonImmutable::parse((string) $item->getDate())->startOfDay();
 
                 $dbItem = $this->thirtyDaysLaunchesRepository->findOneBy([
                     'app' => $app,
                     'date' => $date,
                 ]);
-                if (!$dbItem) {
+                if ($dbItem === null) {
                     $dbItem = new ThirtyDayLaunches();
                     $dbItem->setApp($app);
                     $dbItem->setDate($date);
                 }
-                $dbItem->setValue($item->getValue());
+                $dbItem->setValue((int) $item->getValue());
                 $this->entityManager->persist($dbItem);
                 $this->entityManager->flush();
             }

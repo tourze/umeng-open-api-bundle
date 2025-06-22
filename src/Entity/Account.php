@@ -11,8 +11,7 @@ use Symfony\Component\Serializer\Attribute\Ignore;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use Tourze\DoctrineTrackBundle\Attribute\TrackColumn;
-use Tourze\DoctrineUserBundle\Attribute\CreatedByColumn;
-use Tourze\DoctrineUserBundle\Attribute\UpdatedByColumn;
+use Tourze\DoctrineUserBundle\Traits\BlameableAware;
 use UmengOpenApiBundle\Repository\AccountRepository;
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
@@ -20,6 +19,7 @@ use UmengOpenApiBundle\Repository\AccountRepository;
 class Account implements Stringable
 {
     use TimestampableAware;
+    use BlameableAware;
 
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
@@ -27,22 +27,16 @@ class Account implements Stringable
     #[ORM\Column(type: Types::BIGINT, nullable: false, options: ['comment' => 'ID'])]
     private ?string $id = null;
 
-    #[CreatedByColumn]
-    private ?string $createdBy = null;
-
-    #[UpdatedByColumn]
-    private ?string $updatedBy = null;
-
     #[TrackColumn]
     private ?bool $valid = false;
 
-#[ORM\Column(length: 100, options: ['comment' => '字段说明'])]
+    #[ORM\Column(length: 100, options: ['comment' => '账户名称'])]
     private ?string $name = null;
 
-#[ORM\Column(length: 40, options: ['comment' => '字段说明'])]
+    #[ORM\Column(length: 40, options: ['comment' => 'API密钥'])]
     private ?string $apiKey = null;
 
-#[ORM\Column(length: 40, options: ['comment' => '字段说明'])]
+    #[ORM\Column(length: 40, options: ['comment' => 'API安全密钥'])]
     private ?string $apiSecurity = null;
 
     #[Ignore]
@@ -57,30 +51,6 @@ class Account implements Stringable
     public function getId(): ?string
     {
         return $this->id;
-    }
-
-    public function setCreatedBy(?string $createdBy): self
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    public function getCreatedBy(): ?string
-    {
-        return $this->createdBy;
-    }
-
-    public function setUpdatedBy(?string $updatedBy): self
-    {
-        $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    public function getUpdatedBy(): ?string
-    {
-        return $this->updatedBy;
     }
 
     public function isValid(): ?bool

@@ -29,7 +29,7 @@ class DailyChannelData implements Stringable
 
     #[ORM\ManyToOne(inversedBy: 'dailyData')]
     #[ORM\JoinColumn(nullable: false)]
-    private Channel $channel;
+    private ?Channel $channel = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '日期'])]
     private ?\DateTimeInterface $date = null;
@@ -38,7 +38,7 @@ class DailyChannelData implements Stringable
     private ?int $launch = null;
 
     #[ORM\Column(length: 10, nullable: true, options: ['comment' => '使用时长(秒)'])]
-    private ?int $duration = null;
+    private ?string $duration = null;
 
     #[ORM\Column(nullable: true, options: ['comment' => '当前渠道总用户数在总用户数中的比例'])]
     private ?float $totalUserRate = null;
@@ -52,12 +52,12 @@ class DailyChannelData implements Stringable
     #[ORM\Column(nullable: true, options: ['comment' => '总用户数'])]
     private ?int $totalUser = null;
 
-    public function getChannel(): Channel
+    public function getChannel(): ?Channel
     {
         return $this->channel;
     }
 
-    public function setChannel(Channel $channel): static
+    public function setChannel(?Channel $channel): static
     {
         $this->channel = $channel;
 
@@ -88,12 +88,12 @@ class DailyChannelData implements Stringable
         return $this;
     }
 
-    public function getDuration(): string
+    public function getDuration(): ?string
     {
         return $this->duration;
     }
 
-    public function setDuration(string $duration): static
+    public function setDuration(?string $duration): static
     {
         $this->duration = $duration;
 

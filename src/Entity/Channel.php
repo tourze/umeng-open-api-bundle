@@ -36,7 +36,7 @@ class Channel implements Stringable
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-#[ORM\Column(length: 60, options: ['comment' => '字段说明'])]
+    #[ORM\Column(length: 60, options: ['comment' => '字段说明'])]
     private string $name;
 
     #[Ignore]
@@ -58,7 +58,7 @@ class Channel implements Stringable
         return $this->app;
     }
 
-    public function setApp(App $app): static
+    public function setApp(?App $app): static
     {
         $this->app = $app;
 

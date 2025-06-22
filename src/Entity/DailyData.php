@@ -32,7 +32,7 @@ class DailyData implements Stringable
     private App $app;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '统计日期'])]
-    private ?\DateTimeInterface $date;
+    private \DateTimeInterface $date;
 
     #[ORM\Column(nullable: true, options: ['comment' => '活跃用户数'])]
     private ?int $activityUsers = null;

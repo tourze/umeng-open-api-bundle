@@ -21,12 +21,12 @@ use UmengOpenApiBundle\Repository\AppRepository;
 class GetAppListCommandTest extends TestCase
 {
     private GetAppListCommand $command;
-    private MockObject $appRepository;
-    private MockObject $accountRepository;
-    private MockObject $entityManager;
-    private MockObject $input;
-    private MockObject $output;
-    private array $mockedClasses = [];
+    private AppRepository|MockObject $appRepository;
+    private AccountRepository|MockObject $accountRepository;
+    private EntityManagerInterface|MockObject $entityManager;
+    private InputInterface|MockObject $input;
+    private OutputInterface|MockObject $output;
+
     private ReflectionMethod $executeMethod;
 
     protected function setUp(): void
@@ -65,9 +65,8 @@ class GetAppListCommandTest extends TestCase
                 public function __construct(string $apiKey, string $apiSecurity, string $gatewayUrl) {}
             }
             ');
-            $this->mockedClasses[] = '\ClientPolicy';
         }
-        
+
         // RequestPolicy
         if (!class_exists('\RequestPolicy', false)) {
             eval('
@@ -80,9 +79,8 @@ class GetAppListCommandTest extends TestCase
                 public $accessPrivateApi;
             }
             ');
-            $this->mockedClasses[] = '\RequestPolicy';
         }
-        
+
         // UmengUappGetAppListParam
         if (!class_exists('\UmengUappGetAppListParam', false)) {
             eval('
@@ -92,9 +90,8 @@ class GetAppListCommandTest extends TestCase
                 public function setAccessToken($token) {}
             }
             ');
-            $this->mockedClasses[] = '\UmengUappGetAppListParam';
         }
-        
+
         // APIRequest
         if (!class_exists('\APIRequest', false)) {
             eval('
@@ -103,9 +100,8 @@ class GetAppListCommandTest extends TestCase
                 public $requestEntity;
             }
             ');
-            $this->mockedClasses[] = '\APIRequest';
         }
-        
+
         // APIId
         if (!class_exists('\APIId', false)) {
             eval('
@@ -113,9 +109,8 @@ class GetAppListCommandTest extends TestCase
                 public function __construct($namespace, $name, $version) {}
             }
             ');
-            $this->mockedClasses[] = '\APIId';
         }
-        
+
         // UmengUappAppInfoData
         if (!class_exists('\UmengUappAppInfoData', false)) {
             eval('
@@ -144,9 +139,8 @@ class GetAppListCommandTest extends TestCase
                 public function getCreatedAt() { return $this->createdAt; }
             }
             ');
-            $this->mockedClasses[] = '\UmengUappAppInfoData';
         }
-        
+
         // UmengUappGetAppListResult
         if (!class_exists('\UmengUappGetAppListResult', false)) {
             eval('
@@ -162,9 +156,8 @@ class GetAppListCommandTest extends TestCase
                 }
             }
             ');
-            $this->mockedClasses[] = '\UmengUappGetAppListResult';
         }
-        
+
         // SyncAPIClient
         if (!class_exists('\SyncAPIClient', false)) {
             eval('
@@ -178,10 +171,9 @@ class GetAppListCommandTest extends TestCase
                 }
             }
             ');
-            $this->mockedClasses[] = '\SyncAPIClient';
         }
     }
-    
+
     /**
      * 测试当没有有效账户时的执行情况
      */
@@ -280,7 +272,7 @@ class GetAppListCommandTest extends TestCase
         $this->entityManager->expects($this->once())
             ->method('persist')
             ->with($this->callback(function ($app) {
-                return $app instanceof App 
+                return $app instanceof App
                     && $app->getAppKey() === 'test_app_key'
                     && $app->getName() === 'Test App'
                     && $app->getPlatform() === 'android'
@@ -347,7 +339,7 @@ class GetAppListCommandTest extends TestCase
         $this->entityManager->expects($this->once())
             ->method('persist')
             ->with($this->callback(function ($app) {
-                return $app instanceof App 
+                return $app instanceof App
                     && $app->getAppKey() === 'test_app_key'
                     && $app->getName() === 'New App Name'
                     && $app->getPlatform() === 'android'
@@ -361,7 +353,7 @@ class GetAppListCommandTest extends TestCase
 
         // 验证返回成功状态
         $this->assertEquals(Command::SUCCESS, $result);
-        
+
         // 验证App的属性已更新
         $this->assertEquals('New App Name', $existingApp->getName());
         $this->assertEquals('android', $existingApp->getPlatform());
@@ -379,4 +371,4 @@ class GetAppListCommandTest extends TestCase
             unset($GLOBALS['mock_api_response']);
         }
     }
-} 
+}

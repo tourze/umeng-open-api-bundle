@@ -2,7 +2,7 @@
 
 namespace UmengOpenApiBundle\Command;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -16,7 +16,7 @@ use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\DailyPerLaunchDurationRepository;
 
 #[AsCronTask('*/35 * * * *')]
-#[AsCommand(name: 'umeng-open-api:get-daily-per-launch-duration', description: '获取App使用时长-daily_per_launch')]
+#[AsCommand(name: self::NAME, description: '获取App使用时长-daily_per_launch')]
 class GetDailyPerLaunchDurationCommand extends Command
 {
     
@@ -38,12 +38,10 @@ public function __construct(
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $endDate = $input->getArgument('endDate')
-            ? Carbon::parse($input->getArgument('endDate'))->startOfDay()
-            : Carbon::today();
-        $startDate = $input->getArgument('startDate')
-            ? Carbon::parse($input->getArgument('startDate'))->startOfDay()
-            : $endDate->clone()->subDays(30);
+        $endDate = $input->getArgument('endDate') !== null ? CarbonImmutable::parse($input->getArgument('endDate'))->startOfDay()
+            : CarbonImmutable::today();
+        $startDate = $input->getArgument('startDate') !== null ? CarbonImmutable::parse($input->getArgument('startDate'))->startOfDay()
+            : $endDate->subDays(30);
         $dateList = CarbonPeriod::between($startDate, $endDate)->toArray();
 
         foreach ($this->appRepository->findAll() as $app) {
@@ -77,6 +75,7 @@ public function __construct(
                 $request = new \APIRequest();
                 $apiId = new \APIId('com.umeng.uapp', 'umeng.uapp.getDurations', 1);
                 $request->apiId = $apiId;
+                /** @phpstan-ignore-next-line */
                 $request->requestEntity = $param;
 
                 // --------------------------构造结果----------------------------------
@@ -90,11 +89,11 @@ public function __construct(
                         'date' => $date,
                         'name' => $durationInfo->getName(),
                     ]);
-                    if (!$item) {
+                    if ($item === null) {
                         $item = new DailyPerLaunchDuration();
                         $item->setApp($app);
                         $item->setDate($date);
-                        $item->setName($durationInfo->getName());
+                        $item->setName((string) $durationInfo->getName());
                     }
                     $item->setValue((int) $durationInfo->getValue());
                     $item->setPercent((float) $durationInfo->getPercent());

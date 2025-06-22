@@ -2,7 +2,6 @@
 
 namespace UmengOpenApiBundle\Command;
 
-use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -14,12 +13,11 @@ use UmengOpenApiBundle\Repository\AccountRepository;
 use UmengOpenApiBundle\Repository\AppRepository;
 
 #[AsCronTask('*/10 * * * *')]
-#[AsCommand(name: 'umeng-open-api:get-app-list', description: '获取App列表')]
+#[AsCommand(name: self::NAME, description: '获取App列表')]
 class GetAppListCommand extends Command
 {
-    
     public const NAME = 'umeng-open-api:get-app-list';
-public function __construct(
+    public function __construct(
         private readonly AppRepository $appRepository,
         private readonly AccountRepository $accountRepository,
         private readonly EntityManagerInterface $entityManager,
@@ -56,6 +54,7 @@ public function __construct(
             $request = new \APIRequest();
             $apiId = new \APIId('com.umeng.uapp', 'umeng.uapp.getAppList', 1);
             $request->apiId = $apiId;
+            /** @phpstan-ignore-next-line */
             $request->requestEntity = $param;
 
             // --------------------------构造结果----------------------------------
@@ -68,16 +67,16 @@ public function __construct(
                     'account' => $account,
                     'appKey' => $appInfo->getAppkey(),
                 ]);
-                if (!$app) {
+                if ($app === null) {
                     $app = new App();
                     $app->setAccount($account);
-                    $app->setAppKey($appInfo->getAppkey());
+                    $app->setAppKey((string) $appInfo->getAppkey());
                 }
-                $app->setName($appInfo->getName());
-                $app->setPlatform($appInfo->getPlatform());
+                $app->setName((string) $appInfo->getName());
+                $app->setPlatform((string) $appInfo->getPlatform());
                 $app->setPopular((bool) $appInfo->getPopular());
                 $app->setUseGameSdk((bool) $appInfo->getUseGameSdk());
-                $app->setCreateTime(CarbonImmutable::parse($appInfo->getCreatedAt()));
+
                 $this->entityManager->persist($app);
                 $this->entityManager->flush();
             }

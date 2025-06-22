@@ -2,7 +2,7 @@
 
 namespace UmengOpenApiBundle\Command;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -17,7 +17,7 @@ use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\HourlyActiveUsersRepository;
 
 #[AsCronTask('*/30 * * * *')]
-#[AsCommand(name: 'umeng-open-api:get-hourly-active-users', description: '获取App活跃用户数(小时)')]
+#[AsCommand(name: self::NAME, description: '获取App活跃用户数(小时)')]
 class GetHourlyActiveUsersCommand extends Command
 {
     
@@ -40,12 +40,10 @@ public function __construct(
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $endDate = $input->getArgument('endDate')
-            ? Carbon::parse($input->getArgument('endDate'))->startOfDay()
-            : Carbon::today();
-        $startDate = $input->getArgument('startDate')
-            ? Carbon::parse($input->getArgument('startDate'))->startOfDay()
-            : $endDate->clone()->subDays(30);
+        $endDate = $input->getArgument('endDate') !== null ? CarbonImmutable::parse($input->getArgument('endDate'))->startOfDay()
+            : CarbonImmutable::today();
+        $startDate = $input->getArgument('startDate') !== null ? CarbonImmutable::parse($input->getArgument('startDate'))->startOfDay()
+            : $endDate->subDays(30);
 
         foreach ($this->appRepository->findAll() as $app) {
             $account = $app->getAccount();
@@ -73,6 +71,7 @@ public function __construct(
             $request = new \APIRequest();
             $apiId = new \APIId('com.umeng.uapp', 'umeng.uapp.getActiveUsers', 1);
             $request->apiId = $apiId;
+            /** @phpstan-ignore-next-line */
             $request->requestEntity = $param;
 
             $result = new \UmengUappGetActiveUsersResult();
@@ -80,19 +79,22 @@ public function __construct(
 
             foreach ($result->getActiveUserInfo() as $item) {
                 /** @var \UmengUappCountData $item */
-                $date = Carbon::parse($item->getDate())->startOfDay();
+                $date = CarbonImmutable::parse((string) $item->getDate())->startOfDay();
 
                 $activeUsers = $this->activeUsersRepository->findOneBy([
                     'app' => $app,
                     'date' => $date,
                 ]);
-                if (!$activeUsers) {
+                if ($activeUsers === null) {
                     $activeUsers = new HourlyActiveUsers();
                     $activeUsers->setApp($app);
                     $activeUsers->setDate($date);
                 }
-                foreach ($item->getHourValue() as $key => $value) {
-                    $this->propertyAccessor->setValue($activeUsers, "hour{$key}", $value);
+                $hourValues = $item->getHourValue();
+                if (is_array($hourValues)) {
+                    foreach ($hourValues as $key => $value) {
+                        $this->propertyAccessor->setValue($activeUsers, "hour{$key}", $value);
+                    }
                 }
                 $this->entityManager->persist($activeUsers);
                 $this->entityManager->flush();

@@ -56,7 +56,7 @@ class ExamplePerson extends SDKDomain
     /**
      * 设置
      *
-     * @param Date $birthday
+     * @param string|\DateTime $birthday
      *                       参数示例：<pre></pre>
      *                       此参数必填
      */

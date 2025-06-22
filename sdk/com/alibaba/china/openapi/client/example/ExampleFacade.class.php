@@ -40,11 +40,10 @@ class ExampleFacade
     }
 
     /**
-     * 鏍规嵁鎺堟潈鐮佹崲鍙栨巿鏉冧护鐗�
+     * 根据授权码换取授权令牌
      *
-     * @param
-     *            code 鎺堟潈鐮�
-     * @return 鎺堟潈浠ょ墝
+     * @param string $code 授权码
+     * @return AuthorizationToken 授权令牌
      */
     public function getToken($code)
     {
@@ -93,11 +92,10 @@ class ExampleFacade
     }
 
     /**
-     * 鍒锋柊token
+     * 刷新token
      *
-     * @param
-     *            refreshToken refresh 浠ょ墝
-     * @return 鎺堟潈浠ょ墝
+     * @param string $refreshToken refresh令牌
+     * @return AuthorizationToken 授权令牌
      */
     public function refreshToken($refreshToken)
     {

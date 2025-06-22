@@ -42,7 +42,7 @@ class App implements Stringable
     private ?bool $useGameSdk = null;
 
     #[ORM\ManyToOne(inversedBy: 'apps')]
-    private Account $account;
+    private ?Account $account = null;
 
     #[ORM\OneToMany(mappedBy: 'app', targetEntity: DailyData::class, orphanRemoval: true)]
     private Collection $dailyData;
@@ -121,12 +121,12 @@ class App implements Stringable
         return $this;
     }
 
-    public function getAccount(): Account
+    public function getAccount(): ?Account
     {
         return $this->account;
     }
 
-    public function setAccount(Account $account): static
+    public function setAccount(?Account $account): static
     {
         $this->account = $account;
 
@@ -153,12 +153,7 @@ class App implements Stringable
 
     public function removeDailyData(DailyData $dailyData): static
     {
-        if ($this->dailyData->removeElement($dailyData)) {
-            // set the owning side to null (unless already changed)
-            if ($dailyData->getApp() === $this) {
-                $dailyData->setApp(null);
-            }
-        }
+        $this->dailyData->removeElement($dailyData);
 
         return $this;
     }
@@ -183,12 +178,7 @@ class App implements Stringable
 
     public function removeChannel(Channel $channel): static
     {
-        if ($this->channels->removeElement($channel)) {
-            // set the owning side to null (unless already changed)
-            if ($channel->getApp() === $this) {
-                $channel->setApp(null);
-            }
-        }
+        $this->channels->removeElement($channel);
 
         return $this;
     }

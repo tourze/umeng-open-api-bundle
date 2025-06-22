@@ -33,8 +33,8 @@ class DailyRetentions implements Stringable
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '字段说明'])]
-    private ?\DateTimeInterface $date;
+#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '统计日期'])]
+    private \DateTimeInterface $date;
 
     #[ORM\Column(nullable: true, options: ['comment' => '当日安装用户数'])]
     private ?int $totalInstallUser = null;

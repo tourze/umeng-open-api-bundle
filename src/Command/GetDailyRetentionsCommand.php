@@ -2,7 +2,7 @@
 
 namespace UmengOpenApiBundle\Command;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -15,12 +15,12 @@ use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\DailyRetentionsRepository;
 
 #[AsCronTask('*/30 * * * *')]
-#[AsCommand(name: 'umeng-open-api:get-daily-retentions', description: '获取App新增用户留存率(天)')]
+#[AsCommand(name: self::NAME, description: '获取App新增用户留存率(天)')]
 class GetDailyRetentionsCommand extends Command
 {
-    
+
     public const NAME = 'umeng-open-api:get-daily-retentions';
-public function __construct(
+    public function __construct(
         private readonly AppRepository $appRepository,
         private readonly DailyRetentionsRepository $retentionsRepository,
         private readonly EntityManagerInterface $entityManager,
@@ -37,12 +37,10 @@ public function __construct(
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $endDate = $input->getArgument('endDate')
-            ? Carbon::parse($input->getArgument('endDate'))->startOfDay()
-            : Carbon::today();
-        $startDate = $input->getArgument('startDate')
-            ? Carbon::parse($input->getArgument('startDate'))->startOfDay()
-            : $endDate->clone()->subDays(30);
+        $endDate = $input->getArgument('endDate') !== null ? CarbonImmutable::parse($input->getArgument('endDate'))->startOfDay()
+            : CarbonImmutable::today();
+        $startDate = $input->getArgument('startDate') !== null ? CarbonImmutable::parse($input->getArgument('startDate'))->startOfDay()
+            : $endDate->subDays(30);
 
         foreach ($this->appRepository->findAll() as $app) {
             $account = $app->getAccount();
@@ -70,6 +68,7 @@ public function __construct(
             $request = new \APIRequest();
             $apiId = new \APIId('com.umeng.uapp', 'umeng.uapp.getRetentions', 1);
             $request->apiId = $apiId;
+            /** @phpstan-ignore-next-line */
             $request->requestEntity = $param;
 
             $result = new \UmengUappGetRetentionsResult();
@@ -77,19 +76,19 @@ public function __construct(
 
             foreach ($result->getRetentionInfo() as $item) {
                 /** @var \UmengUappRetentionInfo $item */
-                $date = Carbon::parse($item->getDate())->startOfDay();
+                $date = CarbonImmutable::parse((string) $item->getDate())->startOfDay();
 
                 $dbItem = $this->retentionsRepository->findOneBy([
                     'app' => $app,
                     'date' => $date,
                 ]);
-                if (!$dbItem) {
+                if ($dbItem === null) {
                     $dbItem = new DailyRetentions();
                     $dbItem->setApp($app);
                     $dbItem->setDate($date);
                 }
-                $dbItem->setTotalInstallUser($item->getTotalInstallUser());
-                $dbItem->setRetentionRate($item->getRetentionRate());
+                $dbItem->setTotalInstallUser((int) $item->getTotalInstallUser());
+                $dbItem->setRetentionRate((array) $item->getRetentionRate());
                 $this->entityManager->persist($dbItem);
                 $this->entityManager->flush();
             }

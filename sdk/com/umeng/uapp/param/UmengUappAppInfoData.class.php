@@ -21,6 +21,28 @@ class UmengUappAppInfoData extends SDKDomain
     private $stdResult;
 
     private $arrayResult;
+    
+    public function __construct($appkey = null, $name = null, $platform = null, $popular = null, $useGameSdk = null, $createdAt = null)
+    {
+        if ($appkey !== null) {
+            $this->appkey = $appkey;
+        }
+        if ($name !== null) {
+            $this->name = $name;
+        }
+        if ($platform !== null) {
+            $this->platform = $platform;
+        }
+        if ($popular !== null) {
+            $this->popular = $popular;
+        }
+        if ($useGameSdk !== null) {
+            $this->useGameSdk = $useGameSdk;
+        }
+        if ($createdAt !== null) {
+            $this->createdAt = $createdAt;
+        }
+    }
 
     /**
      * @return 更新时间

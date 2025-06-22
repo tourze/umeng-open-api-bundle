@@ -2,7 +2,7 @@
 
 namespace UmengOpenApiBundle\Command;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -16,7 +16,7 @@ use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\DailyDataRepository;
 
 #[AsCronTask('*/30 * * * *')]
-#[AsCommand(name: 'umeng-open-api:get-daily-data', description: '获取App统计数据')]
+#[AsCommand(name: self::NAME, description: '获取App统计数据')]
 class GetDailyDataCommand extends Command
 {
     
@@ -38,12 +38,10 @@ public function __construct(
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $endDate = $input->getArgument('endDate')
-            ? Carbon::parse($input->getArgument('endDate'))->startOfDay()
-            : Carbon::today();
-        $startDate = $input->getArgument('startDate')
-            ? Carbon::parse($input->getArgument('startDate'))->startOfDay()
-            : $endDate->clone()->subDays(30);
+        $endDate = $input->getArgument('endDate') !== null ? CarbonImmutable::parse($input->getArgument('endDate'))->startOfDay()
+            : CarbonImmutable::today();
+        $startDate = $input->getArgument('startDate') !== null ? CarbonImmutable::parse($input->getArgument('startDate'))->startOfDay()
+            : $endDate->subDays(30);
         $dateList = CarbonPeriod::between($startDate, $endDate)->toArray();
 
         foreach ($this->appRepository->findAll() as $app) {
@@ -76,6 +74,8 @@ public function __construct(
                 $request = new \APIRequest();
                 $apiId = new \APIId('com.umeng.uapp', 'umeng.uapp.getDailyData', 1);
                 $request->apiId = $apiId;
+                /** @phpstan-ignore-next-line */
+
                 $request->requestEntity = $param;
 
                 // --------------------------构造结果----------------------------------
@@ -87,7 +87,7 @@ public function __construct(
                     'app' => $app,
                     'date' => $date,
                 ]);
-                if (!$item) {
+                if ($item === null) {
                     $item = new DailyData();
                     $item->setApp($app);
                     $item->setDate($date);

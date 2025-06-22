@@ -67,6 +67,12 @@ class HttpClient
 
     public $cookie_host = '';
 
+    public function __construct($host = '', $port = 80)
+    {
+        $this->host = $host;
+        $this->port = $port;
+    }
+    
     public function HttpClient($host, $port = 80)
     {
         $this->host = $host;

@@ -2,7 +2,7 @@
 
 namespace UmengOpenApiBundle\Command;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -18,12 +18,12 @@ use UmengOpenApiBundle\Repository\ChannelRepository;
 use UmengOpenApiBundle\Repository\DailyChannelDataRepository;
 
 #[AsCronTask('*/30 * * * *')]
-#[AsCommand(name: 'umeng-open-api:get-channel-data', description: '获取渠道维度统计数据')]
+#[AsCommand(name: self::NAME, description: '获取渠道维度统计数据')]
 class GetChannelDataCommand extends Command
 {
-    
     public const NAME = 'umeng-open-api:get-channel-data';
-public function __construct(
+
+    public function __construct(
         private readonly AppRepository $appRepository,
         private readonly ChannelRepository $channelRepository,
         private readonly DailyChannelDataRepository $dailyChannelDataRepository,
@@ -41,12 +41,12 @@ public function __construct(
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $endDate = $input->getArgument('endDate')
-            ? Carbon::parse($input->getArgument('endDate'))->startOfDay()
-            : Carbon::today();
-        $startDate = $input->getArgument('startDate')
-            ? Carbon::parse($input->getArgument('startDate'))->startOfDay()
-            : $endDate->clone()->subDays(30);
+        $endDate = $input->getArgument('endDate') !== null
+            ? CarbonImmutable::parse($input->getArgument('endDate'))->startOfDay()
+            : CarbonImmutable::today();
+        $startDate = $input->getArgument('startDate') !== null
+            ? CarbonImmutable::parse($input->getArgument('startDate'))->startOfDay()
+            : $endDate->subDays(30);
         $dateList = CarbonPeriod::between($startDate, $endDate)->toArray();
 
         foreach ($this->appRepository->findAll() as $app) {
@@ -71,14 +71,15 @@ public function __construct(
                 $param = new \UmengUappGetChannelDataParam();
                 $param->setAppkey($app->getAppKey());
                 $param->setDate($date->format('Y-m-d'));
-                $param->setPerPage('100');
-                $param->setPage('1');
+                $param->setPerPage(100);
+                $param->setPage(1);
 
                 // --------------------------构造请求----------------------------------
 
                 $request = new \APIRequest();
                 $apiId = new \APIId('com.umeng.uapp', 'umeng.uapp.getChannelData', 1);
                 $request->apiId = $apiId;
+                /** @phpstan-ignore-next-line */
                 $request->requestEntity = $param;
 
                 // --------------------------构造结果----------------------------------
@@ -90,13 +91,13 @@ public function __construct(
                     /** @var \UmengUappChannelInfo $item */
 
                     // 先确保渠道存在
-                    $channel = $this->channelRepository->findOneBy(['code' => $item->getId()]);
-                    if (!$channel) {
+                    $channel = $this->channelRepository->findOneBy(['code' => (string) $item->getId()]);
+                    if ($channel === null) {
                         $channel = new Channel();
-                        $channel->setCode($item->getId());
+                        $channel->setCode((string) $item->getId());
                     }
                     $channel->setApp($app);
-                    $channel->setName($item->getChannel());
+                    $channel->setName((string) $item->getChannel());
                     $this->entityManager->persist($channel);
                     $this->entityManager->flush();
 
@@ -104,17 +105,17 @@ public function __construct(
                         'channel' => $channel,
                         'date' => $date,
                     ]);
-                    if (!$dailyData) {
+                    if ($dailyData === null) {
                         $dailyData = new DailyChannelData();
                         $dailyData->setChannel($channel);
                         $dailyData->setDate($date);
                     }
-                    $dailyData->setLaunch($item->getLaunch());
-                    $dailyData->setDuration(self::convertTimeToSecond($item->getDuration()));
-                    $dailyData->setTotalUserRate($item->getTotalUserRate());
-                    $dailyData->setActiveUser($item->getActiveUser());
-                    $dailyData->setNewUser($item->getNewUser());
-                    $dailyData->setTotalUser($item->getTotalUser());
+                    $dailyData->setLaunch((int) $item->getLaunch());
+                    $dailyData->setDuration(self::convertTimeToSecond((string) $item->getDuration()));
+                    $dailyData->setTotalUserRate((float) $item->getTotalUserRate());
+                    $dailyData->setActiveUser((int) $item->getActiveUser());
+                    $dailyData->setNewUser((int) $item->getNewUser());
+                    $dailyData->setTotalUser((int) $item->getTotalUser());
                     $this->entityManager->persist($dailyData);
                     $this->entityManager->flush();
                 }
@@ -124,10 +125,10 @@ public function __construct(
         return Command::SUCCESS;
     }
 
-    private static function convertTimeToSecond(string $time): int
+    private static function convertTimeToSecond(string $time): string
     {
         $d = explode(':', $time);
 
-        return (intval($d[0]) * 3600) + (intval($d[1]) * 60) + intval($d[2]);
+        return (string) ((intval($d[0]) * 3600) + (intval($d[1]) * 60) + intval($d[2]));
     }
 }
