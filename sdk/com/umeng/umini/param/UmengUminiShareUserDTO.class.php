@@ -21,7 +21,7 @@ class UmengUminiShareUserDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 分享回流比
+     * @return mixed 分享回流比
      */
     public function getReflowRatio()
     {
@@ -40,7 +40,7 @@ class UmengUminiShareUserDTO extends SDKDomain
     }
 
     /**
-     * @return 头像URL
+     * @return mixed 头像URL
      */
     public function getAvatarUrl()
     {
@@ -59,7 +59,7 @@ class UmengUminiShareUserDTO extends SDKDomain
     }
 
     /**
-     * @return 用户回流量
+     * @return mixed 用户回流量
      */
     public function getReflow()
     {
@@ -78,7 +78,7 @@ class UmengUminiShareUserDTO extends SDKDomain
     }
 
     /**
-     * @return 用户名
+     * @return mixed 用户名
      */
     public function getNickName()
     {
@@ -97,7 +97,7 @@ class UmengUminiShareUserDTO extends SDKDomain
     }
 
     /**
-     * @return 分享新增
+     * @return mixed 分享新增
      */
     public function getNewUser()
     {
@@ -116,7 +116,7 @@ class UmengUminiShareUserDTO extends SDKDomain
     }
 
     /**
-     * @return 分享回流量
+     * @return mixed 分享回流量
      */
     public function getCount()
     {
@@ -135,7 +135,7 @@ class UmengUminiShareUserDTO extends SDKDomain
     }
 
     /**
-     * @return 用户ID
+     * @return string 用户ID
      */
     public function getUserId()
     {

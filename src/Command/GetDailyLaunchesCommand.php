@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\DailyLaunches;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\DailyLaunchesRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App启动次数(天)')]
 class GetDailyLaunchesCommand extends Command
 {

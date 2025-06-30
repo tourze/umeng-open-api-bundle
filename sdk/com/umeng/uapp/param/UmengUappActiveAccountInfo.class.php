@@ -13,7 +13,7 @@ class UmengUappActiveAccountInfo extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 统计日期
+     * @return string 统计日期
      */
     public function getDate()
     {
@@ -32,7 +32,7 @@ class UmengUappActiveAccountInfo extends SDKDomain
     }
 
     /**
-     * @return 活跃用户
+     * @return mixed 活跃用户
      */
     public function getActiveUser()
     {
@@ -51,7 +51,7 @@ class UmengUappActiveAccountInfo extends SDKDomain
     }
 
     /**
-     * @return 活跃账号
+     * @return mixed 活跃账号
      */
     public function getActiveAccount()
     {

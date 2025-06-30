@@ -9,7 +9,7 @@ class UmengUappGetAppCountResult
     private $arrayResult;
 
     /**
-     * @return 应用数量
+     * @return int 应用数量
      */
     public function getCount()
     {

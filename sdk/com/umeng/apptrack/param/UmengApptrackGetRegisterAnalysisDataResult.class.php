@@ -11,7 +11,7 @@ class UmengApptrackGetRegisterAnalysisDataResult
     private $arrayResult;
 
     /**
-     * @return 注册事件列表
+     * @return array 注册事件列表
      */
     public function getData()
     {
@@ -29,7 +29,7 @@ class UmengApptrackGetRegisterAnalysisDataResult
     }
 
     /**
-     * @return 总数
+     * @return int 总数
      */
     public function getTotal()
     {

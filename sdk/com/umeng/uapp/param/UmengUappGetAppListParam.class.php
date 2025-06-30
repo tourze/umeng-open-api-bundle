@@ -5,7 +5,7 @@ class UmengUappGetAppListParam
     private $sdkStdResult = [];
 
     /**
-     * @return 页号，从1开始
+     * @return mixed 页号，从1开始
      */
     public function getPage()
     {
@@ -28,7 +28,7 @@ class UmengUappGetAppListParam
     }
 
     /**
-     * @return 每页显示数量（最大100）
+     * @return int 每页显示数量（最大100）
      */
     public function getPerPage()
     {

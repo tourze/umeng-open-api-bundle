@@ -5,7 +5,7 @@ class UmengUappGetDailyDataParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用ID
+     * @return string 应用ID
      */
     public function getAppkey()
     {
@@ -26,7 +26,7 @@ class UmengUappGetDailyDataParam
     }
 
     /**
-     * @return 查询日期
+     * @return string 查询日期
      */
     public function getDate()
     {
@@ -47,7 +47,7 @@ class UmengUappGetDailyDataParam
     }
 
     /**
-     * @return 版本名称（选填，仅一次一个）
+     * @return string 版本名称（选填，仅一次一个）
      */
     public function getVersion()
     {
@@ -70,7 +70,7 @@ class UmengUappGetDailyDataParam
     }
 
     /**
-     * @return 渠道名称（选填，仅一次一个）
+     * @return string 渠道名称（选填，仅一次一个）
      */
     public function getChannel()
     {

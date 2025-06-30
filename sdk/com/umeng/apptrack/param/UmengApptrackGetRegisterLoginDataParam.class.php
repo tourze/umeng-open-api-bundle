@@ -5,7 +5,7 @@ class UmengApptrackGetRegisterLoginDataParam
     private $sdkStdResult = [];
 
     /**
-     * @return 计划id
+     * @return mixed 计划id
      */
     public function getPlanId()
     {
@@ -26,7 +26,7 @@ class UmengApptrackGetRegisterLoginDataParam
     }
 
     /**
-     * @return 单元id
+     * @return mixed 单元id
      */
     public function getUnitId()
     {
@@ -49,7 +49,7 @@ class UmengApptrackGetRegisterLoginDataParam
     }
 
     /**
-     * @return 查询日期
+     * @return string 查询日期
      */
     public function getQueryDate()
     {

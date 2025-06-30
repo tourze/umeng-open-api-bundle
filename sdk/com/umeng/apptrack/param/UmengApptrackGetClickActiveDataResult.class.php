@@ -19,7 +19,7 @@ class UmengApptrackGetClickActiveDataResult
     private $arrayResult;
 
     /**
-     * @return 点击pv
+     * @return mixed 点击pv
      */
     public function getClickPv()
     {
@@ -37,7 +37,7 @@ class UmengApptrackGetClickActiveDataResult
     }
 
     /**
-     * @return 点击uv
+     * @return mixed 点击uv
      */
     public function getClickUv()
     {
@@ -55,7 +55,7 @@ class UmengApptrackGetClickActiveDataResult
     }
 
     /**
-     * @return 激活真人数
+     * @return mixed 激活真人数
      */
     public function getActivateUv()
     {
@@ -73,7 +73,7 @@ class UmengApptrackGetClickActiveDataResult
     }
 
     /**
-     * @return 点击激活比率
+     * @return float 点击激活比率
      */
     public function getActivateRate()
     {
@@ -91,7 +91,7 @@ class UmengApptrackGetClickActiveDataResult
     }
 
     /**
-     * @return 总激活
+     * @return mixed 总激活
      */
     public function getTotalActivateUv()
     {
@@ -109,7 +109,7 @@ class UmengApptrackGetClickActiveDataResult
     }
 
     /**
-     * @return 点击激活
+     * @return mixed 点击激活
      */
     public function getActivateDevice()
     {

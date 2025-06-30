@@ -15,7 +15,7 @@ class UmengUappEventInfo extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 事件名称
+     * @return string 事件名称
      */
     public function getName()
     {
@@ -34,7 +34,7 @@ class UmengUappEventInfo extends SDKDomain
     }
 
     /**
-     * @return 统计次数
+     * @return int 统计次数
      */
     public function getCount()
     {
@@ -72,7 +72,7 @@ class UmengUappEventInfo extends SDKDomain
     }
 
     /**
-     * @return 显示名称
+     * @return string 显示名称
      */
     public function getDisplayName()
     {

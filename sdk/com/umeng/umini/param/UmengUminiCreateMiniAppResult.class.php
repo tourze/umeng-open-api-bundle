@@ -15,7 +15,7 @@ class UmengUminiCreateMiniAppResult
     private $arrayResult;
 
     /**
-     * @return 状态码
+     * @return mixed 状态码
      */
     public function getCode()
     {
@@ -33,7 +33,7 @@ class UmengUminiCreateMiniAppResult
     }
 
     /**
-     * @return 状态
+     * @return mixed 状态
      */
     public function getSuccess()
     {
@@ -51,7 +51,7 @@ class UmengUminiCreateMiniAppResult
     }
 
     /**
-     * @return 成功时返回新建小程序key
+     * @return mixed 成功时返回新建小程序key
      */
     public function getData()
     {
@@ -69,7 +69,7 @@ class UmengUminiCreateMiniAppResult
     }
 
     /**
-     * @return 返回消息
+     * @return mixed 返回消息
      */
     public function getMsg()
     {

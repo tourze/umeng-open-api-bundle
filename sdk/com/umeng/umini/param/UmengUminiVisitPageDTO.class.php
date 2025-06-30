@@ -17,7 +17,7 @@ class UmengUminiVisitPageDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 页面备注
+     * @return mixed 页面备注
      */
     public function getDisplayName()
     {
@@ -36,7 +36,7 @@ class UmengUminiVisitPageDTO extends SDKDomain
     }
 
     /**
-     * @return 平均页面访问时长
+     * @return mixed 平均页面访问时长
      */
     public function getPageDuration()
     {
@@ -55,7 +55,7 @@ class UmengUminiVisitPageDTO extends SDKDomain
     }
 
     /**
-     * @return 页面URL
+     * @return mixed 页面URL
      */
     public function getPage()
     {
@@ -74,7 +74,7 @@ class UmengUminiVisitPageDTO extends SDKDomain
     }
 
     /**
-     * @return 页面访问用户数
+     * @return mixed 页面访问用户数
      */
     public function getVisitUser()
     {
@@ -93,7 +93,7 @@ class UmengUminiVisitPageDTO extends SDKDomain
     }
 
     /**
-     * @return 页面访问次数
+     * @return int 页面访问次数
      */
     public function getVisitTimes()
     {

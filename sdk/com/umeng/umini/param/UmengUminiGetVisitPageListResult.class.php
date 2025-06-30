@@ -15,7 +15,7 @@ class UmengUminiGetVisitPageListResult
     private $arrayResult;
 
     /**
-     * @return 数据详情
+     * @return UmengUminiGetVisitPageListResult 数据详情
      */
     public function getData()
     {

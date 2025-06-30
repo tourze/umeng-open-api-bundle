@@ -5,7 +5,7 @@ class UmengUminiCreateMiniAppParam
     private $sdkStdResult = [];
 
     /**
-     * @return 名称
+     * @return string 名称
      */
     public function getName()
     {
@@ -26,7 +26,7 @@ class UmengUminiCreateMiniAppParam
     }
 
     /**
-     * @return 类型（小程序：mini,小游戏：mini_game）
+     * @return string 类型（小程序：mini,小游戏：mini_game）
      */
     public function getType()
     {
@@ -47,7 +47,7 @@ class UmengUminiCreateMiniAppParam
     }
 
     /**
-     * @return 平台( 支付宝小程序：mini_alipay；微信小程序：mini_wechat；天猫精灵：mini_tmall_genie；微信小游戏：mini_game_wechat；字节跳动小程序：mini_bytedance；百度小程序：mini_baidu；QQ小程序：mini_qq )
+     * @return string 平台( 支付宝小程序：mini_alipay；微信小程序：mini_wechat；天猫精灵：mini_tmall_genie；微信小游戏：mini_game_wechat；字节跳动小程序：mini_bytedance；百度小程序：mini_baidu；QQ小程序：mini_qq )
      */
     public function getPlatform()
     {
@@ -68,7 +68,7 @@ class UmengUminiCreateMiniAppParam
     }
 
     /**
-     * @return 语言(CN:中文; OTHER:其他)
+     * @return mixed 语言(CN:中文; OTHER:其他)
      */
     public function getLanguage()
     {
@@ -89,7 +89,7 @@ class UmengUminiCreateMiniAppParam
     }
 
     /**
-     * @return 一级分类（行业帮助文档：https://developer.umeng.com/docs/147615/detail/169442 ）
+     * @return mixed 一级分类（行业帮助文档：https://developer.umeng.com/docs/147615/detail/169442 ）
      */
     public function getFirstLevel()
     {
@@ -110,7 +110,7 @@ class UmengUminiCreateMiniAppParam
     }
 
     /**
-     * @return 二级分类
+     * @return mixed 二级分类
      */
     public function getSecondLevel()
     {
@@ -131,7 +131,7 @@ class UmengUminiCreateMiniAppParam
     }
 
     /**
-     * @return 描述
+     * @return mixed 描述
      */
     public function getDescription()
     {
@@ -154,7 +154,7 @@ class UmengUminiCreateMiniAppParam
     }
 
     /**
-     * @return 微信/支付宝AppId（不可单独出现，需要和下面参数组队出现）
+     * @return array 微信/支付宝AppId（不可单独出现，需要和下面参数组队出现）
      */
     public function getMiniAppId()
     {
@@ -177,7 +177,7 @@ class UmengUminiCreateMiniAppParam
     }
 
     /**
-     * @return 微信AppSecret（miniAppId和miniAppSecret必须成对出现）
+     * @return mixed 微信AppSecret（miniAppId和miniAppSecret必须成对出现）
      */
     public function getMiniAppSecret()
     {
@@ -200,7 +200,7 @@ class UmengUminiCreateMiniAppParam
     }
 
     /**
-     * @return 支付宝PublicKey（miniAppId、miniPublicKey和miniPrivateKey必须同时出现）
+     * @return mixed 支付宝PublicKey（miniAppId、miniPublicKey和miniPrivateKey必须同时出现）
      */
     public function getMiniPublicKey()
     {
@@ -223,7 +223,7 @@ class UmengUminiCreateMiniAppParam
     }
 
     /**
-     * @return 支付宝PrivateKey（miniAppId、miniPublicKey和miniPrivateKey必须同时出现）
+     * @return mixed 支付宝PrivateKey（miniAppId、miniPublicKey和miniPrivateKey必须同时出现）
      */
     public function getMiniPrivateKey()
     {
@@ -246,7 +246,7 @@ class UmengUminiCreateMiniAppParam
     }
 
     /**
-     * @return 集成类型；单应用小程序集成：single、小程序模版类应用集成 ：template
+     * @return string 集成类型；单应用小程序集成：single、小程序模版类应用集成 ：template
      */
     public function getIntegrationType()
     {

@@ -19,7 +19,7 @@ class UmengUappVersionInfo extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 统计日期
+     * @return string 统计日期
      */
     public function getDate()
     {
@@ -38,7 +38,7 @@ class UmengUappVersionInfo extends SDKDomain
     }
 
     /**
-     * @return 当前版本总用户数在总用户数中的比例
+     * @return float 当前版本总用户数在总用户数中的比例
      */
     public function getTotalUserRate()
     {
@@ -57,7 +57,7 @@ class UmengUappVersionInfo extends SDKDomain
     }
 
     /**
-     * @return 活跃用户
+     * @return mixed 活跃用户
      */
     public function getActiveUser()
     {
@@ -76,7 +76,7 @@ class UmengUappVersionInfo extends SDKDomain
     }
 
     /**
-     * @return 新增用户
+     * @return mixed 新增用户
      */
     public function getNewUser()
     {
@@ -95,7 +95,7 @@ class UmengUappVersionInfo extends SDKDomain
     }
 
     /**
-     * @return 当前版本总用户数
+     * @return string 当前版本总用户数
      */
     public function getTotalUser()
     {
@@ -114,7 +114,7 @@ class UmengUappVersionInfo extends SDKDomain
     }
 
     /**
-     * @return 版本号
+     * @return string 版本号
      */
     public function getVersion()
     {

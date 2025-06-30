@@ -13,7 +13,7 @@ class UmengUminiShareOverviewDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 当前页码
+     * @return mixed 当前页码
      */
     public function getCurrentPage()
     {
@@ -32,7 +32,7 @@ class UmengUminiShareOverviewDTO extends SDKDomain
     }
 
     /**
-     * @return 总记录数
+     * @return mixed 总记录数
      */
     public function getTotalCount()
     {

@@ -5,7 +5,7 @@ class UmengUappEventCreateParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用ID
+     * @return string 应用ID
      */
     public function getAppkey()
     {
@@ -26,7 +26,7 @@ class UmengUappEventCreateParam
     }
 
     /**
-     * @return 自定义事件名（英文和数字，不允许特殊符号?/.\<>）
+     * @return int 自定义事件名（英文和数字，不允许特殊符号?/.\<>）
      */
     public function getEventName()
     {
@@ -47,7 +47,7 @@ class UmengUappEventCreateParam
     }
 
     /**
-     * @return 自定义事件显示名（中文，英文和数字，不允许特殊符号?/.\<>）
+     * @return int 自定义事件显示名（中文，英文和数字，不允许特殊符号?/.\<>）
      */
     public function getEventDisplayName()
     {

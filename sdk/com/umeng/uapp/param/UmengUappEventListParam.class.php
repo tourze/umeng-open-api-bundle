@@ -5,7 +5,7 @@ class UmengUappEventListParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用ID
+     * @return string 应用ID
      */
     public function getAppkey()
     {
@@ -26,7 +26,7 @@ class UmengUappEventListParam
     }
 
     /**
-     * @return 查询起始日期
+     * @return string 查询起始日期
      */
     public function getStartDate()
     {
@@ -47,7 +47,7 @@ class UmengUappEventListParam
     }
 
     /**
-     * @return 查询截止日期
+     * @return string 查询截止日期
      */
     public function getEndDate()
     {
@@ -68,7 +68,7 @@ class UmengUappEventListParam
     }
 
     /**
-     * @return 每页显示数量（最大100）
+     * @return int 每页显示数量（最大100）
      */
     public function getPerPage()
     {
@@ -91,7 +91,7 @@ class UmengUappEventListParam
     }
 
     /**
-     * @return 页数
+     * @return int 页数
      */
     public function getPage()
     {
@@ -114,7 +114,7 @@ class UmengUappEventListParam
     }
 
     /**
-     * @return 应用版本号
+     * @return string 应用版本号
      */
     public function getVersion()
     {

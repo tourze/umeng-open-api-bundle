@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Stringable;
 use Symfony\Component\Serializer\Attribute\Ignore;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
+use Tourze\DoctrineSnowflakeBundle\Traits\SnowflakeKeyAware;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use Tourze\DoctrineTrackBundle\Attribute\TrackColumn;
 use Tourze\DoctrineUserBundle\Traits\BlameableAware;
@@ -20,12 +21,7 @@ class Account implements Stringable
 {
     use TimestampableAware;
     use BlameableAware;
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(SnowflakeIdGenerator::class)]
-    #[ORM\Column(type: Types::BIGINT, nullable: false, options: ['comment' => 'ID'])]
-    private ?string $id = null;
+    use SnowflakeKeyAware;
 
     #[TrackColumn]
     private ?bool $valid = false;
@@ -48,10 +44,6 @@ class Account implements Stringable
         $this->apps = new ArrayCollection();
     }
 
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
 
     public function isValid(): ?bool
     {

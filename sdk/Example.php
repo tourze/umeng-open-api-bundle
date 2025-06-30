@@ -20,9 +20,12 @@ try {
     echo 'ExampleFamilyGet call get the result, the familyNumber is ';
     echo $exampleFamilyGetResult->getResult()->getFamilyNumber();
     echo ' and the name of father is ';
-    echo $exampleFamilyGetResult->getResult()->getFather()->getName();
-    echo ', the birthday of fanther is ';
-    echo $exampleFamilyGetResult->getResult()->getFather()->getBirthday();
+    $father = $exampleFamilyGetResult->getResult()->getFather();
+    if ($father !== null) {
+        echo $father->getName();
+        echo ', the birthday of fanther is ';
+        echo $father->getBirthday();
+    }
     echo '<br/>';
     // ----------------------------first example end-------------------------------------
 
@@ -59,7 +62,10 @@ try {
     echo $exampleFamilyPostResult->getResultDesc();
     echo '<br/>';
     echo 'ExampleFamilyPost call get the result, the father name upset is ';
-    echo $exampleFamilyPostResult->getResult()->getFather()->getName();
+    $resultFather = $exampleFamilyPostResult->getResult()->getFather();
+    if ($resultFather !== null) {
+        echo $resultFather->getName();
+    }
     // --------------------------second example starting----------------------------------
 } catch (OceanException $ex) {
     echo 'Exception occured with code[';

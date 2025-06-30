@@ -21,7 +21,7 @@ class UmengUminiAppInfoDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 二级分类
+     * @return mixed 二级分类
      */
     public function getSecondLevel()
     {
@@ -40,7 +40,7 @@ class UmengUminiAppInfoDTO extends SDKDomain
     }
 
     /**
-     * @return 数据源id
+     * @return UmengUminiAppInfo 数据源id
      */
     public function getDataSourceId()
     {
@@ -59,7 +59,7 @@ class UmengUminiAppInfoDTO extends SDKDomain
     }
 
     /**
-     * @return 数据源名称
+     * @return string 数据源名称
      */
     public function getAppName()
     {
@@ -78,7 +78,7 @@ class UmengUminiAppInfoDTO extends SDKDomain
     }
 
     /**
-     * @return 创建时间
+     * @return string 创建时间
      */
     public function getGmtCreate()
     {
@@ -97,7 +97,7 @@ class UmengUminiAppInfoDTO extends SDKDomain
     }
 
     /**
-     * @return 一级分类
+     * @return mixed 一级分类
      */
     public function getFirstLevel()
     {
@@ -116,7 +116,7 @@ class UmengUminiAppInfoDTO extends SDKDomain
     }
 
     /**
-     * @return 用户名
+     * @return mixed 用户名
      */
     public function getUserName()
     {
@@ -135,7 +135,7 @@ class UmengUminiAppInfoDTO extends SDKDomain
     }
 
     /**
-     * @return 小程序平台
+     * @return string 小程序平台
      */
     public function getPlatform()
     {

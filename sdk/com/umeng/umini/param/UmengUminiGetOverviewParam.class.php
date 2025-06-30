@@ -5,7 +5,7 @@ class UmengUminiGetOverviewParam
     private $sdkStdResult = [];
 
     /**
-     * @return 数据源id（AppKey）
+     * @return mixed 数据源id（AppKey）
      */
     public function getDataSourceId()
     {
@@ -26,7 +26,7 @@ class UmengUminiGetOverviewParam
     }
 
     /**
-     * @return 开始时间
+     * @return string 开始时间
      */
     public function getFromDate()
     {
@@ -47,7 +47,7 @@ class UmengUminiGetOverviewParam
     }
 
     /**
-     * @return 结束时间
+     * @return string 结束时间
      */
     public function getToDate()
     {
@@ -68,7 +68,7 @@ class UmengUminiGetOverviewParam
     }
 
     /**
-     * @return 时间颗粒度，枚举范围5min,hour,day,7day,30day
+     * @return string 时间颗粒度，枚举范围5min,hour,day,7day,30day
      */
     public function getTimeUnit()
     {
@@ -89,7 +89,7 @@ class UmengUminiGetOverviewParam
     }
 
     /**
-     * @return 指标名称(以逗号分隔，可选择一个或多个）,newUser,activeUser,launch,visitTimes,onceDuration,dailyDuration
+     * @return string 指标名称(以逗号分隔，可选择一个或多个）,newUser,activeUser,launch,visitTimes,onceDuration,dailyDuration
      */
     public function getIndicators()
     {
@@ -110,7 +110,7 @@ class UmengUminiGetOverviewParam
     }
 
     /**
-     * @return 页码
+     * @return mixed 页码
      */
     public function getPageIndex()
     {
@@ -133,7 +133,7 @@ class UmengUminiGetOverviewParam
     }
 
     /**
-     * @return 每页记录条数
+     * @return mixed 每页记录条数
      */
     public function getPageSize()
     {

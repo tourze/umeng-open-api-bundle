@@ -29,7 +29,7 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 日期
+     * @return string 日期
      */
     public function getDateTime()
     {
@@ -48,7 +48,7 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     }
 
     /**
-     * @return 新增/活跃用户数据
+     * @return UmengUminiGetRetentionByData 新增/活跃用户数据
      */
     public function getValue()
     {
@@ -67,7 +67,7 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     }
 
     /**
-     * @return 次1日/周
+     * @return mixed 次1日/周
      */
     public function getV1()
     {
@@ -86,7 +86,7 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     }
 
     /**
-     * @return 次2日/周
+     * @return mixed 次2日/周
      */
     public function getV2()
     {
@@ -105,7 +105,7 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     }
 
     /**
-     * @return 次3日/周
+     * @return mixed 次3日/周
      */
     public function getV3()
     {
@@ -124,7 +124,7 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     }
 
     /**
-     * @return 次4日/周
+     * @return mixed 次4日/周
      */
     public function getV4()
     {
@@ -143,7 +143,7 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     }
 
     /**
-     * @return 次5日/周
+     * @return mixed 次5日/周
      */
     public function getV5()
     {
@@ -162,7 +162,7 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     }
 
     /**
-     * @return 次6日/周
+     * @return mixed 次6日/周
      */
     public function getV6()
     {
@@ -181,7 +181,7 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     }
 
     /**
-     * @return 次7日/周
+     * @return mixed 次7日/周
      */
     public function getV7()
     {
@@ -200,7 +200,7 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     }
 
     /**
-     * @return 次14日/周
+     * @return mixed 次14日/周
      */
     public function getV14()
     {
@@ -219,7 +219,7 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     }
 
     /**
-     * @return 次30日/周
+     * @return mixed 次30日/周
      */
     public function getV30()
     {

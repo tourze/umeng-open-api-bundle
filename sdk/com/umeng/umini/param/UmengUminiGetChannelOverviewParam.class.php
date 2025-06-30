@@ -5,7 +5,7 @@ class UmengUminiGetChannelOverviewParam
     private $sdkStdResult = [];
 
     /**
-     * @return 开始时间
+     * @return string 开始时间
      */
     public function getFromDate()
     {
@@ -26,7 +26,7 @@ class UmengUminiGetChannelOverviewParam
     }
 
     /**
-     * @return 结束时间
+     * @return string 结束时间
      */
     public function getToDate()
     {
@@ -47,7 +47,7 @@ class UmengUminiGetChannelOverviewParam
     }
 
     /**
-     * @return 渠道
+     * @return string 渠道
      */
     public function getChannel()
     {
@@ -68,7 +68,7 @@ class UmengUminiGetChannelOverviewParam
     }
 
     /**
-     * @return 时间颗粒度(可选时间颗粒度：5min,hour,day,7day,30day)
+     * @return string 时间颗粒度(可选时间颗粒度：5min,hour,day,7day,30day)
      */
     public function getTimeUnit()
     {
@@ -89,7 +89,7 @@ class UmengUminiGetChannelOverviewParam
     }
 
     /**
-     * @return 数据源id（AppKey）
+     * @return mixed 数据源id（AppKey）
      */
     public function getDataSourceId()
     {
@@ -110,7 +110,7 @@ class UmengUminiGetChannelOverviewParam
     }
 
     /**
-     * @return 多个指标时，以逗号分隔（newUser,activeUser,launch,visitTimes,onceDuration）
+     * @return mixed 多个指标时，以逗号分隔（newUser,activeUser,launch,visitTimes,onceDuration）
      */
     public function getIndicators()
     {
@@ -131,7 +131,7 @@ class UmengUminiGetChannelOverviewParam
     }
 
     /**
-     * @return 页码
+     * @return mixed 页码
      */
     public function getPageIndex()
     {
@@ -154,7 +154,7 @@ class UmengUminiGetChannelOverviewParam
     }
 
     /**
-     * @return 每页记录数
+     * @return mixed 每页记录数
      */
     public function getPageSize()
     {

@@ -5,7 +5,7 @@ class UmengUappCreateAppParam
     private $sdkStdResult = [];
 
     /**
-     * @return 名称
+     * @return string 名称
      */
     public function getName()
     {
@@ -26,7 +26,7 @@ class UmengUappCreateAppParam
     }
 
     /**
-     * @return 类型
+     * @return string 类型
      */
     public function getType()
     {
@@ -47,7 +47,7 @@ class UmengUappCreateAppParam
     }
 
     /**
-     * @return 平台
+     * @return string 平台
      */
     public function getPlatform()
     {
@@ -68,7 +68,7 @@ class UmengUappCreateAppParam
     }
 
     /**
-     * @return 语言
+     * @return mixed 语言
      */
     public function getLanguage()
     {
@@ -89,7 +89,7 @@ class UmengUappCreateAppParam
     }
 
     /**
-     * @return 一级分类，帮助文档：https://developer.umeng.com/docs/119267/detail/183761
+     * @return mixed 一级分类，帮助文档：https://developer.umeng.com/docs/119267/detail/183761
      */
     public function getFirstLevel()
     {
@@ -110,7 +110,7 @@ class UmengUappCreateAppParam
     }
 
     /**
-     * @return 二级分类，帮助文档同上
+     * @return mixed 二级分类，帮助文档同上
      */
     public function getSecondLevel()
     {
@@ -131,7 +131,7 @@ class UmengUappCreateAppParam
     }
 
     /**
-     * @return 描述
+     * @return mixed 描述
      */
     public function getDescription()
     {

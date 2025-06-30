@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Stringable;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
+use Tourze\DoctrineSnowflakeBundle\Traits\SnowflakeKeyAware;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use UmengOpenApiBundle\Repository\AppRepository;
 
@@ -19,12 +20,7 @@ use UmengOpenApiBundle\Repository\AppRepository;
 class App implements Stringable
 {
     use TimestampableAware;
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(SnowflakeIdGenerator::class)]
-    #[ORM\Column(type: Types::BIGINT, nullable: false, options: ['comment' => 'ID'])]
-    private ?string $id = null;
+    use SnowflakeKeyAware;
 
     #[ORM\Column(length: 100, options: ['comment' => 'App名称'])]
     private ?string $name = null;
@@ -56,10 +52,6 @@ class App implements Stringable
         $this->channels = new ArrayCollection();
     }
 
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
 
     public function getName(): ?string
     {

@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\WeeklyLaunches;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\WeeklyLaunchesRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App启动次数(周)')]
 class GetWeeklyLaunchesCommand extends Command
 {

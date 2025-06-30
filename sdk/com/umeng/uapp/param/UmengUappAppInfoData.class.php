@@ -45,7 +45,7 @@ class UmengUappAppInfoData extends SDKDomain
     }
 
     /**
-     * @return 更新时间
+     * @return string 更新时间
      */
     public function getUpdatedAt()
     {
@@ -64,7 +64,7 @@ class UmengUappAppInfoData extends SDKDomain
     }
 
     /**
-     * @return 是否为游戏
+     * @return bool 是否为游戏
      */
     public function getUseGameSdk()
     {
@@ -102,7 +102,7 @@ class UmengUappAppInfoData extends SDKDomain
     }
 
     /**
-     * @return 创建时间
+     * @return string 创建时间
      */
     public function getCreatedAt()
     {
@@ -121,7 +121,7 @@ class UmengUappAppInfoData extends SDKDomain
     }
 
     /**
-     * @return 应用ID
+     * @return string 应用ID
      */
     public function getAppkey()
     {
@@ -140,7 +140,7 @@ class UmengUappAppInfoData extends SDKDomain
     }
 
     /**
-     * @return 类别
+     * @return string 类别
      */
     public function getCategory()
     {
@@ -159,7 +159,7 @@ class UmengUappAppInfoData extends SDKDomain
     }
 
     /**
-     * @return 是否关注
+     * @return bool 是否关注
      */
     public function getPopular()
     {
@@ -178,7 +178,7 @@ class UmengUappAppInfoData extends SDKDomain
     }
 
     /**
-     * @return 平台(iphone,android)
+     * @return string 平台(iphone,android)
      */
     public function getPlatform()
     {

@@ -11,7 +11,7 @@ class UmengUappDateCountInfo extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 统计日期数组
+     * @return array 统计日期数组
      */
     public function getDates()
     {
@@ -30,7 +30,7 @@ class UmengUappDateCountInfo extends SDKDomain
     }
 
     /**
-     * @return 统计数据数组
+     * @return array 统计数据数组
      */
     public function getData()
     {

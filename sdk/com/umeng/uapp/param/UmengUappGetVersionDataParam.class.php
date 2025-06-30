@@ -5,7 +5,7 @@ class UmengUappGetVersionDataParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用ID
+     * @return string 应用ID
      */
     public function getAppkey()
     {
@@ -26,7 +26,7 @@ class UmengUappGetVersionDataParam
     }
 
     /**
-     * @return 查询日期
+     * @return string 查询日期
      */
     public function getDate()
     {

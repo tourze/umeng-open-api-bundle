@@ -5,7 +5,7 @@ class UmengUminiEditMiniAppParam
     private $sdkStdResult = [];
 
     /**
-     * @return 数据源id（AppKey）
+     * @return mixed 数据源id（AppKey）
      */
     public function getDataSourceId()
     {
@@ -26,7 +26,7 @@ class UmengUminiEditMiniAppParam
     }
 
     /**
-     * @return 平台(不可编辑)
+     * @return string 平台(不可编辑)
      */
     public function getPlatform()
     {
@@ -49,7 +49,7 @@ class UmengUminiEditMiniAppParam
     }
 
     /**
-     * @return 应用名称
+     * @return string 应用名称
      */
     public function getName()
     {
@@ -72,7 +72,7 @@ class UmengUminiEditMiniAppParam
     }
 
     /**
-     * @return 语言(CN:中文; OTHER:其他)
+     * @return mixed 语言(CN:中文; OTHER:其他)
      */
     public function getLanguage()
     {
@@ -95,7 +95,7 @@ class UmengUminiEditMiniAppParam
     }
 
     /**
-     * @return 一级分类（行业帮助文档：https://developer.umeng.com/docs/147615/detail/169442 ）
+     * @return mixed 一级分类（行业帮助文档：https://developer.umeng.com/docs/147615/detail/169442 ）
      */
     public function getFirstLevel()
     {
@@ -118,7 +118,7 @@ class UmengUminiEditMiniAppParam
     }
 
     /**
-     * @return 二级分类
+     * @return mixed 二级分类
      */
     public function getSecondLevel()
     {
@@ -141,7 +141,7 @@ class UmengUminiEditMiniAppParam
     }
 
     /**
-     * @return 描述
+     * @return mixed 描述
      */
     public function getDescription()
     {
@@ -164,7 +164,7 @@ class UmengUminiEditMiniAppParam
     }
 
     /**
-     * @return 微信/支付宝AppId（不可单独出现，需要和下面参数组队出现）
+     * @return array 微信/支付宝AppId（不可单独出现，需要和下面参数组队出现）
      */
     public function getMiniAppId()
     {
@@ -187,7 +187,7 @@ class UmengUminiEditMiniAppParam
     }
 
     /**
-     * @return 微信AppSecret（miniAppId和miniAppSecret必须成对出现）
+     * @return mixed 微信AppSecret（miniAppId和miniAppSecret必须成对出现）
      */
     public function getMiniAppSecret()
     {
@@ -210,7 +210,7 @@ class UmengUminiEditMiniAppParam
     }
 
     /**
-     * @return 支付宝PublicKey（miniAppId、miniPublicKey和miniPrivateKey必须同时出现）
+     * @return mixed 支付宝PublicKey（miniAppId、miniPublicKey和miniPrivateKey必须同时出现）
      */
     public function getMiniPublicKey()
     {
@@ -233,7 +233,7 @@ class UmengUminiEditMiniAppParam
     }
 
     /**
-     * @return 支付宝PrivateKey（miniAppId、miniPublicKey和miniPrivateKey必须同时出现）
+     * @return mixed 支付宝PrivateKey（miniAppId、miniPublicKey和miniPrivateKey必须同时出现）
      */
     public function getMiniPrivateKey()
     {
@@ -256,7 +256,7 @@ class UmengUminiEditMiniAppParam
     }
 
     /**
-     * @return 集成类型；单应用小程序集成：single、小程序模版类应用集成 ：template
+     * @return string 集成类型；单应用小程序集成：single、小程序模版类应用集成 ：template
      */
     public function getIntegrationType()
     {

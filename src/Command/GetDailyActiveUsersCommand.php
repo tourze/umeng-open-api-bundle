@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\DailyActiveUsers;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\DailyActiveUsersRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App活跃用户数(天)')]
 class GetDailyActiveUsersCommand extends Command
 {

@@ -5,7 +5,7 @@ class UmengUminiBatchCreateEventParam
     private $sdkStdResult = [];
 
     /**
-     * @return 数据源id（AppKey）
+     * @return mixed 数据源id（AppKey）
      */
     public function getDataSourceId()
     {
@@ -26,7 +26,7 @@ class UmengUminiBatchCreateEventParam
     }
 
     /**
-     * @return 事件列表
+     * @return array 事件列表
      */
     public function getEventList()
     {

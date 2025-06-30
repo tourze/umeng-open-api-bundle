@@ -11,7 +11,7 @@ class UmengUappEventCreateResult
     private $arrayResult;
 
     /**
-     * @return 响应码
+     * @return mixed 响应码
      */
     public function getStatus()
     {
@@ -29,7 +29,7 @@ class UmengUappEventCreateResult
     }
 
     /**
-     * @return 响应信息
+     * @return string 响应信息
      */
     public function getMsg()
     {

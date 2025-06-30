@@ -5,7 +5,7 @@ class UmengUappGetActiveAccountsParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用ID
+     * @return string 应用ID
      */
     public function getAppkey()
     {
@@ -26,7 +26,7 @@ class UmengUappGetActiveAccountsParam
     }
 
     /**
-     * @return 查询起始日期（例如:2018-01-01）
+     * @return string 查询起始日期（例如:2018-01-01）
      */
     public function getStartDate()
     {
@@ -47,7 +47,7 @@ class UmengUappGetActiveAccountsParam
     }
 
     /**
-     * @return 查询截止日期（例如:2018-01-01）
+     * @return string 查询截止日期（例如:2018-01-01）
      */
     public function getEndDate()
     {
@@ -68,7 +68,7 @@ class UmengUappGetActiveAccountsParam
     }
 
     /**
-     * @return 查询类型（按日daily,按周weekly,按月monthly 查询）
+     * @return string 查询类型（按日daily,按周weekly,按月monthly 查询）
      */
     public function getPeriodType()
     {
@@ -91,7 +91,7 @@ class UmengUappGetActiveAccountsParam
     }
 
     /**
-     * @return 渠道名称（仅限一个例如:App%20Store）
+     * @return string 渠道名称（仅限一个例如:App%20Store）
      */
     public function getChannel()
     {

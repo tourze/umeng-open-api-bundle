@@ -15,7 +15,7 @@ class UmengUminiGetRetentionByDataSourceIdResult
     private $arrayResult;
 
     /**
-     * @return 返回留存数据
+     * @return UmengUminiGetRetentionByData 返回留存数据
      */
     public function getData()
     {
@@ -33,7 +33,7 @@ class UmengUminiGetRetentionByDataSourceIdResult
     }
 
     /**
-     * @return 状态码
+     * @return mixed 状态码
      */
     public function getCode()
     {
@@ -51,7 +51,7 @@ class UmengUminiGetRetentionByDataSourceIdResult
     }
 
     /**
-     * @return 状态
+     * @return mixed 状态
      */
     public function getSuccess()
     {
@@ -69,7 +69,7 @@ class UmengUminiGetRetentionByDataSourceIdResult
     }
 
     /**
-     * @return 返回消息
+     * @return mixed 返回消息
      */
     public function getMsg()
     {

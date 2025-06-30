@@ -13,7 +13,7 @@ class UmengUminiPropertyValueCountDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 触发次数
+     * @return int 触发次数
      */
     public function getCount()
     {
@@ -32,7 +32,7 @@ class UmengUminiPropertyValueCountDTO extends SDKDomain
     }
 
     /**
-     * @return 属性值
+     * @return mixed 属性值
      */
     public function getPropertyValue()
     {
@@ -51,7 +51,7 @@ class UmengUminiPropertyValueCountDTO extends SDKDomain
     }
 
     /**
-     * @return 触发次数占比
+     * @return int 触发次数占比
      */
     public function getCountRatio()
     {

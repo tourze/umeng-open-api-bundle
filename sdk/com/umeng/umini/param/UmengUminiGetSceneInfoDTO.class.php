@@ -15,7 +15,7 @@ class UmengUminiGetSceneInfoDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 推广活动值/渠道值
+     * @return string 推广活动值/渠道值
      */
     public function getCode()
     {
@@ -34,7 +34,7 @@ class UmengUminiGetSceneInfoDTO extends SDKDomain
     }
 
     /**
-     * @return 推广活动/渠道中文名称
+     * @return string 推广活动/渠道中文名称
      */
     public function getName()
     {
@@ -53,7 +53,7 @@ class UmengUminiGetSceneInfoDTO extends SDKDomain
     }
 
     /**
-     * @return 推广活动连接
+     * @return mixed 推广活动连接
      */
     public function getUrl()
     {
@@ -72,7 +72,7 @@ class UmengUminiGetSceneInfoDTO extends SDKDomain
     }
 
     /**
-     * @return 推广活动创建时间
+     * @return string 推广活动创建时间
      */
     public function getCreateDateTime()
     {

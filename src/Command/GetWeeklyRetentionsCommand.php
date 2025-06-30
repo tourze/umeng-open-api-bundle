@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\WeeklyRetentions;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\WeeklyRetentionsRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App新增用户留存率(周)')]
 class GetWeeklyRetentionsCommand extends Command
 {

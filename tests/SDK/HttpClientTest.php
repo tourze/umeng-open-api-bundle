@@ -4,6 +4,8 @@ namespace UmengOpenApiBundle\Tests\SDK;
 
 use PHPUnit\Framework\TestCase;
 
+require_once __DIR__ . '/../../sdk/HttpClient.class.php';
+
 class HttpClientTest extends TestCase
 {
     private \HttpClient $client;

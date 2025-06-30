@@ -1,0 +1,66 @@
+<?php
+
+namespace UmengOpenApiBundle\Tests\Integration\Repository;
+
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use UmengOpenApiBundle\Entity\DailyChannelData;
+use UmengOpenApiBundle\Repository\DailyChannelDataRepository;
+use UmengOpenApiBundle\Tests\Integration\IntegrationTestKernel;
+use UmengOpenApiBundle\Tests\Integration\Exception\TestSetupException;
+
+class DailyChannelDataRepositoryTest extends KernelTestCase
+{
+    protected static function getKernelClass(): string
+    {
+        return IntegrationTestKernel::class;
+    }
+
+    private EntityManagerInterface $em;
+    private DailyChannelDataRepository $repository;
+
+    protected function setUp(): void
+    {
+        $kernel = self::bootKernel();
+        /** @var \Doctrine\Bundle\DoctrineBundle\Registry $doctrine */
+        $doctrine = $kernel->getContainer()->get('doctrine');
+        $em = $doctrine->getManager();
+        if (!$em instanceof EntityManagerInterface) {
+            throw TestSetupException::entityManagerNotFound();
+        }
+        $this->em = $em;
+        /** @var DailyChannelDataRepository $repository */
+        $repository = $kernel->getContainer()->get(DailyChannelDataRepository::class);
+        $this->repository = $repository;
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        $this->em->close();
+    }
+
+    public function testRepository(): void
+    {
+        $this->assertInstanceOf(DailyChannelDataRepository::class, $this->repository);
+    }
+
+    public function testFindMethods(): void
+    {
+        // 测试 findAll 方法
+        $results = $this->repository->findAll();
+        $this->assertIsArray($results);
+        
+        // 测试 findBy 方法
+        $results = $this->repository->findBy([], null, 10);
+        $this->assertIsArray($results);
+        
+        // 测试 find 方法
+        $result = $this->repository->find(1);
+        $this->assertNull($result); // 假设没有 ID 为 1 的记录
+        
+        // 测试 findOneBy 方法
+        $result = $this->repository->findOneBy(['id' => 1]);
+        $this->assertNull($result); // 假设没有 ID 为 1 的记录
+    }
+}

@@ -16,7 +16,7 @@ use UmengOpenApiBundle\Entity\HourlyNewUsers;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\HourlyNewUsersRepository;
 
-#[AsCronTask('15 * * * *')]
+#[AsCronTask(expression: '15 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App新增用户数(小时)')]
 class GetHourlyNewUsersCommand extends Command
 {

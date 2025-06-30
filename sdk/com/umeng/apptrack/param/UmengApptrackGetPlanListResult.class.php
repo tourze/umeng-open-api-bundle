@@ -26,7 +26,7 @@ class UmengApptrackGetPlanListResult
     }
 
     /**
-     * @return 总记录数
+     * @return mixed 总记录数
      */
     public function getTotal()
     {

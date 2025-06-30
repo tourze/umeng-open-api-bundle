@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\WeeklyActiveUsers;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\WeeklyActiveUsersRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App活跃用户数(周)')]
 class GetWeeklyActiveUsersCommand extends Command
 {

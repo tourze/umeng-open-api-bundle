@@ -21,7 +21,7 @@ class UmengApptrackGetRegisterLoginDataResult
     private $arrayResult;
 
     /**
-     * @return 注册数量
+     * @return int 注册数量
      */
     public function getRegister()
     {
@@ -39,7 +39,7 @@ class UmengApptrackGetRegisterLoginDataResult
     }
 
     /**
-     * @return 登录数量
+     * @return int 登录数量
      */
     public function getLogin()
     {
@@ -57,7 +57,7 @@ class UmengApptrackGetRegisterLoginDataResult
     }
 
     /**
-     * @return 创建角色数量
+     * @return int 创建角色数量
      */
     public function getRoleDevice()
     {
@@ -75,7 +75,7 @@ class UmengApptrackGetRegisterLoginDataResult
     }
 
     /**
-     * @return 拍下订单设备数量
+     * @return int 拍下订单设备数量
      */
     public function getOrderDevice()
     {
@@ -93,7 +93,7 @@ class UmengApptrackGetRegisterLoginDataResult
     }
 
     /**
-     * @return 拍下订单金额
+     * @return mixed 拍下订单金额
      */
     public function getOrderAmount()
     {
@@ -111,7 +111,7 @@ class UmengApptrackGetRegisterLoginDataResult
     }
 
     /**
-     * @return 付费设备数
+     * @return mixed 付费设备数
      */
     public function getPayDevice()
     {
@@ -129,7 +129,7 @@ class UmengApptrackGetRegisterLoginDataResult
     }
 
     /**
-     * @return 付费金额
+     * @return mixed 付费金额
      */
     public function getAmount()
     {

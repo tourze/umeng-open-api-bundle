@@ -28,16 +28,16 @@ class DailyNewUsers implements Stringable
     }
     use TimestampableAware;
 
-    #[Groups(['restful_read'])]
+    #[Groups(groups: ['restful_read'])]
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-    #[Groups(['restful_read'])]
+    #[Groups(groups: ['restful_read'])]
 #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '统计日期'])]
     private \DateTimeInterface $date;
 
-    #[Groups(['restful_read'])]
+    #[Groups(groups: ['restful_read'])]
     #[ORM\Column(options: ['comment' => '新增用户数'])]
     private int $value;
 

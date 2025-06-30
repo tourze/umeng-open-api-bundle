@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\SevenDaysNewUsers;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\SevenDaysNewUsersRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App新增用户数(7天)')]
 class GetSevenDayNewUsersCommand extends Command
 {

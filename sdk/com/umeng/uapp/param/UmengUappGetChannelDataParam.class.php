@@ -5,7 +5,7 @@ class UmengUappGetChannelDataParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用ID
+     * @return string 应用ID
      */
     public function getAppkey()
     {
@@ -26,7 +26,7 @@ class UmengUappGetChannelDataParam
     }
 
     /**
-     * @return 查询日期
+     * @return string 查询日期
      */
     public function getDate()
     {
@@ -47,7 +47,7 @@ class UmengUappGetChannelDataParam
     }
 
     /**
-     * @return 每页显示数量（最大100）
+     * @return int 每页显示数量（最大100）
      */
     public function getPerPage()
     {
@@ -70,7 +70,7 @@ class UmengUappGetChannelDataParam
     }
 
     /**
-     * @return 页数
+     * @return int 页数
      */
     public function getPage()
     {

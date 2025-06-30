@@ -13,7 +13,7 @@ class UmengUminiAllPropertyValueCountDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 当前页
+     * @return mixed 当前页
      */
     public function getCurrentPage()
     {
@@ -32,7 +32,7 @@ class UmengUminiAllPropertyValueCountDTO extends SDKDomain
     }
 
     /**
-     * @return 总条数
+     * @return mixed 总条数
      */
     public function getTotalCount()
     {

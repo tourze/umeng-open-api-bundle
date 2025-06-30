@@ -5,7 +5,7 @@ class UmengUminiEditPathDisplayNameParam
     private $sdkStdResult = [];
 
     /**
-     * @return 数据源ID（AppKey）
+     * @return string 数据源ID（AppKey）
      */
     public function getDataSourceId()
     {
@@ -26,7 +26,7 @@ class UmengUminiEditPathDisplayNameParam
     }
 
     /**
-     * @return 页面别名
+     * @return mixed 页面别名
      */
     public function getDisplayName()
     {
@@ -47,7 +47,7 @@ class UmengUminiEditPathDisplayNameParam
     }
 
     /**
-     * @return 页面URL地址
+     * @return mixed 页面URL地址
      */
     public function getPath()
     {

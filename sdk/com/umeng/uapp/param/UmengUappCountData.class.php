@@ -15,7 +15,7 @@ class UmengUappCountData extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 统计日期
+     * @return string 统计日期
      */
     public function getDate()
     {
@@ -34,7 +34,7 @@ class UmengUappCountData extends SDKDomain
     }
 
     /**
-     * @return 按版本或渠道的统计信息
+     * @return string 按版本或渠道的统计信息
      */
     public function getDailyValue()
     {
@@ -53,7 +53,7 @@ class UmengUappCountData extends SDKDomain
     }
 
     /**
-     * @return 按小时查询返回数组
+     * @return array 按小时查询返回数组
      */
     public function getHourValue()
     {
@@ -72,7 +72,7 @@ class UmengUappCountData extends SDKDomain
     }
 
     /**
-     * @return 其它情况返回整型，按天无版本无渠道，按周，按月查询
+     * @return string 其它情况返回整型，按天无版本无渠道，按周，按月查询
      */
     public function getValue()
     {

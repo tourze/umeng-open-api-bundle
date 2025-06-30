@@ -5,7 +5,7 @@ class UmengUminiGetEventOverviewParam
     private $sdkStdResult = [];
 
     /**
-     * @return 时间颗粒度
+     * @return string 时间颗粒度
      */
     public function getTimeUnit()
     {
@@ -26,7 +26,7 @@ class UmengUminiGetEventOverviewParam
     }
 
     /**
-     * @return 开始时间
+     * @return string 开始时间
      */
     public function getFromDate()
     {
@@ -47,7 +47,7 @@ class UmengUminiGetEventOverviewParam
     }
 
     /**
-     * @return 结束时间
+     * @return string 结束时间
      */
     public function getToDate()
     {
@@ -68,7 +68,7 @@ class UmengUminiGetEventOverviewParam
     }
 
     /**
-     * @return 事件名
+     * @return mixed 事件名
      */
     public function getEventName()
     {
@@ -89,7 +89,7 @@ class UmengUminiGetEventOverviewParam
     }
 
     /**
-     * @return 数据源id（AppKey）
+     * @return mixed 数据源id（AppKey）
      */
     public function getDataSourceId()
     {

@@ -17,7 +17,7 @@ class UmengUappAccountInfo extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 统计日期
+     * @return string 统计日期
      */
     public function getDate()
     {
@@ -36,7 +36,7 @@ class UmengUappAccountInfo extends SDKDomain
     }
 
     /**
-     * @return 新增用户
+     * @return mixed 新增用户
      */
     public function getNewUser()
     {
@@ -55,7 +55,7 @@ class UmengUappAccountInfo extends SDKDomain
     }
 
     /**
-     * @return 新增账号
+     * @return mixed 新增账号
      */
     public function getNewAccount()
     {
@@ -74,7 +74,7 @@ class UmengUappAccountInfo extends SDKDomain
     }
 
     /**
-     * @return 小时新增用户（按小时查询时）
+     * @return mixed 小时新增用户（按小时查询时）
      */
     public function getHourNewUser()
     {
@@ -93,7 +93,7 @@ class UmengUappAccountInfo extends SDKDomain
     }
 
     /**
-     * @return 小时新增账号（按小时查询时）
+     * @return mixed 小时新增账号（按小时查询时）
      */
     public function getHourNewAccount()
     {

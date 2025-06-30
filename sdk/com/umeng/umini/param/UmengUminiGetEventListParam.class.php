@@ -5,7 +5,7 @@ class UmengUminiGetEventListParam
     private $sdkStdResult = [];
 
     /**
-     * @return 数据源Id（AppKey）
+     * @return mixed 数据源Id（AppKey）
      */
     public function getDataSourceId()
     {

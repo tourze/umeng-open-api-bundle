@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\MonthlyActiveUsers;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\MonthlyActiveUsersRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App活跃用户数(月)')]
 class GetMonthlyActiveUsersCommand extends Command
 {

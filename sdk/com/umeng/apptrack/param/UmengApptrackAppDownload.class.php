@@ -23,7 +23,7 @@ class UmengApptrackAppDownload extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 监测单元id
+     * @return mixed 监测单元id
      */
     public function getUnitId()
     {
@@ -42,7 +42,7 @@ class UmengApptrackAppDownload extends SDKDomain
     }
 
     /**
-     * @return 监测单元名称
+     * @return string 监测单元名称
      */
     public function getMName()
     {
@@ -61,7 +61,7 @@ class UmengApptrackAppDownload extends SDKDomain
     }
 
     /**
-     * @return 推广计划名称
+     * @return string 推广计划名称
      */
     public function getPlanName()
     {
@@ -80,7 +80,7 @@ class UmengApptrackAppDownload extends SDKDomain
     }
 
     /**
-     * @return 渠道名称
+     * @return string 渠道名称
      */
     public function getChanName()
     {
@@ -99,7 +99,7 @@ class UmengApptrackAppDownload extends SDKDomain
     }
 
     /**
-     * @return 激活类型：
+     * @return string 激活类型：
      *                         iOS：IDFA、CAID、IDFV等
      *                         Android：IMEI、OAID、ANDROID_ID等
      */
@@ -122,7 +122,7 @@ class UmengApptrackAppDownload extends SDKDomain
     }
 
     /**
-     * @return 激活设备id，其中IDFA、IMEI基于原值做md5加密，其他为原值
+     * @return string 激活设备id，其中IDFA、IMEI基于原值做md5加密，其他为原值
      */
     public function getDeviceId()
     {
@@ -141,7 +141,7 @@ class UmengApptrackAppDownload extends SDKDomain
     }
 
     /**
-     * @return 点击日期：20200116
+     * @return string 点击日期：20200116
      */
     public function getClickDate()
     {
@@ -160,7 +160,7 @@ class UmengApptrackAppDownload extends SDKDomain
     }
 
     /**
-     * @return 激活日期：20200116
+     * @return string 激活日期：20200116
      */
     public function getActiveDate()
     {

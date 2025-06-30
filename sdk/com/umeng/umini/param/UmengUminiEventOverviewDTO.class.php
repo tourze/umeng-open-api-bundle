@@ -13,7 +13,7 @@ class UmengUminiEventOverviewDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 总记录数
+     * @return mixed 总记录数
      */
     public function getTotalCount()
     {
@@ -32,7 +32,7 @@ class UmengUminiEventOverviewDTO extends SDKDomain
     }
 
     /**
-     * @return 当前页
+     * @return mixed 当前页
      */
     public function getCurrentPage()
     {

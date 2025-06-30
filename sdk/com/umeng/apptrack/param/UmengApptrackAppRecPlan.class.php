@@ -15,7 +15,7 @@ class UmengApptrackAppRecPlan extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 计划Id
+     * @return mixed 计划Id
      */
     public function getPlanId()
     {
@@ -34,7 +34,7 @@ class UmengApptrackAppRecPlan extends SDKDomain
     }
 
     /**
-     * @return 计划名称
+     * @return string 计划名称
      */
     public function getPlanName()
     {
@@ -53,7 +53,7 @@ class UmengApptrackAppRecPlan extends SDKDomain
     }
 
     /**
-     * @return 计划开始日期
+     * @return string 计划开始日期
      */
     public function getStartDay()
     {
@@ -72,7 +72,7 @@ class UmengApptrackAppRecPlan extends SDKDomain
     }
 
     /**
-     * @return 计划结束日期
+     * @return string 计划结束日期
      */
     public function getEndDay()
     {

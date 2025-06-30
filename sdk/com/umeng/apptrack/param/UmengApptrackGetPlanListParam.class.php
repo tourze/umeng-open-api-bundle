@@ -5,7 +5,7 @@ class UmengApptrackGetPlanListParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用appKey
+     * @return mixed 应用appKey
      */
     public function getAppKey()
     {
@@ -28,7 +28,7 @@ class UmengApptrackGetPlanListParam
     }
 
     /**
-     * @return 当前页数
+     * @return int 当前页数
      */
     public function getPageNum()
     {
@@ -51,7 +51,7 @@ class UmengApptrackGetPlanListParam
     }
 
     /**
-     * @return 每页显示的记录数
+     * @return mixed 每页显示的记录数
      */
     public function getPageSize()
     {

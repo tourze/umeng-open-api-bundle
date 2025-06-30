@@ -5,7 +5,7 @@ class UmengUminiGetSceneOverviewParam
     private $sdkStdResult = [];
 
     /**
-     * @return 时间颗粒度（可选参数：5min,hour,day,7day,30day）
+     * @return string 时间颗粒度（可选参数：5min,hour,day,7day,30day）
      */
     public function getTimeUnit()
     {
@@ -26,7 +26,7 @@ class UmengUminiGetSceneOverviewParam
     }
 
     /**
-     * @return 开始时间
+     * @return string 开始时间
      */
     public function getFromDate()
     {
@@ -47,7 +47,7 @@ class UmengUminiGetSceneOverviewParam
     }
 
     /**
-     * @return 结束时间
+     * @return string 结束时间
      */
     public function getToDate()
     {
@@ -68,7 +68,7 @@ class UmengUminiGetSceneOverviewParam
     }
 
     /**
-     * @return 场景值( 帮助文档：https://developer.umeng.com/docs/147615/detail/175369 )
+     * @return mixed 场景值( 帮助文档：https://developer.umeng.com/docs/147615/detail/175369 )
      */
     public function getScene()
     {
@@ -89,7 +89,7 @@ class UmengUminiGetSceneOverviewParam
     }
 
     /**
-     * @return 页码
+     * @return mixed 页码
      */
     public function getPageIndex()
     {
@@ -112,7 +112,7 @@ class UmengUminiGetSceneOverviewParam
     }
 
     /**
-     * @return 每页记录数
+     * @return mixed 每页记录数
      */
     public function getPageSize()
     {
@@ -135,7 +135,7 @@ class UmengUminiGetSceneOverviewParam
     }
 
     /**
-     * @return 数据源id（AppKey）
+     * @return mixed 数据源id（AppKey）
      */
     public function getDataSourceId()
     {
@@ -156,7 +156,7 @@ class UmengUminiGetSceneOverviewParam
     }
 
     /**
-     * @return 指标值
+     * @return mixed 指标值
      */
     public function getIndicators()
     {

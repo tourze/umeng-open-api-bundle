@@ -5,7 +5,7 @@ class UmengUminiGetEventProvertyListParam
     private $sdkStdResult = [];
 
     /**
-     * @return 事件
+     * @return mixed 事件
      */
     public function getEventName()
     {
@@ -26,7 +26,7 @@ class UmengUminiGetEventProvertyListParam
     }
 
     /**
-     * @return 数据源id（AppKey）
+     * @return mixed 数据源id（AppKey）
      */
     public function getDataSourceId()
     {

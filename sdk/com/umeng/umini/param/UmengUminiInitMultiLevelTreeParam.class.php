@@ -5,7 +5,7 @@ class UmengUminiInitMultiLevelTreeParam
     private $sdkStdResult = [];
 
     /**
-     * @return 数据源id（AppKey）
+     * @return mixed 数据源id（AppKey）
      */
     public function getDataSourceId()
     {

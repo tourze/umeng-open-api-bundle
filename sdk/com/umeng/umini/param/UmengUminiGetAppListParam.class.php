@@ -5,7 +5,7 @@ class UmengUminiGetAppListParam
     private $sdkStdResult = [];
 
     /**
-     * @return 页码
+     * @return mixed 页码
      */
     public function getPageIndex()
     {
@@ -28,7 +28,7 @@ class UmengUminiGetAppListParam
     }
 
     /**
-     * @return 每页记录数
+     * @return mixed 每页记录数
      */
     public function getPageSize()
     {

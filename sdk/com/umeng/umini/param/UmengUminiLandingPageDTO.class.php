@@ -17,7 +17,7 @@ class UmengUminiLandingPageDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 页面URL
+     * @return mixed 页面URL
      */
     public function getPage()
     {
@@ -36,7 +36,7 @@ class UmengUminiLandingPageDTO extends SDKDomain
     }
 
     /**
-     * @return 页面备注
+     * @return mixed 页面备注
      */
     public function getDisplayName()
     {
@@ -55,7 +55,7 @@ class UmengUminiLandingPageDTO extends SDKDomain
     }
 
     /**
-     * @return 入口页次数
+     * @return int 入口页次数
      */
     public function getVisitTimes()
     {
@@ -74,7 +74,7 @@ class UmengUminiLandingPageDTO extends SDKDomain
     }
 
     /**
-     * @return 入口页人数
+     * @return mixed 入口页人数
      */
     public function getVisitUser()
     {
@@ -93,7 +93,7 @@ class UmengUminiLandingPageDTO extends SDKDomain
     }
 
     /**
-     * @return 跳出率
+     * @return mixed 跳出率
      */
     public function getJumpRatio()
     {

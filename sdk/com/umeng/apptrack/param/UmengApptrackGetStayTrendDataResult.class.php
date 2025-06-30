@@ -35,7 +35,7 @@ class UmengApptrackGetStayTrendDataResult
     private $arrayResult;
 
     /**
-     * @return 次日留存数据
+     * @return UmengApptrackGetStayTrendData 次日留存数据
      */
     public function getStay1()
     {
@@ -53,7 +53,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第3日留存数据
+     * @return UmengApptrackGetStayTrendData 第3日留存数据
      */
     public function getStay2()
     {
@@ -71,7 +71,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第4日留存数据
+     * @return UmengApptrackGetStayTrendData 第4日留存数据
      */
     public function getStay3()
     {
@@ -89,7 +89,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第5日留存数据
+     * @return UmengApptrackGetStayTrendData 第5日留存数据
      */
     public function getStay4()
     {
@@ -107,7 +107,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第6日留存数据
+     * @return UmengApptrackGetStayTrendData 第6日留存数据
      */
     public function getStay5()
     {
@@ -125,7 +125,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第7日留存数据
+     * @return UmengApptrackGetStayTrendData 第7日留存数据
      */
     public function getStay6()
     {
@@ -143,7 +143,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第8日留存数据
+     * @return UmengApptrackGetStayTrendData 第8日留存数据
      */
     public function getStay7()
     {
@@ -161,7 +161,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第9日留存数据
+     * @return UmengApptrackGetStayTrendData 第9日留存数据
      */
     public function getStay8()
     {
@@ -179,7 +179,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第10日留存数据
+     * @return UmengApptrackGetStayTrendData 第10日留存数据
      */
     public function getStay9()
     {
@@ -197,7 +197,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第11日留存数据
+     * @return UmengApptrackGetStayTrendData 第11日留存数据
      */
     public function getStay10()
     {
@@ -215,7 +215,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第12日留存数据
+     * @return UmengApptrackGetStayTrendData 第12日留存数据
      */
     public function getStay11()
     {
@@ -233,7 +233,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第13日留存数据
+     * @return UmengApptrackGetStayTrendData 第13日留存数据
      */
     public function getStay12()
     {
@@ -251,7 +251,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第14日留存数据
+     * @return UmengApptrackGetStayTrendData 第14日留存数据
      */
     public function getStay13()
     {
@@ -269,7 +269,7 @@ class UmengApptrackGetStayTrendDataResult
     }
 
     /**
-     * @return 第15日留存数据
+     * @return UmengApptrackGetStayTrendData 第15日留存数据
      */
     public function getStay14()
     {

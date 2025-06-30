@@ -5,7 +5,7 @@ class UmengUminiLandingPageListDTO extends SDKDomain
     private $currentPage;
 
     /**
-     * @return 当前页码
+     * @return mixed 当前页码
      */
     public function getCurrentPage()
     {
@@ -26,7 +26,7 @@ class UmengUminiLandingPageListDTO extends SDKDomain
     private $totalCount;
 
     /**
-     * @return 总条数
+     * @return mixed 总条数
      */
     public function getTotalCount()
     {
@@ -47,7 +47,7 @@ class UmengUminiLandingPageListDTO extends SDKDomain
     private $data;
 
     /**
-     * @return 结果列表
+     * @return array 结果列表
      */
     public function getData()
     {

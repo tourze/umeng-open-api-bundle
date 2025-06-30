@@ -5,7 +5,7 @@ class UmengUminiGetTotalUserParam
     private $sdkStdResult = [];
 
     /**
-     * @return 数据源id（AppKey）
+     * @return mixed 数据源id（AppKey）
      */
     public function getDataSourceId()
     {
@@ -26,7 +26,7 @@ class UmengUminiGetTotalUserParam
     }
 
     /**
-     * @return 开始时间
+     * @return string 开始时间
      */
     public function getFromDate()
     {
@@ -47,7 +47,7 @@ class UmengUminiGetTotalUserParam
     }
 
     /**
-     * @return 结束时间
+     * @return string 结束时间
      */
     public function getToDate()
     {
@@ -68,7 +68,7 @@ class UmengUminiGetTotalUserParam
     }
 
     /**
-     * @return 页码
+     * @return mixed 页码
      */
     public function getPageIndex()
     {
@@ -91,7 +91,7 @@ class UmengUminiGetTotalUserParam
     }
 
     /**
-     * @return 每页记录条数
+     * @return mixed 每页记录条数
      */
     public function getPageSize()
     {

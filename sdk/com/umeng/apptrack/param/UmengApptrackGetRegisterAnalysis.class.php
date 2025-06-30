@@ -15,7 +15,7 @@ class UmengApptrackGetRegisterAnalysis extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 注册id
+     * @return mixed 注册id
      */
     public function getRegisterId()
     {
@@ -34,7 +34,7 @@ class UmengApptrackGetRegisterAnalysis extends SDKDomain
     }
 
     /**
-     * @return 注册日期
+     * @return string 注册日期
      */
     public function getEventDs()
     {
@@ -53,7 +53,7 @@ class UmengApptrackGetRegisterAnalysis extends SDKDomain
     }
 
     /**
-     * @return 激活日期
+     * @return string 激活日期
      */
     public function getActivateDs()
     {
@@ -72,7 +72,7 @@ class UmengApptrackGetRegisterAnalysis extends SDKDomain
     }
 
     /**
-     * @return 点击日期
+     * @return string 点击日期
      */
     public function getClickDs()
     {

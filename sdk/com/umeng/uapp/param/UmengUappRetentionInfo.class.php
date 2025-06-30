@@ -13,7 +13,7 @@ class UmengUappRetentionInfo extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 统计日期
+     * @return string 统计日期
      */
     public function getDate()
     {
@@ -32,7 +32,7 @@ class UmengUappRetentionInfo extends SDKDomain
     }
 
     /**
-     * @return 当日安装用户数
+     * @return mixed 当日安装用户数
      */
     public function getTotalInstallUser()
     {
@@ -51,7 +51,7 @@ class UmengUappRetentionInfo extends SDKDomain
     }
 
     /**
-     * @return 相对之后几日的留存用户数，安装日期到今日之间7天（每天），14天后，30天后留存用户占比（不包含今日）
+     * @return float 相对之后几日的留存用户数，安装日期到今日之间7天（每天），14天后，30天后留存用户占比（不包含今日）
      */
     public function getRetentionRate()
     {

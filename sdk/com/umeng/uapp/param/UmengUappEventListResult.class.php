@@ -28,7 +28,7 @@ class UmengUappEventListResult
     }
 
     /**
-     * @return 页数
+     * @return int 页数
      */
     public function getPage()
     {
@@ -46,7 +46,7 @@ class UmengUappEventListResult
     }
 
     /**
-     * @return 总页数
+     * @return int 总页数
      */
     public function getTotalPage()
     {

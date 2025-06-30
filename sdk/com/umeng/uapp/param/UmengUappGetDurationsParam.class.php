@@ -5,7 +5,7 @@ class UmengUappGetDurationsParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用ID
+     * @return string 应用ID
      */
     public function getAppkey()
     {
@@ -26,7 +26,7 @@ class UmengUappGetDurationsParam
     }
 
     /**
-     * @return 查询日期
+     * @return string 查询日期
      */
     public function getDate()
     {
@@ -47,7 +47,7 @@ class UmengUappGetDurationsParam
     }
 
     /**
-     * @return 查询时长统计类型（按天daily，按次daily_per_launch）
+     * @return string 查询时长统计类型（按天daily，按次daily_per_launch）
      */
     public function getStatType()
     {
@@ -70,7 +70,7 @@ class UmengUappGetDurationsParam
     }
 
     /**
-     * @return 渠道名称（仅限一个App%20Store）
+     * @return string 渠道名称（仅限一个App%20Store）
      */
     public function getChannel()
     {
@@ -93,7 +93,7 @@ class UmengUappGetDurationsParam
     }
 
     /**
-     * @return 版本名称（仅限一个1.0.0）
+     * @return string 版本名称（仅限一个1.0.0）
      */
     public function getVersion()
     {

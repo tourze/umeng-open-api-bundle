@@ -25,7 +25,7 @@ class UmengUappChannelInfo extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 启动数（昨日及以前可查询）
+     * @return mixed 启动数（昨日及以前可查询）
      */
     public function getLaunch()
     {
@@ -44,7 +44,7 @@ class UmengUappChannelInfo extends SDKDomain
     }
 
     /**
-     * @return 使用时长（昨日及以前可查询）
+     * @return mixed 使用时长（昨日及以前可查询）
      */
     public function getDuration()
     {
@@ -63,7 +63,7 @@ class UmengUappChannelInfo extends SDKDomain
     }
 
     /**
-     * @return 日期
+     * @return string 日期
      */
     public function getDate()
     {
@@ -82,7 +82,7 @@ class UmengUappChannelInfo extends SDKDomain
     }
 
     /**
-     * @return 当前渠道总用户数在总用户数中的比例
+     * @return float 当前渠道总用户数在总用户数中的比例
      */
     public function getTotalUserRate()
     {
@@ -101,7 +101,7 @@ class UmengUappChannelInfo extends SDKDomain
     }
 
     /**
-     * @return 活跃用户
+     * @return mixed 活跃用户
      */
     public function getActiveUser()
     {
@@ -120,7 +120,7 @@ class UmengUappChannelInfo extends SDKDomain
     }
 
     /**
-     * @return 新增用户
+     * @return mixed 新增用户
      */
     public function getNewUser()
     {
@@ -139,7 +139,7 @@ class UmengUappChannelInfo extends SDKDomain
     }
 
     /**
-     * @return 总用户数
+     * @return mixed 总用户数
      */
     public function getTotalUser()
     {
@@ -158,7 +158,7 @@ class UmengUappChannelInfo extends SDKDomain
     }
 
     /**
-     * @return 渠道名称
+     * @return string 渠道名称
      */
     public function getChannel()
     {
@@ -177,7 +177,7 @@ class UmengUappChannelInfo extends SDKDomain
     }
 
     /**
-     * @return 渠道ID
+     * @return string 渠道ID
      */
     public function getId()
     {

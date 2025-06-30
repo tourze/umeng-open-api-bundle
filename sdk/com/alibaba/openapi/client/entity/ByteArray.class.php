@@ -9,6 +9,14 @@ class ByteArray
         $this->bytesValue = $bytesValue;
     }
 
+    public function getBytesValue()
+    {
+        return $this->bytesValue;
+    }
+    
+    /**
+     * @deprecated Use getBytesValue() instead
+     */
     public function getByteValue()
     {
         return $this->bytesValue;

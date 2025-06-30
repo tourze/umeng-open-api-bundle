@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\MonthlyLaunches;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\MonthlyLaunchesRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App启动次数(月)')]
 class GetMonthlyLaunchesCommand extends Command
 {

@@ -5,7 +5,7 @@ class UmengApptrackGetActiveDetailDataParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用appkey
+     * @return mixed 应用appkey
      */
     public function getAppKey()
     {
@@ -26,7 +26,7 @@ class UmengApptrackGetActiveDetailDataParam
     }
 
     /**
-     * @return 计划id
+     * @return mixed 计划id
      */
     public function getPlanId()
     {
@@ -49,7 +49,7 @@ class UmengApptrackGetActiveDetailDataParam
     }
 
     /**
-     * @return 查询日期
+     * @return string 查询日期
      */
     public function getQueryDate()
     {
@@ -70,7 +70,7 @@ class UmengApptrackGetActiveDetailDataParam
     }
 
     /**
-     * @return 当前页数
+     * @return int 当前页数
      */
     public function getPageNum()
     {
@@ -93,7 +93,7 @@ class UmengApptrackGetActiveDetailDataParam
     }
 
     /**
-     * @return 每页显示的记录数
+     * @return mixed 每页显示的记录数
      */
     public function getPageSize()
     {

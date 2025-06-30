@@ -21,7 +21,7 @@ class UmengApptrackGetPayAnalysis extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 付费(拍下)ID
+     * @return string 付费(拍下)ID
      */
     public function getPayId()
     {
@@ -40,7 +40,7 @@ class UmengApptrackGetPayAnalysis extends SDKDomain
     }
 
     /**
-     * @return 付费(拍下)商品
+     * @return mixed 付费(拍下)商品
      */
     public function getPayItem()
     {
@@ -59,7 +59,7 @@ class UmengApptrackGetPayAnalysis extends SDKDomain
     }
 
     /**
-     * @return 订单号
+     * @return mixed 订单号
      */
     public function getOrderId()
     {
@@ -78,7 +78,7 @@ class UmengApptrackGetPayAnalysis extends SDKDomain
     }
 
     /**
-     * @return 付费(拍下)金额
+     * @return mixed 付费(拍下)金额
      */
     public function getAmount()
     {
@@ -97,7 +97,7 @@ class UmengApptrackGetPayAnalysis extends SDKDomain
     }
 
     /**
-     * @return 激活日期
+     * @return string 激活日期
      */
     public function getActivateDs()
     {
@@ -116,7 +116,7 @@ class UmengApptrackGetPayAnalysis extends SDKDomain
     }
 
     /**
-     * @return 事件日期
+     * @return string 事件日期
      */
     public function getEventDs()
     {
@@ -135,7 +135,7 @@ class UmengApptrackGetPayAnalysis extends SDKDomain
     }
 
     /**
-     * @return 点击日期
+     * @return string 点击日期
      */
     public function getClickDs()
     {

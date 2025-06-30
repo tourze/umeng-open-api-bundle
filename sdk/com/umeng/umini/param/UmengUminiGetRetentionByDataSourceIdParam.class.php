@@ -5,7 +5,7 @@ class UmengUminiGetRetentionByDataSourceIdParam
     private $sdkStdResult = [];
 
     /**
-     * @return 数据源ID(appkey)
+     * @return string 数据源ID(appkey)
      */
     public function getDataSourceId()
     {
@@ -26,7 +26,7 @@ class UmengUminiGetRetentionByDataSourceIdParam
     }
 
     /**
-     * @return 开始时间 yyyy-MM-dd
+     * @return string 开始时间 yyyy-MM-dd
      */
     public function getFromDate()
     {
@@ -47,7 +47,7 @@ class UmengUminiGetRetentionByDataSourceIdParam
     }
 
     /**
-     * @return 结束时间 yyyy-MM-dd
+     * @return string 结束时间 yyyy-MM-dd
      */
     public function getToDate()
     {
@@ -68,7 +68,7 @@ class UmengUminiGetRetentionByDataSourceIdParam
     }
 
     /**
-     * @return 时间颗粒度 day,week
+     * @return string 时间颗粒度 day,week
      */
     public function getTimeUnit()
     {
@@ -89,7 +89,7 @@ class UmengUminiGetRetentionByDataSourceIdParam
     }
 
     /**
-     * @return 页码
+     * @return mixed 页码
      */
     public function getPageIndex()
     {
@@ -112,7 +112,7 @@ class UmengUminiGetRetentionByDataSourceIdParam
     }
 
     /**
-     * @return 每页条数
+     * @return mixed 每页条数
      */
     public function getPageSize()
     {
@@ -135,7 +135,7 @@ class UmengUminiGetRetentionByDataSourceIdParam
     }
 
     /**
-     * @return 指标：新增用户（newuser） 活跃用户 activeUser
+     * @return mixed 指标：新增用户（newuser） 活跃用户 activeUser
      */
     public function getIndicator()
     {
@@ -158,7 +158,7 @@ class UmengUminiGetRetentionByDataSourceIdParam
     }
 
     /**
-     * @return 数据类型：留存率（rate) 留存数（num)
+     * @return string 数据类型：留存率（rate) 留存数（num)
      */
     public function getValueType()
     {

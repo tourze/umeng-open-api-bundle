@@ -29,7 +29,7 @@ class UmengUappGetDurationsResult
     }
 
     /**
-     * @return 每次启动的平均使用时长
+     * @return mixed 每次启动的平均使用时长
      */
     public function getAverage()
     {

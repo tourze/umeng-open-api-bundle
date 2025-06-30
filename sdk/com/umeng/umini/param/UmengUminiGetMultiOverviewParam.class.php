@@ -5,7 +5,7 @@ class UmengUminiGetMultiOverviewParam
     private $sdkStdResult = [];
 
     /**
-     * @return 数据源id（AppKey）
+     * @return mixed 数据源id（AppKey）
      */
     public function getDataSourceId()
     {
@@ -26,7 +26,7 @@ class UmengUminiGetMultiOverviewParam
     }
 
     /**
-     * @return 分组名称
+     * @return string 分组名称
      */
     public function getIsv()
     {
@@ -47,7 +47,7 @@ class UmengUminiGetMultiOverviewParam
     }
 
     /**
-     * @return 开始时间
+     * @return string 开始时间
      */
     public function getFromDate()
     {
@@ -68,7 +68,7 @@ class UmengUminiGetMultiOverviewParam
     }
 
     /**
-     * @return 结束时间
+     * @return string 结束时间
      */
     public function getToDate()
     {
@@ -89,7 +89,7 @@ class UmengUminiGetMultiOverviewParam
     }
 
     /**
-     * @return 时间颗粒度，枚举范围day,7day,30day,week,month（逗号分隔）
+     * @return string 时间颗粒度，枚举范围day,7day,30day,week,month（逗号分隔）
      */
     public function getTimeUnit()
     {
@@ -110,7 +110,7 @@ class UmengUminiGetMultiOverviewParam
     }
 
     /**
-     * @return 分组层级(仅支持最低层级)
+     * @return mixed 分组层级(仅支持最低层级)
      */
     public function getGroupName()
     {

@@ -47,7 +47,7 @@ class UmengApptrackReport extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 本次投放订单号
+     * @return mixed 本次投放订单号
      */
     public function getOrderId()
     {
@@ -66,7 +66,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 广告主id
+     * @return mixed 广告主id
      */
     public function getAdvertiserId()
     {
@@ -85,7 +85,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 推广计划id
+     * @return mixed 推广计划id
      */
     public function getAdPlanId()
     {
@@ -104,7 +104,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 推广计划名称
+     * @return string 推广计划名称
      */
     public function getAdPlanName()
     {
@@ -123,7 +123,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 推广组id
+     * @return mixed 推广组id
      */
     public function getAdGroupId()
     {
@@ -142,7 +142,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 推广组名称
+     * @return string 推广组名称
      */
     public function getAdGroupName()
     {
@@ -161,7 +161,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 推广创意id
+     * @return mixed 推广创意id
      */
     public function getAdCreativeId()
     {
@@ -180,7 +180,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 推广创意名称
+     * @return string 推广创意名称
      */
     public function getAdCreativeName()
     {
@@ -199,7 +199,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 推广位id
+     * @return mixed 推广位id
      */
     public function getPid()
     {
@@ -218,7 +218,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 推广位名称
+     * @return string 推广位名称
      */
     public function getPidName()
     {
@@ -237,7 +237,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 媒体id
+     * @return mixed 媒体id
      */
     public function getMediaId()
     {
@@ -256,7 +256,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 媒体名称
+     * @return string 媒体名称
      */
     public function getMediaName()
     {
@@ -275,7 +275,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 落地页链接
+     * @return mixed 落地页链接
      */
     public function getLandingUrl()
     {
@@ -294,7 +294,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 展现pv
+     * @return mixed 展现pv
      */
     public function getShowPv()
     {
@@ -313,7 +313,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 点击pv
+     * @return mixed 点击pv
      */
     public function getClickPv()
     {
@@ -332,7 +332,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 竞价消耗
+     * @return mixed 竞价消耗
      */
     public function getBidCost()
     {
@@ -351,7 +351,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 转化数
+     * @return mixed 转化数
      */
     public function getConversionUv()
     {
@@ -370,7 +370,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 数据日期
+     * @return string 数据日期
      */
     public function getDs()
     {
@@ -389,7 +389,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 次日留存数
+     * @return mixed 次日留存数
      */
     public function getRetentionCount()
     {
@@ -408,7 +408,7 @@ class UmengApptrackReport extends SDKDomain
     }
 
     /**
-     * @return 数据版本号
+     * @return string 数据版本号
      */
     public function getVersion()
     {

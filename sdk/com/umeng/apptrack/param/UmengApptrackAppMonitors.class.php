@@ -17,7 +17,7 @@ class UmengApptrackAppMonitors extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 单元id
+     * @return mixed 单元id
      */
     public function getMid()
     {
@@ -36,7 +36,7 @@ class UmengApptrackAppMonitors extends SDKDomain
     }
 
     /**
-     * @return 单元名称
+     * @return string 单元名称
      */
     public function getMName()
     {
@@ -55,7 +55,7 @@ class UmengApptrackAppMonitors extends SDKDomain
     }
 
     /**
-     * @return 渠道名称
+     * @return string 渠道名称
      */
     public function getChanName()
     {
@@ -74,7 +74,7 @@ class UmengApptrackAppMonitors extends SDKDomain
     }
 
     /**
-     * @return 下载地址
+     * @return mixed 下载地址
      */
     public function getDownloadUrl()
     {
@@ -93,7 +93,7 @@ class UmengApptrackAppMonitors extends SDKDomain
     }
 
     /**
-     * @return 短链地址
+     * @return mixed 短链地址
      */
     public function getShortUrl()
     {

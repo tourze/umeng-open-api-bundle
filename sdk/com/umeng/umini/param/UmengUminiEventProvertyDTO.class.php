@@ -9,7 +9,7 @@ class UmengUminiEventProvertyDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 属性名
+     * @return mixed 属性名
      */
     public function getPropertyName()
     {

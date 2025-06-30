@@ -44,7 +44,7 @@ class UmengUminiCustomerSourceDTO extends SDKDomain
     }
 
     /**
-     * @return 名称
+     * @return string 名称
      */
     public function getName()
     {
@@ -82,7 +82,7 @@ class UmengUminiCustomerSourceDTO extends SDKDomain
     }
 
     /**
-     * @return 次均停留时长
+     * @return mixed 次均停留时长
      */
     public function getOnceDuration()
     {
@@ -101,7 +101,7 @@ class UmengUminiCustomerSourceDTO extends SDKDomain
     }
 
     /**
-     * @return 活跃用户
+     * @return mixed 活跃用户
      */
     public function getActiveUser()
     {
@@ -120,7 +120,7 @@ class UmengUminiCustomerSourceDTO extends SDKDomain
     }
 
     /**
-     * @return 新增用户
+     * @return mixed 新增用户
      */
     public function getNewUser()
     {
@@ -139,7 +139,7 @@ class UmengUminiCustomerSourceDTO extends SDKDomain
     }
 
     /**
-     * @return 打开次数
+     * @return int 打开次数
      */
     public function getLaunch()
     {
@@ -158,7 +158,7 @@ class UmengUminiCustomerSourceDTO extends SDKDomain
     }
 
     /**
-     * @return 页面访问次数
+     * @return int 页面访问次数
      */
     public function getVisitTimes()
     {
@@ -177,7 +177,7 @@ class UmengUminiCustomerSourceDTO extends SDKDomain
     }
 
     /**
-     * @return 创建时间(仅推广活动可用)
+     * @return string 创建时间(仅推广活动可用)
      */
     public function getCreateDateTime()
     {

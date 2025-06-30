@@ -33,7 +33,7 @@ class Param2RequestSerializer implements Serializer
                         $strTime = DateUtil::parseToString($timeValue);
                         $serializedResult[$propertyName] = $strTime;
                     } elseif ($resultValue instanceof ByteArray) {
-                        $tempValue = base64_encode($resultValue->getByteValue());
+                        $tempValue = base64_encode($resultValue->getBytesValue());
                         $serializedResult[$propertyName] = $tempValue;
                     } elseif ($resultValue instanceof SDKDomain) {
                         $sdkDomainUtil = new SDKDomainUtil();

@@ -143,25 +143,39 @@ class ExampleCar extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'builtDate')) {
-            $this->builtDate = $this->stdResult->{'builtDate'};
+            /** @var mixed $builtDate */
+            $builtDate = $this->stdResult->builtDate;
+            $this->builtDate = $builtDate;
         }
         if (property_exists($this->stdResult, 'boughtDate')) {
-            $this->boughtDate = $this->stdResult->{'boughtDate'};
+            /** @var mixed $boughtDate */
+            $boughtDate = $this->stdResult->boughtDate;
+            $this->boughtDate = $boughtDate;
         }
         if (property_exists($this->stdResult, 'name')) {
-            $this->name = $this->stdResult->{'name'};
+            /** @var mixed $name */
+            $name = $this->stdResult->name;
+            $this->name = $name;
         }
         if (property_exists($this->stdResult, 'builtArea')) {
-            $this->builtArea = $this->stdResult->{'builtArea'};
+            /** @var mixed $builtArea */
+            $builtArea = $this->stdResult->builtArea;
+            $this->builtArea = $builtArea;
         }
         if (property_exists($this->stdResult, 'carNumber')) {
-            $this->carNumber = $this->stdResult->{'carNumber'};
+            /** @var mixed $carNumber */
+            $carNumber = $this->stdResult->carNumber;
+            $this->carNumber = $carNumber;
         }
         if (property_exists($this->stdResult, 'price')) {
-            $this->price = $this->stdResult->{'price'};
+            /** @var mixed $price */
+            $price = $this->stdResult->price;
+            $this->price = $price;
         }
         if (property_exists($this->stdResult, 'seats')) {
-            $this->seats = $this->stdResult->{'seats'};
+            /** @var mixed $seats */
+            $seats = $this->stdResult->seats;
+            $this->seats = $seats;
         }
     }
 
@@ -189,5 +203,10 @@ class ExampleCar extends SDKDomain
         if ($arrayResult->offsetExists('seats')) {
             $this->seats = $arrayResult['seats'];
         }
+    }
+
+    public function getArrayResult()
+    {
+        return $this->arrayResult;
     }
 }

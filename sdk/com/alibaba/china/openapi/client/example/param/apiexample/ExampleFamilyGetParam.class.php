@@ -5,7 +5,7 @@ class ExampleFamilyGetParam
     private $sdkStdResult = [];
 
     /**
-     * @return 可接受参数1或者2，其余参数无法找到family对象
+     * @return mixed 可接受参数1或者2，其余参数无法找到family对象
      */
     public function getFamilyNumber()
     {

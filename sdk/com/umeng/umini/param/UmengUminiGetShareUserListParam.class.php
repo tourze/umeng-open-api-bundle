@@ -5,7 +5,7 @@ class UmengUminiGetShareUserListParam
     private $sdkStdResult = [];
 
     /**
-     * @return 数据源id（AppKey）
+     * @return mixed 数据源id（AppKey）
      */
     public function getDataSourceId()
     {
@@ -26,7 +26,7 @@ class UmengUminiGetShareUserListParam
     }
 
     /**
-     * @return 时间颗粒度（可选参数：day,7day,30day）
+     * @return string 时间颗粒度（可选参数：day,7day,30day）
      */
     public function getTimeUnit()
     {
@@ -47,7 +47,7 @@ class UmengUminiGetShareUserListParam
     }
 
     /**
-     * @return 开始时间
+     * @return string 开始时间
      */
     public function getFromDate()
     {
@@ -68,7 +68,7 @@ class UmengUminiGetShareUserListParam
     }
 
     /**
-     * @return 结束时间
+     * @return string 结束时间
      */
     public function getToDate()
     {
@@ -89,7 +89,7 @@ class UmengUminiGetShareUserListParam
     }
 
     /**
-     * @return 排序指标(count：分享次数；reflow：分享回流量；newUser：分享新增)
+     * @return int 排序指标(count：分享次数；reflow：分享回流量；newUser：分享新增)
      */
     public function getOrderBy()
     {
@@ -112,7 +112,7 @@ class UmengUminiGetShareUserListParam
     }
 
     /**
-     * @return 排序方向（desc：降序,asc：正序）
+     * @return mixed 排序方向（desc：降序,asc：正序）
      */
     public function getDirection()
     {
@@ -135,7 +135,7 @@ class UmengUminiGetShareUserListParam
     }
 
     /**
-     * @return 页码
+     * @return mixed 页码
      */
     public function getPageIndex()
     {
@@ -158,7 +158,7 @@ class UmengUminiGetShareUserListParam
     }
 
     /**
-     * @return 每页记录数
+     * @return mixed 每页记录数
      */
     public function getPageSize()
     {

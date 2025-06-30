@@ -8,17 +8,17 @@ class APIRequest
     public $apiId;
 
     /**
-     * @var map
+     * @var array<string, mixed>
      */
     public $addtionalParams = [];
 
     /**
-     * @var base on request parameter object
+     * @var object|null Request parameter object
      */
     public $requestEntity;
 
     /**
-     * @var map
+     * @var array<string, mixed>
      */
     public $attachments = [];
 

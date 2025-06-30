@@ -15,7 +15,7 @@ use UmengOpenApiBundle\Entity\DailyData;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\DailyDataRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App统计数据')]
 class GetDailyDataCommand extends Command
 {

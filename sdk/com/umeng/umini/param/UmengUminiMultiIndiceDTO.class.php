@@ -19,7 +19,7 @@ class UmengUminiMultiIndiceDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 修改时间
+     * @return string 修改时间
      */
     public function getGmtModified()
     {
@@ -38,7 +38,7 @@ class UmengUminiMultiIndiceDTO extends SDKDomain
     }
 
     /**
-     * @return 指标ID
+     * @return string 指标ID
      */
     public function getIndicesId()
     {
@@ -57,7 +57,7 @@ class UmengUminiMultiIndiceDTO extends SDKDomain
     }
 
     /**
-     * @return 指标类型（触发用户数：event_device，触发次数：event_count，累计值：property_num_sum）
+     * @return int 指标类型（触发用户数：event_device，触发次数：event_count，累计值：property_num_sum）
      */
     public function getCode()
     {
@@ -76,7 +76,7 @@ class UmengUminiMultiIndiceDTO extends SDKDomain
     }
 
     /**
-     * @return 属性名
+     * @return mixed 属性名
      */
     public function getPropertyName()
     {
@@ -95,7 +95,7 @@ class UmengUminiMultiIndiceDTO extends SDKDomain
     }
 
     /**
-     * @return 指标名
+     * @return mixed 指标名
      */
     public function getDisplayName()
     {
@@ -114,7 +114,7 @@ class UmengUminiMultiIndiceDTO extends SDKDomain
     }
 
     /**
-     * @return 事件名称
+     * @return string 事件名称
      */
     public function getEventName()
     {

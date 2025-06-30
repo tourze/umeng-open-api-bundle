@@ -5,7 +5,7 @@ class UmengUappEventParamListParam
     private $sdkStdResult = [];
 
     /**
-     * @return 查询起始日期
+     * @return string 查询起始日期
      */
     public function getStartDate()
     {
@@ -26,7 +26,7 @@ class UmengUappEventParamListParam
     }
 
     /**
-     * @return 查询截止日期
+     * @return string 查询截止日期
      */
     public function getEndDate()
     {
@@ -47,7 +47,7 @@ class UmengUappEventParamListParam
     }
 
     /**
-     * @return 事件ID（通过umeng.uapp.event.list接口查询得到的ID）
+     * @return string 事件ID（通过umeng.uapp.event.list接口查询得到的ID）
      */
     public function getEventId()
     {
@@ -68,7 +68,7 @@ class UmengUappEventParamListParam
     }
 
     /**
-     * @return 应用ID
+     * @return string 应用ID
      */
     public function getAppkey()
     {

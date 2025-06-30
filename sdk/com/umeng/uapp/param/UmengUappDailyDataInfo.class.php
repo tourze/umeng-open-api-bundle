@@ -19,7 +19,7 @@ class UmengUappDailyDataInfo extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 统计日期
+     * @return string 统计日期
      */
     public function getDate()
     {
@@ -38,7 +38,7 @@ class UmengUappDailyDataInfo extends SDKDomain
     }
 
     /**
-     * @return 活跃用户数
+     * @return mixed 活跃用户数
      */
     public function getActivityUsers()
     {
@@ -57,7 +57,7 @@ class UmengUappDailyDataInfo extends SDKDomain
     }
 
     /**
-     * @return 总用户数
+     * @return mixed 总用户数
      */
     public function getTotalUsers()
     {
@@ -76,7 +76,7 @@ class UmengUappDailyDataInfo extends SDKDomain
     }
 
     /**
-     * @return 启动数
+     * @return mixed 启动数
      */
     public function getLaunches()
     {
@@ -95,7 +95,7 @@ class UmengUappDailyDataInfo extends SDKDomain
     }
 
     /**
-     * @return 新增用户数
+     * @return mixed 新增用户数
      */
     public function getNewUsers()
     {
@@ -114,7 +114,7 @@ class UmengUappDailyDataInfo extends SDKDomain
     }
 
     /**
-     * @return 游戏付费用户数（仅游戏sdk）
+     * @return mixed 游戏付费用户数（仅游戏sdk）
      */
     public function getPayUsers()
     {

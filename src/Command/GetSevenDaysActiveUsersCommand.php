@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\SevenDaysActiveUsers;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\SevenDaysActiveUsersRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App活跃用户数(7天)')]
 class GetSevenDaysActiveUsersCommand extends Command
 {

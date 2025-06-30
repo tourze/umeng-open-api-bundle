@@ -11,7 +11,7 @@ class UmengUminiEventDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 事件名
+     * @return mixed 事件名
      */
     public function getEventName()
     {
@@ -30,7 +30,7 @@ class UmengUminiEventDTO extends SDKDomain
     }
 
     /**
-     * @return 事件显示名
+     * @return mixed 事件显示名
      */
     public function getDisplayName()
     {

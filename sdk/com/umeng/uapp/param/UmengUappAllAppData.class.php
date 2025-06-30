@@ -25,7 +25,7 @@ class UmengUappAllAppData extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 今日活跃用户
+     * @return mixed 今日活跃用户
      */
     public function getTodayActivityUsers()
     {
@@ -44,7 +44,7 @@ class UmengUappAllAppData extends SDKDomain
     }
 
     /**
-     * @return 今日新增用户
+     * @return mixed 今日新增用户
      */
     public function getTodayNewUsers()
     {
@@ -63,7 +63,7 @@ class UmengUappAllAppData extends SDKDomain
     }
 
     /**
-     * @return 今日启动次数
+     * @return int 今日启动次数
      */
     public function getTodayLaunches()
     {
@@ -82,7 +82,7 @@ class UmengUappAllAppData extends SDKDomain
     }
 
     /**
-     * @return 昨日活跃用户
+     * @return mixed 昨日活跃用户
      */
     public function getYesterdayActivityUsers()
     {
@@ -101,7 +101,7 @@ class UmengUappAllAppData extends SDKDomain
     }
 
     /**
-     * @return 昨日新增用户
+     * @return mixed 昨日新增用户
      */
     public function getYesterdayNewUsers()
     {
@@ -120,7 +120,7 @@ class UmengUappAllAppData extends SDKDomain
     }
 
     /**
-     * @return 昨日启动次数
+     * @return int 昨日启动次数
      */
     public function getYesterdayLaunches()
     {
@@ -139,7 +139,7 @@ class UmengUappAllAppData extends SDKDomain
     }
 
     /**
-     * @return 昨日独立新增用户数
+     * @return mixed 昨日独立新增用户数
      */
     public function getYesterdayUniqNewUsers()
     {
@@ -158,7 +158,7 @@ class UmengUappAllAppData extends SDKDomain
     }
 
     /**
-     * @return 昨日独立活跃用户数
+     * @return mixed 昨日独立活跃用户数
      */
     public function getYesterdayUniqActiveUsers()
     {
@@ -177,7 +177,7 @@ class UmengUappAllAppData extends SDKDomain
     }
 
     /**
-     * @return 总用户数
+     * @return mixed 总用户数
      */
     public function getTotalUsers()
     {

@@ -14,7 +14,7 @@ class ExamplePerson extends SDKDomain
 
     private $arrayResult;
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -26,12 +26,12 @@ class ExamplePerson extends SDKDomain
      *                     参数示例：<pre></pre>
      *                     此参数必填
      */
-    public function setName($name)
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    public function getAge()
+    public function getAge(): ?int
     {
         return $this->age;
     }
@@ -43,12 +43,12 @@ class ExamplePerson extends SDKDomain
      *                 参数示例：<pre></pre>
      *                 此参数必填
      */
-    public function setAge($age)
+    public function setAge(?int $age): void
     {
         $this->age = $age;
     }
 
-    public function getBirthday()
+    public function getBirthday(): mixed
     {
         return $this->birthday;
     }
@@ -60,12 +60,12 @@ class ExamplePerson extends SDKDomain
      *                       参数示例：<pre></pre>
      *                       此参数必填
      */
-    public function setBirthday($birthday)
+    public function setBirthday(mixed $birthday): void
     {
         $this->birthday = $birthday;
     }
 
-    public function getMobileNumber()
+    public function getMobileNumber(): ?string
     {
         return $this->mobileNumber;
     }
@@ -77,12 +77,12 @@ class ExamplePerson extends SDKDomain
      *                             参数示例：<pre></pre>
      *                             此参数必填
      */
-    public function setMobileNumber($mobileNumber)
+    public function setMobileNumber(?string $mobileNumber): void
     {
         $this->mobileNumber = $mobileNumber;
     }
 
-    public function setStdResult($stdResult)
+    public function setStdResult(mixed $stdResult): void
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'name')) {
@@ -99,7 +99,7 @@ class ExamplePerson extends SDKDomain
         }
     }
 
-    public function setArrayResult(ArrayObject $arrayResult)
+    public function setArrayResult(ArrayObject $arrayResult): void
     {
         $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('name')) {

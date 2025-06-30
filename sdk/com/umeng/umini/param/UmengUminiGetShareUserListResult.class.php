@@ -15,7 +15,7 @@ class UmengUminiGetShareUserListResult
     private $arrayResult;
 
     /**
-     * @return 数据返回结果
+     * @return UmengUminiGetShareUserListResult 数据返回结果
      */
     public function getData()
     {

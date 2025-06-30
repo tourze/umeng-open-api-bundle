@@ -15,7 +15,7 @@ class UmengUminiBatchCreateEventResult
     private $arrayResult;
 
     /**
-     * @return 数据返回结果
+     * @return UmengUminiBatchCreateEventResult 数据返回结果
      */
     public function getData()
     {

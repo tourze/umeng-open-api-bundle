@@ -5,7 +5,7 @@ class UmengApptrackGetMonitoringListParam
     private $sdkStdResult = [];
 
     /**
-     * @return 推广计划id
+     * @return mixed 推广计划id
      */
     public function getPlanId()
     {
@@ -26,7 +26,7 @@ class UmengApptrackGetMonitoringListParam
     }
 
     /**
-     * @return 当前页数
+     * @return int 当前页数
      */
     public function getPageNum()
     {
@@ -49,7 +49,7 @@ class UmengApptrackGetMonitoringListParam
     }
 
     /**
-     * @return 每页显示的记录数
+     * @return mixed 每页显示的记录数
      */
     public function getPageSize()
     {

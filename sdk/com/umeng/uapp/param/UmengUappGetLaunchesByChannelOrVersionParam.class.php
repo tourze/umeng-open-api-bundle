@@ -5,7 +5,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用ID
+     * @return string 应用ID
      */
     public function getAppkey()
     {
@@ -26,7 +26,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
     }
 
     /**
-     * @return 查询起始日期
+     * @return string 查询起始日期
      */
     public function getStartDate()
     {
@@ -47,7 +47,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
     }
 
     /**
-     * @return 查询截止日期
+     * @return string 查询截止日期
      */
     public function getEndDate()
     {
@@ -68,7 +68,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
     }
 
     /**
-     * @return 查询类型（按日daily,按周weekly,按月monthly 查询）
+     * @return string 查询类型（按日daily,按周weekly,按月monthly 查询）
      */
     public function getPeriodType()
     {
@@ -89,7 +89,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
     }
 
     /**
-     * @return 渠道名称（App%20Store）
+     * @return string 渠道名称（App%20Store）
      */
     public function getChannels()
     {
@@ -112,7 +112,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
     }
 
     /**
-     * @return 版本名称（1.0.0）
+     * @return string 版本名称（1.0.0）
      */
     public function getVersions()
     {

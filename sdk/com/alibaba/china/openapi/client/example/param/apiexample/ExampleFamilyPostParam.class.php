@@ -5,7 +5,7 @@ class ExampleFamilyPostParam
     private $sdkStdResult = [];
 
     /**
-     * @return 上传Family对象信息
+     * @return string 上传Family对象信息
      */
     public function getFamily()
     {
@@ -27,7 +27,7 @@ class ExampleFamilyPostParam
     }
 
     /**
-     * @return 备注信息
+     * @return string 备注信息
      */
     public function getComments()
     {
@@ -49,7 +49,7 @@ class ExampleFamilyPostParam
     }
 
     /**
-     * @return 房屋信息
+     * @return string 房屋信息
      */
     public function getHouseImg()
     {

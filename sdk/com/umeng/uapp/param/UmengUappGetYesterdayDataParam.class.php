@@ -5,7 +5,7 @@ class UmengUappGetYesterdayDataParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用ID
+     * @return string 应用ID
      */
     public function getAppkey()
     {

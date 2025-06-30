@@ -5,7 +5,7 @@ class UmengApptrackGetPayAnalysisDataParam
     private $sdkStdResult = [];
 
     /**
-     * @return 计划id
+     * @return mixed 计划id
      */
     public function getPlanId()
     {
@@ -26,7 +26,7 @@ class UmengApptrackGetPayAnalysisDataParam
     }
 
     /**
-     * @return 单元id
+     * @return mixed 单元id
      */
     public function getUnitId()
     {
@@ -49,7 +49,7 @@ class UmengApptrackGetPayAnalysisDataParam
     }
 
     /**
-     * @return 查询日期
+     * @return string 查询日期
      */
     public function getQueryDate()
     {
@@ -70,7 +70,7 @@ class UmengApptrackGetPayAnalysisDataParam
     }
 
     /**
-     * @return 当前页数
+     * @return int 当前页数
      */
     public function getPageNum()
     {
@@ -93,7 +93,7 @@ class UmengApptrackGetPayAnalysisDataParam
     }
 
     /**
-     * @return 每页显示的记录数
+     * @return mixed 每页显示的记录数
      */
     public function getPageSize()
     {

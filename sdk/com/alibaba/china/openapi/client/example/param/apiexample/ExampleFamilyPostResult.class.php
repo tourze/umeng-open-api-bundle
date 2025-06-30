@@ -11,7 +11,7 @@ class ExampleFamilyPostResult
     private $arrayResult;
 
     /**
-     * @return 返回的接听信息
+     * @return ExampleFamily|null 返回的接听信息
      */
     public function getResult()
     {
@@ -30,7 +30,7 @@ class ExampleFamilyPostResult
     }
 
     /**
-     * @return 返回结果描述
+     * @return string|null 返回结果描述
      */
     public function getResultDesc()
     {
@@ -54,7 +54,7 @@ class ExampleFamilyPostResult
         if ($arrayResult->offsetExists('result')) {
             $resultResult = $arrayResult['result'];
             $this->result = new ExampleFamily();
-            $this->result->$this->setStdResult($resultResult);
+            $this->result->setStdResult($resultResult);
         }
         if ($arrayResult->offsetExists('resultDesc')) {
             $this->resultDesc = $arrayResult['resultDesc'];

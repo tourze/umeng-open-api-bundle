@@ -11,7 +11,7 @@ class UmengApptrackGetActiveDetailDataResult
     private $arrayResult;
 
     /**
-     * @return 激活数据明细
+     * @return UmengApptrackGetActiveDetailData 激活数据明细
      */
     public function getData()
     {
@@ -29,7 +29,7 @@ class UmengApptrackGetActiveDetailDataResult
     }
 
     /**
-     * @return 总数
+     * @return int 总数
      */
     public function getTotal()
     {

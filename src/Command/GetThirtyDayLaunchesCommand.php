@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\ThirtyDayLaunches;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\ThirtyDayLaunchesRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App启动次数(30天)')]
 class GetThirtyDayLaunchesCommand extends Command
 {

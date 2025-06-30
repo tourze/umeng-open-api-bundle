@@ -5,7 +5,7 @@ class UmengUminiGetSceneInfoListParam
     private $sdkStdResult = [];
 
     /**
-     * @return 数据源id（AppKey）
+     * @return UmengUminiGetSceneInfo 数据源id（AppKey）
      */
     public function getDataSourceId()
     {
@@ -26,7 +26,7 @@ class UmengUminiGetSceneInfoListParam
     }
 
     /**
-     * @return 场景值类型,活动campaign 渠道channel
+     * @return string 场景值类型,活动campaign 渠道channel
      */
     public function getSourceType()
     {

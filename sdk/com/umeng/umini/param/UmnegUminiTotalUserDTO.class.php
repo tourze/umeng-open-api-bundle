@@ -11,7 +11,7 @@ class UmnegUminiTotalUserDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 时间
+     * @return string 时间
      */
     public function getDateTime()
     {
@@ -30,7 +30,7 @@ class UmnegUminiTotalUserDTO extends SDKDomain
     }
 
     /**
-     * @return 累计用户数
+     * @return mixed 累计用户数
      */
     public function getTotalUser()
     {

@@ -19,7 +19,7 @@ class UmengUminiRefererIndicatorDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 时间
+     * @return string 时间
      */
     public function getDateTime()
     {
@@ -38,7 +38,7 @@ class UmengUminiRefererIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 新增用户
+     * @return mixed 新增用户
      */
     public function getNewUser()
     {
@@ -57,7 +57,7 @@ class UmengUminiRefererIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 活跃用户
+     * @return mixed 活跃用户
      */
     public function getActiveUser()
     {
@@ -76,7 +76,7 @@ class UmengUminiRefererIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 打开次数
+     * @return int 打开次数
      */
     public function getLaunch()
     {
@@ -95,7 +95,7 @@ class UmengUminiRefererIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 页面访问次数
+     * @return int 页面访问次数
      */
     public function getVisitTimes()
     {
@@ -114,7 +114,7 @@ class UmengUminiRefererIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 次均停留时长
+     * @return mixed 次均停留时长
      */
     public function getOnceDuration()
     {

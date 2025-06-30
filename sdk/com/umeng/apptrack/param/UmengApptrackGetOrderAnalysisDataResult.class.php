@@ -26,7 +26,7 @@ class UmengApptrackGetOrderAnalysisDataResult
     }
 
     /**
-     * @return 总数
+     * @return int 总数
      */
     public function getTotal()
     {

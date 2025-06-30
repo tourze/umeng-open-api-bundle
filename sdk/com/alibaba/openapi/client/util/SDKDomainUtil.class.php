@@ -7,13 +7,13 @@ class SDKDomainUtil
         if ($resultValue instanceof DateTime) {
             return $resultValue;
         } elseif ($resultValue instanceof ByteArray) {
-            $tempValue = base64_encode($resultValue->getByteValue());
+            $tempValue = base64_encode($resultValue->getBytesValue());
 
             return $tempValue;
         } elseif ($resultValue instanceof SDKDomain) {
             $sdkDomainSubArray = $this->generateSDKDomainArray($resultValue);
 
-            return $tempValue;
+            return $sdkDomainSubArray;
         } elseif (is_array($resultValue)) {
             $sdkDomainSubArrayArray = [];
             foreach ($resultValue as $tempValue) {
@@ -43,7 +43,7 @@ class SDKDomainUtil
 
                     $serializedResult[$propertyName] = $strTime;
                 } elseif ($resultValue instanceof ByteArray) {
-                    $tempValue = base64_encode($resultValue->getByteValue());
+                    $tempValue = base64_encode($resultValue->getBytesValue());
                     $serializedResult[$propertyName] = $tempValue;
                 } elseif ($resultValue instanceof SDKDomain) {
                     $sdkDomainUtil = new SDKDomainUtil();

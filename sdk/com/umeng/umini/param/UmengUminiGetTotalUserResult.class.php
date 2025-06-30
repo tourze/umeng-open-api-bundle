@@ -30,7 +30,7 @@ class UmengUminiGetTotalUserResult
     }
 
     /**
-     * @return 状态码
+     * @return mixed 状态码
      */
     public function getCode()
     {
@@ -48,7 +48,7 @@ class UmengUminiGetTotalUserResult
     }
 
     /**
-     * @return 消息
+     * @return mixed 消息
      */
     public function getMsg()
     {
@@ -66,7 +66,7 @@ class UmengUminiGetTotalUserResult
     }
 
     /**
-     * @return 执行状态
+     * @return mixed 执行状态
      */
     public function getSuccess()
     {

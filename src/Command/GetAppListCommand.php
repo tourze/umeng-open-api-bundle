@@ -12,7 +12,7 @@ use UmengOpenApiBundle\Entity\App;
 use UmengOpenApiBundle\Repository\AccountRepository;
 use UmengOpenApiBundle\Repository\AppRepository;
 
-#[AsCronTask('*/10 * * * *')]
+#[AsCronTask(expression: '*/10 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App列表')]
 class GetAppListCommand extends Command
 {

@@ -15,7 +15,7 @@ use UmengOpenApiBundle\Entity\DailyDuration;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\DailyDurationRepository;
 
-#[AsCronTask('*/35 * * * *')]
+#[AsCronTask(expression: '*/35 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App使用时长-daily')]
 class GetDailyDurationCommand extends Command
 {

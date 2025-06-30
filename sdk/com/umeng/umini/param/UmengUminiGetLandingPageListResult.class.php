@@ -15,7 +15,7 @@ class UmengUminiGetLandingPageListResult
     private $arrayResult;
 
     /**
-     * @return 结果数据
+     * @return UmengUminiGetLandingPageListResult 结果数据
      */
     public function getData()
     {

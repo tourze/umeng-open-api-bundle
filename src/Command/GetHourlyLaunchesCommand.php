@@ -16,7 +16,7 @@ use UmengOpenApiBundle\Entity\HourlyLaunches;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\HourlyLaunchesRepository;
 
-#[AsCronTask('15 * * * *')]
+#[AsCronTask(expression: '15 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App启动次数(小时)')]
 class GetHourlyLaunchesCommand extends Command
 {

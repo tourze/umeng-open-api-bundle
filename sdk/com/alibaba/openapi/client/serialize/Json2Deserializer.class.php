@@ -7,12 +7,12 @@ class Json2Deserializer implements DeSerializer
         return DataProtocol::json2;
     }
 
-    public function deSerialize($deSerializer, $resultDefinition, $charSet = null)
+    public function deSerialize($deSerializer, $resultType, $charSet = null)
     {
         $stdResult = json_decode($deSerializer);
-        $resultDefinition->setStdResult($stdResult);
+        $resultType->setStdResult($stdResult);
 
-        return $resultDefinition;
+        return $resultType;
     }
 
     public function buildException($deSerializer, $resultType, $charSet = null)

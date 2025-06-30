@@ -5,7 +5,7 @@ class UmengApptrackBackReportDataParam
     private $sdkStdResult = [];
 
     /**
-     * @return 报表数据信息
+     * @return string 报表数据信息
      */
     public function getReportList()
     {

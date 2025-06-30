@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Serializer\Attribute\Ignore;
 use Tourze\DoctrineRandomBundle\Attribute\RandomStringColumn;
 use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
+use Tourze\DoctrineSnowflakeBundle\Traits\SnowflakeKeyAware;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use UmengOpenApiBundle\Repository\ChannelRepository;
 
@@ -22,14 +23,10 @@ use UmengOpenApiBundle\Repository\ChannelRepository;
 class Channel implements Stringable
 {
     use TimestampableAware;
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(SnowflakeIdGenerator::class)]
-    #[ORM\Column(type: Types::BIGINT, nullable: false, options: ['comment' => 'ID'])]
-    private ?string $id = null;
+    use SnowflakeKeyAware;
 
     #[RandomStringColumn(length: 10)]
-    #[Groups(['admin_curd'])]
+    #[Groups(groups: ['admin_curd'])]
     private ?string $code = null;
 
     #[ORM\ManyToOne(inversedBy: 'channels')]
@@ -48,10 +45,6 @@ class Channel implements Stringable
         $this->dailyData = new ArrayCollection();
     }
 
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
 
     public function getApp(): App
     {

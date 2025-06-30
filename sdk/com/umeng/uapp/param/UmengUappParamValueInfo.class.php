@@ -13,7 +13,7 @@ class UmengUappParamValueInfo extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 参数值名称
+     * @return int 参数值名称
      */
     public function getName()
     {
@@ -32,7 +32,7 @@ class UmengUappParamValueInfo extends SDKDomain
     }
 
     /**
-     * @return 统计的消息数
+     * @return mixed 统计的消息数
      */
     public function getCount()
     {
@@ -51,7 +51,7 @@ class UmengUappParamValueInfo extends SDKDomain
     }
 
     /**
-     * @return 当前事件下此参数值消息数的占比
+     * @return int 当前事件下此参数值消息数的占比
      */
     public function getPercent()
     {

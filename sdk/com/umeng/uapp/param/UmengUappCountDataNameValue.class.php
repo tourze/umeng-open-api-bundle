@@ -11,7 +11,7 @@ class UmengUappCountDataNameValue extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 版本或渠道名
+     * @return string 版本或渠道名
      */
     public function getName()
     {
@@ -30,7 +30,7 @@ class UmengUappCountDataNameValue extends SDKDomain
     }
 
     /**
-     * @return 统计数
+     * @return int 统计数
      */
     public function getValue()
     {

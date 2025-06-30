@@ -11,7 +11,7 @@ class UmengApptrackAppEvent extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 自定义事件名称
+     * @return string 自定义事件名称
      */
     public function getEventName()
     {
@@ -30,7 +30,7 @@ class UmengApptrackAppEvent extends SDKDomain
     }
 
     /**
-     * @return 自定义事件值
+     * @return mixed 自定义事件值
      */
     public function getEventNumber()
     {

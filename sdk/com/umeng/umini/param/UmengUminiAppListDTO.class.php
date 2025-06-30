@@ -13,7 +13,7 @@ class UmengUminiAppListDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 总条数
+     * @return mixed 总条数
      */
     public function getTotalCount()
     {
@@ -32,7 +32,7 @@ class UmengUminiAppListDTO extends SDKDomain
     }
 
     /**
-     * @return 当前页
+     * @return mixed 当前页
      */
     public function getCurrentPage()
     {

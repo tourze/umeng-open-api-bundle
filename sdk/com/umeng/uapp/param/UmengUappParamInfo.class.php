@@ -13,7 +13,7 @@ class UmengUappParamInfo extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 参数ID
+     * @return string 参数ID
      */
     public function getParamId()
     {
@@ -32,7 +32,7 @@ class UmengUappParamInfo extends SDKDomain
     }
 
     /**
-     * @return 参数名称
+     * @return string 参数名称
      */
     public function getName()
     {
@@ -51,7 +51,7 @@ class UmengUappParamInfo extends SDKDomain
     }
 
     /**
-     * @return 参数显示名称
+     * @return string 参数显示名称
      */
     public function getDisplayName()
     {

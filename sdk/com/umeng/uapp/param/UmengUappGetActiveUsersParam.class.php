@@ -5,13 +5,11 @@ class UmengUappGetActiveUsersParam
     private $sdkStdResult = [];
 
     /**
-     * @return 应用ID
+     * @return string|null 应用ID
      */
     public function getAppkey()
     {
-        $tempResult = $this->sdkStdResult['appkey'];
-
-        return $tempResult;
+        return $this->sdkStdResult['appkey'] ?? null;
     }
 
     /**
@@ -26,13 +24,11 @@ class UmengUappGetActiveUsersParam
     }
 
     /**
-     * @return 查询起始日期
+     * @return string|null 查询起始日期
      */
     public function getStartDate()
     {
-        $tempResult = $this->sdkStdResult['startDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['startDate'] ?? null;
     }
 
     /**
@@ -47,13 +43,11 @@ class UmengUappGetActiveUsersParam
     }
 
     /**
-     * @return 查询截止日期
+     * @return string|null 查询截止日期
      */
     public function getEndDate()
     {
-        $tempResult = $this->sdkStdResult['endDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['endDate'] ?? null;
     }
 
     /**
@@ -68,13 +62,11 @@ class UmengUappGetActiveUsersParam
     }
 
     /**
-     * @return 查询类型（按日daily,按周weekly,按月monthly,近7日7day,近30日30day 查询）
+     * @return string|null 查询类型（按日daily,按周weekly,按月monthly,近7日7day,近30日30day 查询）
      */
     public function getPeriodType()
     {
-        $tempResult = $this->sdkStdResult['periodType'];
-
-        return $tempResult;
+        return $this->sdkStdResult['periodType'] ?? null;
     }
 
     /**

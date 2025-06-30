@@ -19,9 +19,9 @@ class ExampleFamily extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 家庭编号
+     * @return int|null 家庭编号
      */
-    public function getFamilyNumber()
+    public function getFamilyNumber(): ?int
     {
         return $this->familyNumber;
     }
@@ -33,15 +33,15 @@ class ExampleFamily extends SDKDomain
      *                          参数示例：<pre></pre>
      *                          此参数必填
      */
-    public function setFamilyNumber($familyNumber)
+    public function setFamilyNumber(?int $familyNumber): void
     {
         $this->familyNumber = $familyNumber;
     }
 
     /**
-     * @return 父亲对象，可以为空
+     * @return ExamplePerson|null 父亲对象，可以为空
      */
-    public function getFather()
+    public function getFather(): ?ExamplePerson
     {
         return $this->father;
     }
@@ -53,15 +53,15 @@ class ExampleFamily extends SDKDomain
      *                              参数示例：<pre></pre>
      *                              此参数必填
      */
-    public function setFather(ExamplePerson $father)
+    public function setFather(?ExamplePerson $father): void
     {
         $this->father = $father;
     }
 
     /**
-     * @return 母亲对象，可以为空
+     * @return ExamplePerson|null 母亲对象，可以为空
      */
-    public function getMother()
+    public function getMother(): ?ExamplePerson
     {
         return $this->mother;
     }
@@ -73,15 +73,15 @@ class ExampleFamily extends SDKDomain
      *                              参数示例：<pre></pre>
      *                              此参数必填
      */
-    public function setMother(ExamplePerson $mother)
+    public function setMother(?ExamplePerson $mother): void
     {
         $this->mother = $mother;
     }
 
     /**
-     * @return 孩子列表
+     * @return array|null 孩子列表
      */
-    public function getChildren()
+    public function getChildren(): ?array
     {
         return $this->children;
     }
@@ -89,20 +89,17 @@ class ExampleFamily extends SDKDomain
     /**
      * 设置孩子列表
      *
-     * @param
-     *            array include @see ExamplePerson[] $children
-     *            参数示例：<pre></pre>
-     *            此参数必填
+     * @param array|null $children ExamplePerson[] 参数示例：此参数必填
      */
-    public function setChildren(ExamplePerson $children)
+    public function setChildren(?array $children): void
     {
         $this->children = $children;
     }
 
     /**
-     * @return 拥有的汽车信息
+     * @return array|null 拥有的汽车信息
      */
-    public function getOwnedCars()
+    public function getOwnedCars(): ?array
     {
         return $this->ownedCars;
     }
@@ -110,20 +107,17 @@ class ExampleFamily extends SDKDomain
     /**
      * 设置拥有的汽车信息
      *
-     * @param
-     *            array include @see ExampleCar[] $ownedCars
-     *            参数示例：<pre></pre>
-     *            此参数必填
+     * @param array|null $ownedCars ExampleCar[] 参数示例：此参数必填
      */
-    public function setOwnedCars(ExampleCar $ownedCars)
+    public function setOwnedCars(?array $ownedCars): void
     {
         $this->ownedCars = $ownedCars;
     }
 
     /**
-     * @return 所住的房屋信息
+     * @return mixed|null 所住的房屋信息
      */
-    public function getMyHouse()
+    public function getMyHouse(): mixed
     {
         return $this->myHouse;
     }
@@ -135,12 +129,12 @@ class ExampleFamily extends SDKDomain
      *                              参数示例：<pre></pre>
      *                              此参数必填
      */
-    public function setMyHouse(ExampleHouse $myHouse)
+    public function setMyHouse(mixed $myHouse): void
     {
         $this->myHouse = $myHouse;
     }
 
-    public function setStdResult($stdResult)
+    public function setStdResult(mixed $stdResult): void
     {
         $this->stdResult = $stdResult;
         $object = json_encode($stdResult);
@@ -186,7 +180,7 @@ class ExampleFamily extends SDKDomain
         }
     }
 
-    public function setArrayResult(ArrayObject $arrayResult)
+    public function setArrayResult(ArrayObject $arrayResult): void
     {
         $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('familyNumber')) {
@@ -195,27 +189,27 @@ class ExampleFamily extends SDKDomain
         if ($arrayResult->offsetExists('father')) {
             $fatherResult = $arrayResult['father'];
             $this->father = new ExamplePerson();
-            $this->father->$this->setStdResult($fatherResult);
+            $this->father->setStdResult($fatherResult);
         }
         if ($arrayResult->offsetExists('mother')) {
             $motherResult = $arrayResult['mother'];
             $this->mother = new ExamplePerson();
-            $this->mother->$this->setStdResult($motherResult);
+            $this->mother->setStdResult($motherResult);
         }
         if ($arrayResult->offsetExists('children')) {
             $childrenResult = $arrayResult['children'];
-            $this->children = ExamplePerson();
-            $this->children->$this->setStdResult($childrenResult);
+            $this->children = new ExamplePerson();
+            $this->children->setStdResult($childrenResult);
         }
         if ($arrayResult->offsetExists('ownedCars')) {
             $ownedCarsResult = $arrayResult['ownedCars'];
-            $this->ownedCars = ExampleCar();
-            $this->ownedCars->$this->setStdResult($ownedCarsResult);
+            $this->ownedCars = new ExampleCar();
+            $this->ownedCars->setStdResult($ownedCarsResult);
         }
         if ($arrayResult->offsetExists('myHouse')) {
             $myHouseResult = $arrayResult['myHouse'];
             $this->myHouse = new ExampleHouse();
-            $this->myHouse->$this->setStdResult($myHouseResult);
+            $this->myHouse->setStdResult($myHouseResult);
         }
     }
 }

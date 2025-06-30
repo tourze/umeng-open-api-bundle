@@ -8,6 +8,9 @@ class ExampleFamilyGetResult
 
     private $arrayResult;
 
+    /**
+     * @return ExampleFamily|null
+     */
     public function getResult()
     {
         return $this->result;
@@ -30,7 +33,7 @@ class ExampleFamilyGetResult
         if ($arrayResult->offsetExists('result')) {
             $resultResult = $arrayResult['result'];
             $this->result = new ExampleFamily();
-            $this->result->$this->setStdResult($resultResult);
+            $this->result->setStdResult($resultResult);
         }
     }
 

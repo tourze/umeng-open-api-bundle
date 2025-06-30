@@ -15,7 +15,7 @@ class UmengUminiGetSceneInfoListResult
     private $arrayResult;
 
     /**
-     * @return 数据结果
+     * @return UmengUminiGetSceneInfo 数据结果
      */
     public function getData()
     {

@@ -17,7 +17,7 @@ use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\ChannelRepository;
 use UmengOpenApiBundle\Repository\DailyChannelDataRepository;
 
-#[AsCronTask('*/30 * * * *')]
+#[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取渠道维度统计数据')]
 class GetChannelDataCommand extends Command
 {

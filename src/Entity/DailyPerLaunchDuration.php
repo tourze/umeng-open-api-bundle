@@ -35,13 +35,13 @@ class DailyPerLaunchDuration implements Stringable
     private \DateTimeInterface $date;
 
     #[ORM\Column(options: ['comment' => '时间区间单位秒'])]
-    private ?string $name;
+    private ?string $name = null;
 
     #[ORM\Column(options: ['comment' => '启动次数/用户数'])]
-    private int $value;
+    private int $value = 0;
 
     #[ORM\Column(options: ['comment' => '此区间的时长占'])]
-    private ?float $percent;
+    private ?float $percent = null;
 
     public function getApp(): App
     {

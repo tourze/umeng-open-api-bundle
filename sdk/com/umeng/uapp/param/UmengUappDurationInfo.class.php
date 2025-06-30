@@ -13,7 +13,7 @@ class UmengUappDurationInfo extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 时间区间单位秒
+     * @return string 时间区间单位秒
      */
     public function getName()
     {
@@ -32,7 +32,7 @@ class UmengUappDurationInfo extends SDKDomain
     }
 
     /**
-     * @return 启动次数/用户数
+     * @return int 启动次数/用户数
      */
     public function getValue()
     {
@@ -51,7 +51,7 @@ class UmengUappDurationInfo extends SDKDomain
     }
 
     /**
-     * @return 此区间的时长占
+     * @return mixed 此区间的时长占
      */
     public function getPercent()
     {

@@ -13,7 +13,7 @@ class UmengUminiEventIndicatorDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 时间
+     * @return string 时间
      */
     public function getDateTime()
     {
@@ -32,7 +32,7 @@ class UmengUminiEventIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 触发次数
+     * @return int 触发次数
      */
     public function getCount()
     {
@@ -51,7 +51,7 @@ class UmengUminiEventIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 触发用户数
+     * @return mixed 触发用户数
      */
     public function getDevice()
     {

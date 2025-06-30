@@ -19,7 +19,7 @@ class UmengUminiShareIndicatorDTO extends SDKDomain
     private $arrayResult;
 
     /**
-     * @return 时间
+     * @return string 时间
      */
     public function getDateTime()
     {
@@ -38,7 +38,7 @@ class UmengUminiShareIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 回流比
+     * @return mixed 回流比
      */
     public function getReflowRatio()
     {
@@ -57,7 +57,7 @@ class UmengUminiShareIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 分享回流量
+     * @return mixed 分享回流量
      */
     public function getReflow()
     {
@@ -76,7 +76,7 @@ class UmengUminiShareIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 分享新增
+     * @return mixed 分享新增
      */
     public function getNewUser()
     {
@@ -95,7 +95,7 @@ class UmengUminiShareIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 分享次数
+     * @return int 分享次数
      */
     public function getCount()
     {
@@ -114,7 +114,7 @@ class UmengUminiShareIndicatorDTO extends SDKDomain
     }
 
     /**
-     * @return 分享人数
+     * @return mixed 分享人数
      */
     public function getUser()
     {
