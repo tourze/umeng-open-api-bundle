@@ -9,18 +9,16 @@ class UmengApptrackBackReportDataParam
      */
     public function getReportList()
     {
-        $tempResult = $this->sdkStdResult['reportList'];
-
-        return $tempResult;
+        return $this->sdkStdResult['reportList'];
     }
 
     /**
      * 设置报表数据信息
      *
-     * @param array include @see UmengApptrackReport[] $reportList
-     * 参数示例：<pre></pre>
+     * @param UmengApptrackReport[] $reportList
+     *                                          参数示例：<pre></pre>
      * 此参数必填     */
-    public function setReportList(UmengApptrackReport $reportList)
+    public function setReportList(array $reportList)
     {
         $this->sdkStdResult['reportList'] = $reportList;
     }

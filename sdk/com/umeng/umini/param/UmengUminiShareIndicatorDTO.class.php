@@ -16,8 +16,6 @@ class UmengUminiShareIndicatorDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 时间
      */
@@ -136,28 +134,27 @@ class UmengUminiShareIndicatorDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'dateTime')) {
-            $this->dateTime = $this->stdResult->{'dateTime'};
+            $this->dateTime = $this->stdResult->dateTime;
         }
         if (property_exists($this->stdResult, 'reflowRatio')) {
-            $this->reflowRatio = $this->stdResult->{'reflowRatio'};
+            $this->reflowRatio = $this->stdResult->reflowRatio;
         }
         if (property_exists($this->stdResult, 'reflow')) {
-            $this->reflow = $this->stdResult->{'reflow'};
+            $this->reflow = $this->stdResult->reflow;
         }
         if (property_exists($this->stdResult, 'newUser')) {
-            $this->newUser = $this->stdResult->{'newUser'};
+            $this->newUser = $this->stdResult->newUser;
         }
         if (property_exists($this->stdResult, 'count')) {
-            $this->count = $this->stdResult->{'count'};
+            $this->count = $this->stdResult->count;
         }
         if (property_exists($this->stdResult, 'user')) {
-            $this->user = $this->stdResult->{'user'};
+            $this->user = $this->stdResult->user;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('dateTime')) {
             $this->dateTime = $arrayResult['dateTime'];
         }

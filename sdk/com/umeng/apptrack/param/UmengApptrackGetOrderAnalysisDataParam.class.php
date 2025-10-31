@@ -9,9 +9,7 @@ class UmengApptrackGetOrderAnalysisDataParam
      */
     public function getPlanId()
     {
-        $tempResult = $this->sdkStdResult['planId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['planId'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengApptrackGetOrderAnalysisDataParam
      */
     public function getUnitId()
     {
-        $tempResult = $this->sdkStdResult['unitId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['unitId'];
     }
 
     /**
@@ -53,9 +49,7 @@ class UmengApptrackGetOrderAnalysisDataParam
      */
     public function getQueryDate()
     {
-        $tempResult = $this->sdkStdResult['queryDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['queryDate'];
     }
 
     /**
@@ -74,9 +68,7 @@ class UmengApptrackGetOrderAnalysisDataParam
      */
     public function getPageNum()
     {
-        $tempResult = $this->sdkStdResult['pageNum'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageNum'];
     }
 
     /**
@@ -97,9 +89,7 @@ class UmengApptrackGetOrderAnalysisDataParam
      */
     public function getPageSize()
     {
-        $tempResult = $this->sdkStdResult['pageSize'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageSize'];
     }
 
     /**

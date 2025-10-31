@@ -3,16 +3,16 @@
 /**
  * 友盟 SDK 自动加载器
  */
-spl_autoload_register(function ($class) {
+spl_autoload_register(function ($class): void {
     // 将类名转换为文件路径
     $classFile = __DIR__ . '/com/' . str_replace('\\', '/', $class) . '.class.php';
-    
+
     // 检查基本类文件
     if (!file_exists($classFile)) {
         // 尝试不带 com 前缀的路径
         $classFile = __DIR__ . '/' . $class . '.class.php';
     }
-    
+
     // 如果文件存在，则加载
     if (file_exists($classFile)) {
         require_once $classFile;
@@ -41,7 +41,7 @@ $classMap = [
 ];
 
 // 注册类映射自动加载
-spl_autoload_register(function ($class) use ($classMap) {
+spl_autoload_register(function ($class) use ($classMap): void {
     if (isset($classMap[$class])) {
         require_once $classMap[$class];
     }

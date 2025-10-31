@@ -21,7 +21,7 @@ try {
     echo $exampleFamilyGetResult->getResult()->getFamilyNumber();
     echo ' and the name of father is ';
     $father = $exampleFamilyGetResult->getResult()->getFather();
-    if ($father !== null) {
+    if (null !== $father) {
         echo $father->getName();
         echo ', the birthday of fanther is ';
         echo $father->getBirthday();
@@ -49,7 +49,7 @@ try {
     $fileContent = file_get_contents('example.png');
     $houseImg = new ByteArray();
     $houseImg->setBytesValue($fileContent);
-    $exampleFamilyPostParam->setHouseImg($houseImg);
+    $exampleFamilyPostParam->setHouseImg([$houseImg->getBytesValue()]);
 
     $authorizationToken = $exampleFacade->refreshToken($testRefreshToken);
     echo 'refresh token:';
@@ -63,7 +63,7 @@ try {
     echo '<br/>';
     echo 'ExampleFamilyPost call get the result, the father name upset is ';
     $resultFather = $exampleFamilyPostResult->getResult()->getFather();
-    if ($resultFather !== null) {
+    if (null !== $resultFather) {
         echo $resultFather->getName();
     }
     // --------------------------second example starting----------------------------------

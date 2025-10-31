@@ -8,8 +8,6 @@ class UmengUminiEventDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 事件名
      */
@@ -52,16 +50,15 @@ class UmengUminiEventDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'eventName')) {
-            $this->eventName = $this->stdResult->{'eventName'};
+            $this->eventName = $this->stdResult->eventName;
         }
         if (property_exists($this->stdResult, 'displayName')) {
-            $this->displayName = $this->stdResult->{'displayName'};
+            $this->displayName = $this->stdResult->displayName;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('eventName')) {
             $this->eventName = $arrayResult['eventName'];
         }

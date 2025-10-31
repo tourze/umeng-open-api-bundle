@@ -9,9 +9,7 @@ class UmengUminiGetEventProvertyListParam
      */
     public function getEventName()
     {
-        $tempResult = $this->sdkStdResult['eventName'];
-
-        return $tempResult;
+        return $this->sdkStdResult['eventName'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUminiGetEventProvertyListParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**

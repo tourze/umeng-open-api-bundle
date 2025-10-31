@@ -10,8 +10,6 @@ class UmengUappDurationInfo extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 时间区间单位秒
      */
@@ -73,19 +71,18 @@ class UmengUappDurationInfo extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'name')) {
-            $this->name = $this->stdResult->{'name'};
+            $this->name = $this->stdResult->name;
         }
         if (property_exists($this->stdResult, 'value')) {
-            $this->value = $this->stdResult->{'value'};
+            $this->value = $this->stdResult->value;
         }
         if (property_exists($this->stdResult, 'percent')) {
-            $this->percent = $this->stdResult->{'percent'};
+            $this->percent = $this->stdResult->percent;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('name')) {
             $this->name = $arrayResult['name'];
         }

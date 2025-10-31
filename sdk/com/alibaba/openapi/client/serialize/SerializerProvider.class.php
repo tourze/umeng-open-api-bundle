@@ -13,9 +13,8 @@ class SerializerProvider
         if (!SerializerProvider::$isInited) {
             SerializerProvider::initial();
         }
-        $result = SerializerProvider::$serializerStore[$key];
 
-        return $result;
+        return SerializerProvider::$serializerStore[$key];
     }
 
     private static function initial()
@@ -31,8 +30,7 @@ class SerializerProvider
         if (!SerializerProvider::$isInited) {
             SerializerProvider::initial();
         }
-        $result = SerializerProvider::$deSerializerStore[$key];
 
-        return $result;
+        return SerializerProvider::$deSerializerStore[$key];
     }
 }

@@ -1,22 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UmengOpenApiBundle\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Tourze\PHPUnitSymfonyKernelTest\Attribute\AsRepository;
 use UmengOpenApiBundle\Entity\WeeklyLaunches;
 
 /**
- * @method WeeklyLaunches|null find($id, $lockMode = null, $lockVersion = null)
- * @method WeeklyLaunches|null findOneBy(array $criteria, array $orderBy = null)
- * @method WeeklyLaunches[]    findAll()
- * @method WeeklyLaunches[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<WeeklyLaunches>
  */
+#[AsRepository(entityClass: WeeklyLaunches::class)]
 class WeeklyLaunchesRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, WeeklyLaunches::class);
+    }
+
+    public function save(WeeklyLaunches $entity, bool $flush = true): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(WeeklyLaunches $entity, bool $flush = true): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 }

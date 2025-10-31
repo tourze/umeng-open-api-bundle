@@ -6,8 +6,6 @@ class UmengUappGetAppCountResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return int 应用数量
      */
@@ -30,13 +28,12 @@ class UmengUappGetAppCountResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'count')) {
-            $this->count = $this->stdResult->{'count'};
+            $this->count = $this->stdResult->count;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('count')) {
             $this->count = $arrayResult['count'];
         }

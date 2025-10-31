@@ -16,8 +16,6 @@ class UmengUappDailyDataInfo extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 统计日期
      */
@@ -136,28 +134,27 @@ class UmengUappDailyDataInfo extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'date')) {
-            $this->date = $this->stdResult->{'date'};
+            $this->date = $this->stdResult->date;
         }
         if (property_exists($this->stdResult, 'activityUsers')) {
-            $this->activityUsers = $this->stdResult->{'activityUsers'};
+            $this->activityUsers = $this->stdResult->activityUsers;
         }
         if (property_exists($this->stdResult, 'totalUsers')) {
-            $this->totalUsers = $this->stdResult->{'totalUsers'};
+            $this->totalUsers = $this->stdResult->totalUsers;
         }
         if (property_exists($this->stdResult, 'launches')) {
-            $this->launches = $this->stdResult->{'launches'};
+            $this->launches = $this->stdResult->launches;
         }
         if (property_exists($this->stdResult, 'newUsers')) {
-            $this->newUsers = $this->stdResult->{'newUsers'};
+            $this->newUsers = $this->stdResult->newUsers;
         }
         if (property_exists($this->stdResult, 'payUsers')) {
-            $this->payUsers = $this->stdResult->{'payUsers'};
+            $this->payUsers = $this->stdResult->payUsers;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('date')) {
             $this->date = $arrayResult['date'];
         }

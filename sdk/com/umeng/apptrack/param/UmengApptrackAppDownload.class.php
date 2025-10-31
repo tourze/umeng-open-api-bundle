@@ -20,8 +20,6 @@ class UmengApptrackAppDownload extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 监测单元id
      */
@@ -100,8 +98,8 @@ class UmengApptrackAppDownload extends SDKDomain
 
     /**
      * @return string 激活类型：
-     *                         iOS：IDFA、CAID、IDFV等
-     *                         Android：IMEI、OAID、ANDROID_ID等
+     *                iOS：IDFA、CAID、IDFV等
+     *                Android：IMEI、OAID、ANDROID_ID等
      */
     public function getType()
     {
@@ -182,34 +180,33 @@ class UmengApptrackAppDownload extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'unitId')) {
-            $this->unitId = $this->stdResult->{'unitId'};
+            $this->unitId = $this->stdResult->unitId;
         }
         if (property_exists($this->stdResult, 'mName')) {
-            $this->mName = $this->stdResult->{'mName'};
+            $this->mName = $this->stdResult->mName;
         }
         if (property_exists($this->stdResult, 'planName')) {
-            $this->planName = $this->stdResult->{'planName'};
+            $this->planName = $this->stdResult->planName;
         }
         if (property_exists($this->stdResult, 'chanName')) {
-            $this->chanName = $this->stdResult->{'chanName'};
+            $this->chanName = $this->stdResult->chanName;
         }
         if (property_exists($this->stdResult, 'type')) {
-            $this->type = $this->stdResult->{'type'};
+            $this->type = $this->stdResult->type;
         }
         if (property_exists($this->stdResult, 'deviceId')) {
-            $this->deviceId = $this->stdResult->{'deviceId'};
+            $this->deviceId = $this->stdResult->deviceId;
         }
         if (property_exists($this->stdResult, 'clickDate')) {
-            $this->clickDate = $this->stdResult->{'clickDate'};
+            $this->clickDate = $this->stdResult->clickDate;
         }
         if (property_exists($this->stdResult, 'activeDate')) {
-            $this->activeDate = $this->stdResult->{'activeDate'};
+            $this->activeDate = $this->stdResult->activeDate;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('unitId')) {
             $this->unitId = $arrayResult['unitId'];
         }

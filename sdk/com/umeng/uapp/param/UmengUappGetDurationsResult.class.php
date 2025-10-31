@@ -8,8 +8,6 @@ class UmengUappGetDurationsResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return UmengUappDurationInfo[]
      */
@@ -21,9 +19,9 @@ class UmengUappGetDurationsResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappDurationInfo[] $durationInfos
+     * @param UmengUappDurationInfo[] $durationInfos
      * 此参数必填     */
-    public function setDurationInfos(UmengUappDurationInfo $durationInfos)
+    public function setDurationInfos(array $durationInfos)
     {
         $this->durationInfos = $durationInfos;
     }
@@ -50,7 +48,7 @@ class UmengUappGetDurationsResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'durationInfos')) {
-            $durationInfosResult = $this->stdResult->{'durationInfos'};
+            $durationInfosResult = $this->stdResult->durationInfos;
             $object = json_decode(json_encode($durationInfosResult), true);
             $this->durationInfos = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -61,13 +59,12 @@ class UmengUappGetDurationsResult
             }
         }
         if (property_exists($this->stdResult, 'average')) {
-            $this->average = $this->stdResult->{'average'};
+            $this->average = $this->stdResult->average;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('durationInfos')) {
             $durationInfosResult = $arrayResult['durationInfos'];
             $this->durationInfos = new UmengUappDurationInfo();

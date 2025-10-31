@@ -44,8 +44,6 @@ class UmengApptrackReport extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 本次投放订单号
      */
@@ -430,70 +428,69 @@ class UmengApptrackReport extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'orderId')) {
-            $this->orderId = $this->stdResult->{'orderId'};
+            $this->orderId = $this->stdResult->orderId;
         }
         if (property_exists($this->stdResult, 'advertiserId')) {
-            $this->advertiserId = $this->stdResult->{'advertiserId'};
+            $this->advertiserId = $this->stdResult->advertiserId;
         }
         if (property_exists($this->stdResult, 'adPlanId')) {
-            $this->adPlanId = $this->stdResult->{'adPlanId'};
+            $this->adPlanId = $this->stdResult->adPlanId;
         }
         if (property_exists($this->stdResult, 'adPlanName')) {
-            $this->adPlanName = $this->stdResult->{'adPlanName'};
+            $this->adPlanName = $this->stdResult->adPlanName;
         }
         if (property_exists($this->stdResult, 'adGroupId')) {
-            $this->adGroupId = $this->stdResult->{'adGroupId'};
+            $this->adGroupId = $this->stdResult->adGroupId;
         }
         if (property_exists($this->stdResult, 'adGroupName')) {
-            $this->adGroupName = $this->stdResult->{'adGroupName'};
+            $this->adGroupName = $this->stdResult->adGroupName;
         }
         if (property_exists($this->stdResult, 'adCreativeId')) {
-            $this->adCreativeId = $this->stdResult->{'adCreativeId'};
+            $this->adCreativeId = $this->stdResult->adCreativeId;
         }
         if (property_exists($this->stdResult, 'adCreativeName')) {
-            $this->adCreativeName = $this->stdResult->{'adCreativeName'};
+            $this->adCreativeName = $this->stdResult->adCreativeName;
         }
         if (property_exists($this->stdResult, 'pid')) {
-            $this->pid = $this->stdResult->{'pid'};
+            $this->pid = $this->stdResult->pid;
         }
         if (property_exists($this->stdResult, 'pidName')) {
-            $this->pidName = $this->stdResult->{'pidName'};
+            $this->pidName = $this->stdResult->pidName;
         }
         if (property_exists($this->stdResult, 'mediaId')) {
-            $this->mediaId = $this->stdResult->{'mediaId'};
+            $this->mediaId = $this->stdResult->mediaId;
         }
         if (property_exists($this->stdResult, 'mediaName')) {
-            $this->mediaName = $this->stdResult->{'mediaName'};
+            $this->mediaName = $this->stdResult->mediaName;
         }
         if (property_exists($this->stdResult, 'landingUrl')) {
-            $this->landingUrl = $this->stdResult->{'landingUrl'};
+            $this->landingUrl = $this->stdResult->landingUrl;
         }
         if (property_exists($this->stdResult, 'showPv')) {
-            $this->showPv = $this->stdResult->{'showPv'};
+            $this->showPv = $this->stdResult->showPv;
         }
         if (property_exists($this->stdResult, 'clickPv')) {
-            $this->clickPv = $this->stdResult->{'clickPv'};
+            $this->clickPv = $this->stdResult->clickPv;
         }
         if (property_exists($this->stdResult, 'bidCost')) {
-            $this->bidCost = $this->stdResult->{'bidCost'};
+            $this->bidCost = $this->stdResult->bidCost;
         }
         if (property_exists($this->stdResult, 'conversionUv')) {
-            $this->conversionUv = $this->stdResult->{'conversionUv'};
+            $this->conversionUv = $this->stdResult->conversionUv;
         }
         if (property_exists($this->stdResult, 'ds')) {
-            $this->ds = $this->stdResult->{'ds'};
+            $this->ds = $this->stdResult->ds;
         }
         if (property_exists($this->stdResult, 'retentionCount')) {
-            $this->retentionCount = $this->stdResult->{'retentionCount'};
+            $this->retentionCount = $this->stdResult->retentionCount;
         }
         if (property_exists($this->stdResult, 'version')) {
-            $this->version = $this->stdResult->{'version'};
+            $this->version = $this->stdResult->version;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('orderId')) {
             $this->orderId = $arrayResult['orderId'];
         }

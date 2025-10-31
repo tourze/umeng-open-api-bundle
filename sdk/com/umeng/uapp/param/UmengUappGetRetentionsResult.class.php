@@ -6,8 +6,6 @@ class UmengUappGetRetentionsResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getRetentionInfo()
     {
         return $this->retentionInfo;
@@ -16,9 +14,9 @@ class UmengUappGetRetentionsResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappRetentionInfo[] $retentionInfo
+     * @param UmengUappRetentionInfo[] $retentionInfo
      * 此参数必填     */
-    public function setRetentionInfo(UmengUappRetentionInfo $retentionInfo)
+    public function setRetentionInfo(array $retentionInfo)
     {
         $this->retentionInfo = $retentionInfo;
     }
@@ -27,7 +25,7 @@ class UmengUappGetRetentionsResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'retentionInfo')) {
-            $retentionInfoResult = $this->stdResult->{'retentionInfo'};
+            $retentionInfoResult = $this->stdResult->retentionInfo;
             $object = json_decode(json_encode($retentionInfoResult), true);
             $this->retentionInfo = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -41,7 +39,6 @@ class UmengUappGetRetentionsResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('retentionInfo')) {
             $retentionInfoResult = $arrayResult['retentionInfo'];
             $this->retentionInfo = new UmengUappRetentionInfo();

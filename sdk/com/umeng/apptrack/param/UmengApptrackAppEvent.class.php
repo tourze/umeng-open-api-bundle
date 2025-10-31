@@ -8,8 +8,6 @@ class UmengApptrackAppEvent extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 自定义事件名称
      */
@@ -52,16 +50,15 @@ class UmengApptrackAppEvent extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'eventName')) {
-            $this->eventName = $this->stdResult->{'eventName'};
+            $this->eventName = $this->stdResult->eventName;
         }
         if (property_exists($this->stdResult, 'eventNumber')) {
-            $this->eventNumber = $this->stdResult->{'eventNumber'};
+            $this->eventNumber = $this->stdResult->eventNumber;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('eventName')) {
             $this->eventName = $arrayResult['eventName'];
         }

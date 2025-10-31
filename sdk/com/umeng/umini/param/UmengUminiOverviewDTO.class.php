@@ -10,8 +10,6 @@ class UmengUminiOverviewDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 当前页码
      */
@@ -58,10 +56,10 @@ class UmengUminiOverviewDTO extends SDKDomain
     /**
      * 设置
      *
-     * @param array include @see UmengUminiAppIndicatorDTO[] $data
-     * 参数示例：<pre></pre>
+     * @param UmengUminiAppIndicatorDTO[] $data
+     *                                          参数示例：<pre></pre>
      * 此参数必填     */
-    public function setData(UmengUminiAppIndicatorDTO $data)
+    public function setData(array $data)
     {
         $this->data = $data;
     }
@@ -70,13 +68,13 @@ class UmengUminiOverviewDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'currentPage')) {
-            $this->currentPage = $this->stdResult->{'currentPage'};
+            $this->currentPage = $this->stdResult->currentPage;
         }
         if (property_exists($this->stdResult, 'totalCount')) {
-            $this->totalCount = $this->stdResult->{'totalCount'};
+            $this->totalCount = $this->stdResult->totalCount;
         }
         if (property_exists($this->stdResult, 'data')) {
-            $dataResult = $this->stdResult->{'data'};
+            $dataResult = $this->stdResult->data;
             $object = json_decode(json_encode($dataResult), true);
             $this->data = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -90,7 +88,6 @@ class UmengUminiOverviewDTO extends SDKDomain
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('currentPage')) {
             $this->currentPage = $arrayResult['currentPage'];
         }

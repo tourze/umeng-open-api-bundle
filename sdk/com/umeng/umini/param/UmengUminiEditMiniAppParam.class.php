@@ -9,9 +9,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getPlatform()
     {
-        $tempResult = $this->sdkStdResult['platform'];
-
-        return $tempResult;
+        return $this->sdkStdResult['platform'];
     }
 
     /**
@@ -53,9 +49,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getName()
     {
-        $tempResult = $this->sdkStdResult['name'];
-
-        return $tempResult;
+        return $this->sdkStdResult['name'];
     }
 
     /**
@@ -76,9 +70,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getLanguage()
     {
-        $tempResult = $this->sdkStdResult['language'];
-
-        return $tempResult;
+        return $this->sdkStdResult['language'];
     }
 
     /**
@@ -99,9 +91,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getFirstLevel()
     {
-        $tempResult = $this->sdkStdResult['firstLevel'];
-
-        return $tempResult;
+        return $this->sdkStdResult['firstLevel'];
     }
 
     /**
@@ -122,9 +112,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getSecondLevel()
     {
-        $tempResult = $this->sdkStdResult['secondLevel'];
-
-        return $tempResult;
+        return $this->sdkStdResult['secondLevel'];
     }
 
     /**
@@ -145,9 +133,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getDescription()
     {
-        $tempResult = $this->sdkStdResult['description'];
-
-        return $tempResult;
+        return $this->sdkStdResult['description'];
     }
 
     /**
@@ -168,9 +154,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getMiniAppId()
     {
-        $tempResult = $this->sdkStdResult['miniAppId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['miniAppId'];
     }
 
     /**
@@ -191,9 +175,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getMiniAppSecret()
     {
-        $tempResult = $this->sdkStdResult['miniAppSecret'];
-
-        return $tempResult;
+        return $this->sdkStdResult['miniAppSecret'];
     }
 
     /**
@@ -214,9 +196,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getMiniPublicKey()
     {
-        $tempResult = $this->sdkStdResult['miniPublicKey'];
-
-        return $tempResult;
+        return $this->sdkStdResult['miniPublicKey'];
     }
 
     /**
@@ -237,9 +217,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getMiniPrivateKey()
     {
-        $tempResult = $this->sdkStdResult['miniPrivateKey'];
-
-        return $tempResult;
+        return $this->sdkStdResult['miniPrivateKey'];
     }
 
     /**
@@ -260,9 +238,7 @@ class UmengUminiEditMiniAppParam
      */
     public function getIntegrationType()
     {
-        $tempResult = $this->sdkStdResult['integrationType'];
-
-        return $tempResult;
+        return $this->sdkStdResult['integrationType'];
     }
 
     /**

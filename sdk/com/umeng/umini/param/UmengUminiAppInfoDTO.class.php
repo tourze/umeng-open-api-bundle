@@ -18,8 +18,6 @@ class UmengUminiAppInfoDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 二级分类
      */
@@ -157,31 +155,30 @@ class UmengUminiAppInfoDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'secondLevel')) {
-            $this->secondLevel = $this->stdResult->{'secondLevel'};
+            $this->secondLevel = $this->stdResult->secondLevel;
         }
         if (property_exists($this->stdResult, 'dataSourceId')) {
-            $this->dataSourceId = $this->stdResult->{'dataSourceId'};
+            $this->dataSourceId = $this->stdResult->dataSourceId;
         }
         if (property_exists($this->stdResult, 'appName')) {
-            $this->appName = $this->stdResult->{'appName'};
+            $this->appName = $this->stdResult->appName;
         }
         if (property_exists($this->stdResult, 'gmtCreate')) {
-            $this->gmtCreate = $this->stdResult->{'gmtCreate'};
+            $this->gmtCreate = $this->stdResult->gmtCreate;
         }
         if (property_exists($this->stdResult, 'firstLevel')) {
-            $this->firstLevel = $this->stdResult->{'firstLevel'};
+            $this->firstLevel = $this->stdResult->firstLevel;
         }
         if (property_exists($this->stdResult, 'userName')) {
-            $this->userName = $this->stdResult->{'userName'};
+            $this->userName = $this->stdResult->userName;
         }
         if (property_exists($this->stdResult, 'platform')) {
-            $this->platform = $this->stdResult->{'platform'};
+            $this->platform = $this->stdResult->platform;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('secondLevel')) {
             $this->secondLevel = $arrayResult['secondLevel'];
         }

@@ -2,108 +2,98 @@
 
 namespace UmengOpenApiBundle\Tests\Entity;
 
-use Doctrine\Common\Collections\Collection;
-use PHPUnit\Framework\TestCase;
+use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\CoversClass;
+use Tourze\PHPUnitDoctrineEntity\AbstractEntityTestCase;
 use UmengOpenApiBundle\Entity\Account;
 use UmengOpenApiBundle\Entity\App;
 
-class AccountTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(Account::class)]
+final class AccountTest extends AbstractEntityTestCase
 {
-    private Account $account;
+    protected function createEntity(): object
+    {
+        return new Account();
+    }
+
+    /**
+     * @return iterable<string, array{string, mixed}>
+     */
+    public static function propertiesProvider(): iterable
+    {
+        return [
+            'apps' => ['apps', new ArrayCollection()],
+        ];
+    }
 
     protected function setUp(): void
     {
-        $this->account = new Account();
+        parent::setUp();
+
+        // 空实现，满足 TestCase 要求
     }
 
-    public function testGetSetId(): void
+    public function testBasicProperties(): void
     {
-        // ID属性通常由Doctrine自动生成
-        $this->assertNull($this->account->getId());
+        $account = $this->createAccount();
+
+        $this->assertNull($account->getId());
+        $this->assertNull($account->getName());
+        $this->assertNull($account->getApiKey());
+        $this->assertNull($account->getApiSecurity());
+        $this->assertFalse($account->isValid());
     }
 
-    public function testGetSetName(): void
+    public function testSettersAndGetters(): void
     {
-        $name = 'Test Account';
-        $this->account->setName($name);
-        $this->assertEquals($name, $this->account->getName());
+        $account = $this->createAccount();
+
+        $account->setName('Test Account');
+        $this->assertEquals('Test Account', $account->getName());
+
+        $account->setApiKey('test_api_key');
+        $this->assertEquals('test_api_key', $account->getApiKey());
+
+        $account->setApiSecurity('test_api_security');
+        $this->assertEquals('test_api_security', $account->getApiSecurity());
+
+        $account->setValid(true);
+        $this->assertTrue($account->isValid());
     }
 
-    public function testGetSetApiKey(): void
+    public function testAppsCollection(): void
     {
-        $apiKey = 'test_api_key_12345';
-        $this->account->setApiKey($apiKey);
-        $this->assertEquals($apiKey, $this->account->getApiKey());
+        $account = $this->createAccount();
+        $app = $this->createApp();
+
+        $this->assertCount(0, $account->getApps());
+
+        $account->addApp($app);
+        $this->assertCount(1, $account->getApps());
+        $this->assertTrue($account->getApps()->contains($app));
+        $this->assertSame($account, $app->getAccount());
+
+        $account->removeApp($app);
+        $this->assertCount(0, $account->getApps());
+        $this->assertNull($app->getAccount());
     }
 
-    public function testGetSetApiSecurity(): void
+    public function testToString(): void
     {
-        $apiSecurity = 'test_api_security_12345';
-        $this->account->setApiSecurity($apiSecurity);
-        $this->assertEquals($apiSecurity, $this->account->getApiSecurity());
+        $account = $this->createAccount();
+        $this->assertEquals('', $account->__toString());
     }
 
-    public function testGetSetValid(): void
+    private function createAccount(): Account
     {
-        // 测试默认值可能根据实体的实际实现而变化，所以我们不测试默认值
-        // 而是直接测试设置后的值
-        
-        // 测试设置为true
-        $this->account->setValid(true);
-        $this->assertTrue($this->account->isValid());
-        
-        // 测试设置为false
-        $this->account->setValid(false);
-        $this->assertFalse($this->account->isValid());
-        
-        // 如果实体支持将valid设为null，则测试；否则省略此测试
-        // 根据测试结果，Account实体可能不支持将valid设为null
-        // $this->account->setValid(null);
-        // $this->assertNull($this->account->isValid());
+        return new Account();
     }
 
-    public function testGetApps(): void
+    private function createApp(): App
     {
-        // 检查apps集合是否已初始化
-        $apps = $this->account->getApps();
-        $this->assertInstanceOf(Collection::class, $apps);
-        $this->assertCount(0, $apps);
+        return new App();
     }
-
-    public function testAddApp(): void
-    {
-        // 直接从集合操作测试，不去调用可能导致错误的自关联方法
-        // 通过反射获取集合
-        $reflection = new \ReflectionClass($this->account);
-        $property = $reflection->getProperty('apps');
-        $property->setAccessible(true);
-        $collection = $property->getValue($this->account);
-        
-        // 初始应为空
-        $this->assertCount(0, $collection);
-        
-        // 创建一个没有依赖关系的模拟App对象
-        $app = $this->createMock(App::class);
-        
-        // 手动添加到集合中
-        $collection->add($app);
-        
-        // 验证添加成功
-        $this->assertCount(1, $collection);
-        $this->assertTrue($collection->contains($app));
-    }
-
-    public function testCreateUpdateTime(): void
-    {
-        $now = new \DateTimeImmutable();
-        
-        // 测试设置/获取创建时间
-        $this->account->setCreateTime($now);
-        $this->assertEquals($now, $this->account->getCreateTime());
-        
-        // 测试设置/获取更新时间
-        $updateTime = new \DateTimeImmutable('+1 hour');
-        $this->account->setUpdateTime($updateTime);
-        $this->assertEquals($updateTime, $this->account->getUpdateTime());
-    }
-} 
+}

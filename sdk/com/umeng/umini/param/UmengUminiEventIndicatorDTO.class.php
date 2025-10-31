@@ -10,8 +10,6 @@ class UmengUminiEventIndicatorDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 时间
      */
@@ -73,19 +71,18 @@ class UmengUminiEventIndicatorDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'dateTime')) {
-            $this->dateTime = $this->stdResult->{'dateTime'};
+            $this->dateTime = $this->stdResult->dateTime;
         }
         if (property_exists($this->stdResult, 'count')) {
-            $this->count = $this->stdResult->{'count'};
+            $this->count = $this->stdResult->count;
         }
         if (property_exists($this->stdResult, 'device')) {
-            $this->device = $this->stdResult->{'device'};
+            $this->device = $this->stdResult->device;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('dateTime')) {
             $this->dateTime = $arrayResult['dateTime'];
         }

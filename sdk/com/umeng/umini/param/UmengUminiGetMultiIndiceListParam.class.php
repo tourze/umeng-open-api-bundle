@@ -9,9 +9,7 @@ class UmengUminiGetMultiIndiceListParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**

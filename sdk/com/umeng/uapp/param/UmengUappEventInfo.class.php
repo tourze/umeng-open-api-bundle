@@ -12,8 +12,6 @@ class UmengUappEventInfo extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 事件名称
      */
@@ -94,22 +92,21 @@ class UmengUappEventInfo extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'name')) {
-            $this->name = $this->stdResult->{'name'};
+            $this->name = $this->stdResult->name;
         }
         if (property_exists($this->stdResult, 'count')) {
-            $this->count = $this->stdResult->{'count'};
+            $this->count = $this->stdResult->count;
         }
         if (property_exists($this->stdResult, 'id')) {
-            $this->id = $this->stdResult->{'id'};
+            $this->id = $this->stdResult->id;
         }
         if (property_exists($this->stdResult, 'displayName')) {
-            $this->displayName = $this->stdResult->{'displayName'};
+            $this->displayName = $this->stdResult->displayName;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('name')) {
             $this->name = $arrayResult['name'];
         }

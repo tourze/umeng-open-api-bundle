@@ -6,10 +6,17 @@ services:
 
   UmengOpenApiBundle\Command\:
     resource: '../../Command/'
+  UmengOpenApiBundle\Controller\:
+    resource: '../../Controller/'
   UmengOpenApiBundle\EventSubscriber\:
     resource: '../../EventSubscriber/'
   UmengOpenApiBundle\Repository\:
     resource: '../../Repository/'
+  UmengOpenApiBundle\Service\:
+    resource: '../../Service/'
+
+  UmengOpenApiBundle\Service\UmengDataFetcherInterface:
+    alias: UmengOpenApiBundle\Service\UmengDataFetcher
 
   umeng-open-api.property-accessor:
     class: Symfony\Component\PropertyAccess\PropertyAccessor

@@ -26,8 +26,6 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 日期
      */
@@ -241,43 +239,42 @@ class UmengUminiGetRetentionByDataSourceIdDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'dateTime')) {
-            $this->dateTime = $this->stdResult->{'dateTime'};
+            $this->dateTime = $this->stdResult->dateTime;
         }
         if (property_exists($this->stdResult, 'value')) {
-            $this->value = $this->stdResult->{'value'};
+            $this->value = $this->stdResult->value;
         }
         if (property_exists($this->stdResult, 'v1')) {
-            $this->v1 = $this->stdResult->{'v1'};
+            $this->v1 = $this->stdResult->v1;
         }
         if (property_exists($this->stdResult, 'v2')) {
-            $this->v2 = $this->stdResult->{'v2'};
+            $this->v2 = $this->stdResult->v2;
         }
         if (property_exists($this->stdResult, 'v3')) {
-            $this->v3 = $this->stdResult->{'v3'};
+            $this->v3 = $this->stdResult->v3;
         }
         if (property_exists($this->stdResult, 'v4')) {
-            $this->v4 = $this->stdResult->{'v4'};
+            $this->v4 = $this->stdResult->v4;
         }
         if (property_exists($this->stdResult, 'v5')) {
-            $this->v5 = $this->stdResult->{'v5'};
+            $this->v5 = $this->stdResult->v5;
         }
         if (property_exists($this->stdResult, 'v6')) {
-            $this->v6 = $this->stdResult->{'v6'};
+            $this->v6 = $this->stdResult->v6;
         }
         if (property_exists($this->stdResult, 'v7')) {
-            $this->v7 = $this->stdResult->{'v7'};
+            $this->v7 = $this->stdResult->v7;
         }
         if (property_exists($this->stdResult, 'v14')) {
-            $this->v14 = $this->stdResult->{'v14'};
+            $this->v14 = $this->stdResult->v14;
         }
         if (property_exists($this->stdResult, 'v30')) {
-            $this->v30 = $this->stdResult->{'v30'};
+            $this->v30 = $this->stdResult->v30;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('dateTime')) {
             $this->dateTime = $arrayResult['dateTime'];
         }

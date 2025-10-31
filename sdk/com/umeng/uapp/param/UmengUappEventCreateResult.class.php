@@ -8,8 +8,6 @@ class UmengUappEventCreateResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 响应码
      */
@@ -50,16 +48,15 @@ class UmengUappEventCreateResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'status')) {
-            $this->status = $this->stdResult->{'status'};
+            $this->status = $this->stdResult->status;
         }
         if (property_exists($this->stdResult, 'msg')) {
-            $this->msg = $this->stdResult->{'msg'};
+            $this->msg = $this->stdResult->msg;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('status')) {
             $this->status = $arrayResult['status'];
         }

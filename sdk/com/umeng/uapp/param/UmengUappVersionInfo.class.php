@@ -16,8 +16,6 @@ class UmengUappVersionInfo extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 统计日期
      */
@@ -136,28 +134,27 @@ class UmengUappVersionInfo extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'date')) {
-            $this->date = $this->stdResult->{'date'};
+            $this->date = $this->stdResult->date;
         }
         if (property_exists($this->stdResult, 'totalUserRate')) {
-            $this->totalUserRate = $this->stdResult->{'totalUserRate'};
+            $this->totalUserRate = $this->stdResult->totalUserRate;
         }
         if (property_exists($this->stdResult, 'activeUser')) {
-            $this->activeUser = $this->stdResult->{'activeUser'};
+            $this->activeUser = $this->stdResult->activeUser;
         }
         if (property_exists($this->stdResult, 'newUser')) {
-            $this->newUser = $this->stdResult->{'newUser'};
+            $this->newUser = $this->stdResult->newUser;
         }
         if (property_exists($this->stdResult, 'totalUser')) {
-            $this->totalUser = $this->stdResult->{'totalUser'};
+            $this->totalUser = $this->stdResult->totalUser;
         }
         if (property_exists($this->stdResult, 'version')) {
-            $this->version = $this->stdResult->{'version'};
+            $this->version = $this->stdResult->version;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('date')) {
             $this->date = $arrayResult['date'];
         }

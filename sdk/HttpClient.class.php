@@ -72,7 +72,7 @@ class HttpClient
         $this->host = $host;
         $this->port = $port;
     }
-    
+
     public function HttpClient($host, $port = 80)
     {
         $this->host = $host;
@@ -194,169 +194,90 @@ class HttpClient
 
     public function buildQueryString($data)
     {
-        $querystring = '';
-        if (is_array($data)) {
-            // Change data in to postable data
-            foreach ($data as $key => $val) {
-                if (is_array($val)) {
-                    foreach ($val as $val2) {
-                        $querystring .= urlencode($key) . '=' . urlencode($val2) . '&';
-                    }
-                } else {
-                    $querystring .= urlencode($key) . '=' . urlencode($val) . '&';
-                }
-            }
-            $querystring = mb_substr($querystring, 0, -1); // Eliminate unnecessary &
-        } else {
-            $querystring = $data;
+        if (!is_array($data)) {
+            return $data;
         }
 
-        return $querystring;
+        $parts = [];
+        foreach ($data as $key => $val) {
+            if (is_array($val)) {
+                $parts = array_merge($parts, $this->buildArrayQueryParts($key, $val));
+            } else {
+                $parts[] = urlencode($key) . '=' . urlencode($val);
+            }
+        }
+
+        return implode('&', $parts);
+    }
+
+    private function buildArrayQueryParts($key, $values): array
+    {
+        $parts = [];
+        foreach ($values as $val) {
+            $parts[] = urlencode($key) . '=' . urlencode($val);
+        }
+
+        return $parts;
     }
 
     public function doRequest()
     {
-        // Performs the actual HTTP request, returning true or false depending on outcome
-        if (!$fp = @fsockopen($this->host, $this->port, $errno, $errstr, $this->timeout)) {
-            // Set error message
-            switch ($errno) {
-                case -3:
-                    $this->errormsg = 'Socket creation failed (-3)';
-                    // no break
-                case -4:
-                    $this->errormsg = 'DNS lookup failure (-4)';
-                    // no break
-                case -5:
-                    $this->errormsg = 'Connection refused or timed out (-5)';
-                    // no break
-                default:
-                    $this->errormsg = 'Connection failed (' . $errno . ')';
-                    $this->errormsg .= ' ' . $errstr;
-                    $this->debug($this->errormsg);
-            }
-
+        $fp = $this->openConnection();
+        if (!$fp) {
             return false;
         }
-        socket_set_timeout($fp, $this->timeout);
-        $request = $this->buildRequest();
-        $this->debug('Request', $request);
-        fwrite($fp, $request);
-        // Reset all the variables that should not persist between requests
-        $this->headers = [];
-        $this->content = '';
-        $this->errormsg = '';
-        // Set a couple of flags
-        $inHeaders = true;
-        $atStart = true;
-        // Now start reading back the response
-        while (!feof($fp)) {
-            $line = fgets($fp, 4096);
-            if ($atStart) {
-                // Deal with first line of returned data
-                $atStart = false;
-                if (!preg_match('/HTTP\/(\\d\\.\\d)\\s*(\\d+)\\s*(.*)/', $line, $m)) {
-                    $this->errormsg = 'Status code line invalid: ' . htmlentities($line);
-                    $this->debug($this->errormsg);
 
-                    return false;
-                }
-                $http_version = $m[1]; // not used
-                $this->status = $m[2];
-                $status_string = $m[3]; // not used
-                $this->debug(trim($line));
-                continue;
-            }
-            if ($inHeaders) {
-                if ('' == trim($line)) {
-                    $inHeaders = false;
-                    $this->debug('Received Headers', $this->headers);
-                    if ($this->headers_only) {
-                        break; // Skip the rest of the input
-                    }
-                    continue;
-                }
-                if (!preg_match('/([^:]+):\\s*(.*)/', $line, $m)) {
-                    // Skip to the next header
-                    continue;
-                }
-                $key = mb_strtolower(trim($m[1]));
-                $val = trim($m[2]);
-                // Deal with the possibility of multiple headers of same name
-                if (isset($this->headers[$key])) {
-                    if (is_array($this->headers[$key])) {
-                        $this->headers[$key][] = $val;
-                    } else {
-                        $this->headers[$key] = [$this->headers[$key], $val];
-                    }
-                } else {
-                    $this->headers[$key] = $val;
-                }
-                continue;
-            }
-            // We're not in the headers, so append the line to the contents
-            $this->content .= $line;
-        }
+        $this->sendRequest($fp);
+        $this->readResponse($fp);
         fclose($fp);
-        // If data is compressed, uncompress it
-        if (isset($this->headers['content-encoding']) && 'gzip' == $this->headers['content-encoding']) {
-            $this->debug('Content is gzip encoded, unzipping it');
-            $this->content = mb_substr($this->content, 10); // See http://www.php.net/manual/en/function.gzencode.php
-            $this->content = gzinflate($this->content);
-        }
-        // If $persist_cookies, deal with any cookies
-        if ($this->persist_cookies && isset($this->headers['set-cookie']) && $this->host == $this->cookie_host) {
-            $cookies = $this->headers['set-cookie'];
-            if (!is_array($cookies)) {
-                $cookies = [$cookies];
-            }
-            foreach ($cookies as $cookie) {
-                if (preg_match('/([^=]+)=([^;]+);/', $cookie, $m)) {
-                    $this->cookies[$m[1]] = $m[2];
-                }
-            }
-            // Record domain of cookies for security reasons
-            $this->cookie_host = $this->host;
-        }
-        // If $persist_referers, set the referer ready for the next request
-        if ($this->persist_referers) {
-            $this->debug('Persisting referer: ' . $this->getRequestURL());
-            $this->referer = $this->getRequestURL();
-        }
-        // Finally, if handle_redirects and a redirect is sent, do that
-        if ($this->handle_redirects) {
-            if (++$this->redirect_count >= $this->max_redirects) {
-                $this->errormsg = 'Number of redirects exceeded maximum (' . $this->max_redirects . ')';
-                $this->debug($this->errormsg);
-                $this->redirect_count = 0;
 
-                return false;
-            }
-            $location = $this->headers['location'] ?? '';
-            $uri = $this->headers['uri'] ?? '';
-            if ($location || $uri) {
-                $url = parse_url($location . $uri);
+        $this->processResponse();
 
-                // This will FAIL if redirect is to a different site
-                return $this->get($url['path']);
-            }
-        }
-
-        return true;
+        return $this->handleRedirects();
     }
 
     public function debug($msg, $object = false)
     {
         if ($this->debug) {
-            echo '<div style="border: 1px solid red; padding: 0.5em; margin: 0.5em;"><strong>HttpClient Debug:</strong> ' . $msg;
+            // 使用标准 PHP 错误日志，在生产环境中应该配置合适的日志处理器
+            trigger_error('[HttpClient Debug] ' . $msg, E_USER_NOTICE);
             if ($object) {
-                ob_start();
-                print_r($object);
-                $content = htmlentities(ob_get_contents());
-                ob_end_clean();
-                echo '<pre>' . $content . '</pre>';
+                trigger_error('[HttpClient Debug Object] ' . json_encode($object, JSON_PRETTY_PRINT), E_USER_NOTICE);
             }
-            echo '</div>';
         }
+    }
+
+    private function handleSocketError($errno, $errstr): void
+    {
+        switch ($errno) {
+            case -3:
+                $this->errormsg = 'Socket creation failed (-3)';
+                break;
+            case -4:
+                $this->errormsg = 'DNS lookup failure (-4)';
+                break;
+            case -5:
+                $this->errormsg = 'Connection refused or timed out (-5)';
+                break;
+            default:
+                $this->errormsg = 'Connection failed (' . $errno . ')';
+                $this->errormsg .= ' ' . $errstr;
+        }
+        $this->debug($this->errormsg);
+    }
+
+    private function parseStatusLine($line): bool
+    {
+        if (!preg_match('/HTTP\/(\d\.\d)\s*(\d+)\s*(.*)/', $line, $m)) {
+            $this->errormsg = 'Status code line invalid: ' . htmlentities($line);
+            $this->debug($this->errormsg);
+
+            return false;
+        }
+        $this->status = $m[2];
+        $this->debug(trim($line));
+
+        return true;
     }
 
     public function buildRequest()
@@ -377,7 +298,7 @@ class HttpClient
         if ($this->cookies) {
             $cookie = 'Cookie: ';
             foreach ($this->cookies as $key => $value) {
-                $cookie .= "$key=$value; ";
+                $cookie .= "{$key}={$value}; ";
             }
             $headers[] = $cookie;
         }
@@ -390,9 +311,8 @@ class HttpClient
             $headers[] = 'Content-Type: application/x-www-form-urlencoded';
             $headers[] = 'Content-Length: ' . mb_strlen($this->postdata);
         }
-        $request = implode("\r\n", $headers) . "\r\n\r\n" . $this->postdata;
 
-        return $request;
+        return implode("\r\n", $headers) . "\r\n\r\n" . $this->postdata;
     }
 
     public function getRequestURL()
@@ -434,5 +354,158 @@ class HttpClient
         $this->postdata = $this->buildQueryString($data);
 
         return $this->doRequest();
+    }
+
+    private function openConnection()
+    {
+        $fp = @fsockopen($this->host, $this->port, $errno, $errstr, $this->timeout);
+        if (!$fp) {
+            $this->handleSocketError($errno, $errstr);
+
+            return false;
+        }
+        socket_set_timeout($fp, $this->timeout);
+
+        return $fp;
+    }
+
+    private function sendRequest($fp): void
+    {
+        $request = $this->buildRequest();
+        $this->debug('Request', $request);
+        fwrite($fp, $request);
+
+        // Reset all the variables that should not persist between requests
+        $this->headers = [];
+        $this->content = '';
+        $this->errormsg = '';
+    }
+
+    private function readResponse($fp): void
+    {
+        $inHeaders = true;
+        $atStart = true;
+
+        while (!feof($fp)) {
+            $line = fgets($fp, 4096);
+
+            if ($atStart) {
+                $atStart = false;
+                if (!$this->parseStatusLine($line)) {
+                    return;
+                }
+                continue;
+            }
+
+            if ($inHeaders) {
+                if ($this->processHeaderLine($line)) {
+                    $inHeaders = false;
+                    if ($this->headers_only) {
+                        break;
+                    }
+                }
+                continue;
+            }
+
+            $this->content .= $line;
+        }
+    }
+
+    private function processHeaderLine(string $line): bool
+    {
+        if ('' == trim($line)) {
+            $this->debug('Received Headers', $this->headers);
+
+            return true;
+        }
+
+        if (!preg_match('/([^:]+):\s*(.*)/', $line, $m)) {
+            return false;
+        }
+
+        $key = mb_strtolower(trim($m[1]));
+        $val = trim($m[2]);
+
+        if (isset($this->headers[$key])) {
+            if (is_array($this->headers[$key])) {
+                $this->headers[$key][] = $val;
+            } else {
+                $this->headers[$key] = [$this->headers[$key], $val];
+            }
+        } else {
+            $this->headers[$key] = $val;
+        }
+
+        return false;
+    }
+
+    private function processResponse(): void
+    {
+        $this->decompressContent();
+        $this->handleCookies();
+        $this->handleReferers();
+    }
+
+    private function decompressContent(): void
+    {
+        if (isset($this->headers['content-encoding']) && 'gzip' == $this->headers['content-encoding']) {
+            $this->debug('Content is gzip encoded, unzipping it');
+            $this->content = mb_substr($this->content, 10);
+            $this->content = gzinflate($this->content);
+        }
+    }
+
+    private function handleCookies(): void
+    {
+        if (!$this->persist_cookies || !isset($this->headers['set-cookie']) || $this->host != $this->cookie_host) {
+            return;
+        }
+
+        $cookies = $this->headers['set-cookie'];
+        if (!is_array($cookies)) {
+            $cookies = [$cookies];
+        }
+
+        foreach ($cookies as $cookie) {
+            if (preg_match('/([^=]+)=([^;]+);/', $cookie, $m)) {
+                $this->cookies[$m[1]] = $m[2];
+            }
+        }
+
+        $this->cookie_host = $this->host;
+    }
+
+    private function handleReferers(): void
+    {
+        if ($this->persist_referers) {
+            $this->debug('Persisting referer: ' . $this->getRequestURL());
+            $this->referer = $this->getRequestURL();
+        }
+    }
+
+    private function handleRedirects(): bool
+    {
+        if (!$this->handle_redirects) {
+            return true;
+        }
+
+        if (++$this->redirect_count >= $this->max_redirects) {
+            $this->errormsg = 'Number of redirects exceeded maximum (' . $this->max_redirects . ')';
+            $this->debug($this->errormsg);
+            $this->redirect_count = 0;
+
+            return false;
+        }
+
+        $location = $this->headers['location'] ?? '';
+        $uri = $this->headers['uri'] ?? '';
+
+        if ($location || $uri) {
+            $url = parse_url($location . $uri);
+
+            return $this->get($url['path']);
+        }
+
+        return true;
     }
 }

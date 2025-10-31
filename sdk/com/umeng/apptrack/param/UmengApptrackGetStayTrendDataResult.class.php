@@ -32,8 +32,6 @@ class UmengApptrackGetStayTrendDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return UmengApptrackGetStayTrendData 次日留存数据
      */
@@ -290,52 +288,51 @@ class UmengApptrackGetStayTrendDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'stay1')) {
-            $this->stay1 = $this->stdResult->{'stay1'};
+            $this->stay1 = $this->stdResult->stay1;
         }
         if (property_exists($this->stdResult, 'stay2')) {
-            $this->stay2 = $this->stdResult->{'stay2'};
+            $this->stay2 = $this->stdResult->stay2;
         }
         if (property_exists($this->stdResult, 'stay3')) {
-            $this->stay3 = $this->stdResult->{'stay3'};
+            $this->stay3 = $this->stdResult->stay3;
         }
         if (property_exists($this->stdResult, 'stay4')) {
-            $this->stay4 = $this->stdResult->{'stay4'};
+            $this->stay4 = $this->stdResult->stay4;
         }
         if (property_exists($this->stdResult, 'stay5')) {
-            $this->stay5 = $this->stdResult->{'stay5'};
+            $this->stay5 = $this->stdResult->stay5;
         }
         if (property_exists($this->stdResult, 'stay6')) {
-            $this->stay6 = $this->stdResult->{'stay6'};
+            $this->stay6 = $this->stdResult->stay6;
         }
         if (property_exists($this->stdResult, 'stay7')) {
-            $this->stay7 = $this->stdResult->{'stay7'};
+            $this->stay7 = $this->stdResult->stay7;
         }
         if (property_exists($this->stdResult, 'stay8')) {
-            $this->stay8 = $this->stdResult->{'stay8'};
+            $this->stay8 = $this->stdResult->stay8;
         }
         if (property_exists($this->stdResult, 'stay9')) {
-            $this->stay9 = $this->stdResult->{'stay9'};
+            $this->stay9 = $this->stdResult->stay9;
         }
         if (property_exists($this->stdResult, 'stay10')) {
-            $this->stay10 = $this->stdResult->{'stay10'};
+            $this->stay10 = $this->stdResult->stay10;
         }
         if (property_exists($this->stdResult, 'stay11')) {
-            $this->stay11 = $this->stdResult->{'stay11'};
+            $this->stay11 = $this->stdResult->stay11;
         }
         if (property_exists($this->stdResult, 'stay12')) {
-            $this->stay12 = $this->stdResult->{'stay12'};
+            $this->stay12 = $this->stdResult->stay12;
         }
         if (property_exists($this->stdResult, 'stay13')) {
-            $this->stay13 = $this->stdResult->{'stay13'};
+            $this->stay13 = $this->stdResult->stay13;
         }
         if (property_exists($this->stdResult, 'stay14')) {
-            $this->stay14 = $this->stdResult->{'stay14'};
+            $this->stay14 = $this->stdResult->stay14;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('stay1')) {
             $this->stay1 = $arrayResult['stay1'];
         }

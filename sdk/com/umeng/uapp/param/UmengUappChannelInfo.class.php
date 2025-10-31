@@ -22,8 +22,6 @@ class UmengUappChannelInfo extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 启动数（昨日及以前可查询）
      */
@@ -199,37 +197,36 @@ class UmengUappChannelInfo extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'launch')) {
-            $this->launch = $this->stdResult->{'launch'};
+            $this->launch = $this->stdResult->launch;
         }
         if (property_exists($this->stdResult, 'duration')) {
-            $this->duration = $this->stdResult->{'duration'};
+            $this->duration = $this->stdResult->duration;
         }
         if (property_exists($this->stdResult, 'date')) {
-            $this->date = $this->stdResult->{'date'};
+            $this->date = $this->stdResult->date;
         }
         if (property_exists($this->stdResult, 'totalUserRate')) {
-            $this->totalUserRate = $this->stdResult->{'totalUserRate'};
+            $this->totalUserRate = $this->stdResult->totalUserRate;
         }
         if (property_exists($this->stdResult, 'activeUser')) {
-            $this->activeUser = $this->stdResult->{'activeUser'};
+            $this->activeUser = $this->stdResult->activeUser;
         }
         if (property_exists($this->stdResult, 'newUser')) {
-            $this->newUser = $this->stdResult->{'newUser'};
+            $this->newUser = $this->stdResult->newUser;
         }
         if (property_exists($this->stdResult, 'totalUser')) {
-            $this->totalUser = $this->stdResult->{'totalUser'};
+            $this->totalUser = $this->stdResult->totalUser;
         }
         if (property_exists($this->stdResult, 'channel')) {
-            $this->channel = $this->stdResult->{'channel'};
+            $this->channel = $this->stdResult->channel;
         }
         if (property_exists($this->stdResult, 'id')) {
-            $this->id = $this->stdResult->{'id'};
+            $this->id = $this->stdResult->id;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('launch')) {
             $this->launch = $arrayResult['launch'];
         }

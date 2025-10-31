@@ -9,9 +9,7 @@ class UmengUappEventListParam
      */
     public function getAppkey()
     {
-        $tempResult = $this->sdkStdResult['appkey'];
-
-        return $tempResult;
+        return $this->sdkStdResult['appkey'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUappEventListParam
      */
     public function getStartDate()
     {
-        $tempResult = $this->sdkStdResult['startDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['startDate'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUappEventListParam
      */
     public function getEndDate()
     {
-        $tempResult = $this->sdkStdResult['endDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['endDate'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUappEventListParam
      */
     public function getPerPage()
     {
-        $tempResult = $this->sdkStdResult['perPage'];
-
-        return $tempResult;
+        return $this->sdkStdResult['perPage'];
     }
 
     /**
@@ -95,9 +87,7 @@ class UmengUappEventListParam
      */
     public function getPage()
     {
-        $tempResult = $this->sdkStdResult['page'];
-
-        return $tempResult;
+        return $this->sdkStdResult['page'];
     }
 
     /**
@@ -118,9 +108,7 @@ class UmengUappEventListParam
      */
     public function getVersion()
     {
-        $tempResult = $this->sdkStdResult['version'];
-
-        return $tempResult;
+        return $this->sdkStdResult['version'];
     }
 
     /**

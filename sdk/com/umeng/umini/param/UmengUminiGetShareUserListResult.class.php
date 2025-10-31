@@ -12,8 +12,6 @@ class UmengUminiGetShareUserListResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return UmengUminiGetShareUserListResult 数据返回结果
      */
@@ -79,7 +77,6 @@ class UmengUminiGetShareUserListResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('data')) {
             $dataResult = $arrayResult['data'];
             $this->data = new UmengUminiShareUserListDTO();
@@ -100,18 +97,18 @@ class UmengUminiGetShareUserListResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'data')) {
-            $dataResult = $this->stdResult->{'data'};
+            $dataResult = $this->stdResult->data;
             $this->data = new UmengUminiShareUserListDTO();
             $this->data->setStdResult($dataResult);
         }
         if (property_exists($this->stdResult, 'msg')) {
-            $this->msg = $this->stdResult->{'msg'};
+            $this->msg = $this->stdResult->msg;
         }
         if (property_exists($this->stdResult, 'code')) {
-            $this->code = $this->stdResult->{'code'};
+            $this->code = $this->stdResult->code;
         }
         if (property_exists($this->stdResult, 'success')) {
-            $this->success = $this->stdResult->{'success'};
+            $this->success = $this->stdResult->success;
         }
     }
 }

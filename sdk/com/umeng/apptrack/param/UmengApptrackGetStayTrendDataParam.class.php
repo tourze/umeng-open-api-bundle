@@ -9,9 +9,7 @@ class UmengApptrackGetStayTrendDataParam
      */
     public function getPlanId()
     {
-        $tempResult = $this->sdkStdResult['planId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['planId'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengApptrackGetStayTrendDataParam
      */
     public function getUnitId()
     {
-        $tempResult = $this->sdkStdResult['unitId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['unitId'];
     }
 
     /**
@@ -53,9 +49,7 @@ class UmengApptrackGetStayTrendDataParam
      */
     public function getQueryDate()
     {
-        $tempResult = $this->sdkStdResult['queryDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['queryDate'];
     }
 
     /**

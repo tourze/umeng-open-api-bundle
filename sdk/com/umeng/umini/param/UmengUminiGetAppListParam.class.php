@@ -9,9 +9,7 @@ class UmengUminiGetAppListParam
      */
     public function getPageIndex()
     {
-        $tempResult = $this->sdkStdResult['pageIndex'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageIndex'];
     }
 
     /**
@@ -32,9 +30,7 @@ class UmengUminiGetAppListParam
      */
     public function getPageSize()
     {
-        $tempResult = $this->sdkStdResult['pageSize'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageSize'];
     }
 
     /**

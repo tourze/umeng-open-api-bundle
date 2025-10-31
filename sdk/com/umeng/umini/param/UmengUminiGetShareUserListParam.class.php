@@ -9,9 +9,7 @@ class UmengUminiGetShareUserListParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUminiGetShareUserListParam
      */
     public function getTimeUnit()
     {
-        $tempResult = $this->sdkStdResult['timeUnit'];
-
-        return $tempResult;
+        return $this->sdkStdResult['timeUnit'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUminiGetShareUserListParam
      */
     public function getFromDate()
     {
-        $tempResult = $this->sdkStdResult['fromDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['fromDate'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUminiGetShareUserListParam
      */
     public function getToDate()
     {
-        $tempResult = $this->sdkStdResult['toDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['toDate'];
     }
 
     /**
@@ -93,9 +85,7 @@ class UmengUminiGetShareUserListParam
      */
     public function getOrderBy()
     {
-        $tempResult = $this->sdkStdResult['orderBy'];
-
-        return $tempResult;
+        return $this->sdkStdResult['orderBy'];
     }
 
     /**
@@ -116,9 +106,7 @@ class UmengUminiGetShareUserListParam
      */
     public function getDirection()
     {
-        $tempResult = $this->sdkStdResult['direction'];
-
-        return $tempResult;
+        return $this->sdkStdResult['direction'];
     }
 
     /**
@@ -139,9 +127,7 @@ class UmengUminiGetShareUserListParam
      */
     public function getPageIndex()
     {
-        $tempResult = $this->sdkStdResult['pageIndex'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageIndex'];
     }
 
     /**
@@ -162,9 +148,7 @@ class UmengUminiGetShareUserListParam
      */
     public function getPageSize()
     {
-        $tempResult = $this->sdkStdResult['pageSize'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageSize'];
     }
 
     /**

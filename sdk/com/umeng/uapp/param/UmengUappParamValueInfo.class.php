@@ -10,8 +10,6 @@ class UmengUappParamValueInfo extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return int 参数值名称
      */
@@ -73,19 +71,18 @@ class UmengUappParamValueInfo extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'name')) {
-            $this->name = $this->stdResult->{'name'};
+            $this->name = $this->stdResult->name;
         }
         if (property_exists($this->stdResult, 'count')) {
-            $this->count = $this->stdResult->{'count'};
+            $this->count = $this->stdResult->count;
         }
         if (property_exists($this->stdResult, 'percent')) {
-            $this->percent = $this->stdResult->{'percent'};
+            $this->percent = $this->stdResult->percent;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('name')) {
             $this->name = $arrayResult['name'];
         }

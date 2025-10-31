@@ -62,7 +62,7 @@ class SyncAPIClient
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-            // $result = $newclient->get ( $urlRequest, $requestData );
+        // $result = $newclient->get ( $urlRequest, $requestData );
         } else {
             curl_setopt($ch, CURLOPT_URL, $urlRequest);
             curl_setopt($ch, CURLOPT_HEADER, false);
@@ -84,9 +84,8 @@ class SyncAPIClient
                 $resultException = $deSerializerTools->buildException($content, $resultDefiniation);
                 throw $resultException;
             }
-            $resultDefiniation = $deSerializerTools->deSerialize($content, $resultDefiniation);
 
-            return $resultDefiniation;
+            return $deSerializerTools->deSerialize($content, $resultDefiniation);
         }
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
@@ -117,9 +116,7 @@ class SyncAPIClient
             $clientPolicy->appKey,
         ];
 
-        $urlResult = implode($defs);
-
-        return $urlResult;
+        return implode($defs);
     }
 
     private function generateAPIPath(APIRequest $request, RequestPolicy $requestPolicy, ClientPolicy $clientPolicy)
@@ -138,8 +135,6 @@ class SyncAPIClient
             $clientPolicy->appKey,
         ];
 
-        $urlResult = implode($defs);
-
-        return $urlResult;
+        return implode($defs);
     }
 }

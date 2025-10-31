@@ -2,56 +2,149 @@
 
 namespace UmengOpenApiBundle\Tests\Command;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Application;
+use Carbon\CarbonImmutable;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractCommandTestCase;
 use UmengOpenApiBundle\Command\GetMonthlyNewUsersCommand;
-use Doctrine\ORM\EntityManagerInterface;
-use UmengOpenApiBundle\Repository\MonthlyNewUsersRepository;
+use UmengOpenApiBundle\Entity\App;
 use UmengOpenApiBundle\Repository\AppRepository;
+use UmengOpenApiBundle\Repository\MonthlyNewUsersRepository;
+use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
-class GetMonthlyNewUsersCommandTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(GetMonthlyNewUsersCommand::class)]
+#[RunTestsInSeparateProcesses]
+final class GetMonthlyNewUsersCommandTest extends AbstractCommandTestCase
 {
-    public function testConfigure(): void
+    /** @var MockObject&UmengDataFetcherInterface */
+    private UmengDataFetcherInterface $dataFetcher;
+
+    /** @var MockObject&AppRepository */
+    private AppRepository $appRepository;
+
+    /** @var MockObject&MonthlyNewUsersRepository */
+    private MonthlyNewUsersRepository $newUsersRepository;
+
+    public function testExecuteWithoutArgumentsShouldSucceed(): void
     {
-        $entityManager = $this->createMock(EntityManagerInterface::class);
-        $appRepository = $this->createMock(AppRepository::class);
-        $newUsersRepository = $this->createMock(MonthlyNewUsersRepository::class);
-        
-        $command = new GetMonthlyNewUsersCommand(
-            $appRepository,
-            $newUsersRepository,
-            $entityManager
-        );
-        
-        $this->assertNotNull($command->getName());
-        $this->assertNotNull($command->getDescription());
+        $app = $this->createMock(App::class);
+        $this->appRepository->method('findAll')->willReturn([$app]);
+
+        $result = $this->createMock(\UmengUappGetNewUsersResult::class);
+        $result->method('getNewUserInfo')->willReturn([]);
+
+        $this->dataFetcher
+            ->expects($this->once())
+            ->method('fetchMonthlyNewUsers')
+            ->with($app, self::isInstanceOf(CarbonImmutable::class), self::isInstanceOf(CarbonImmutable::class))
+            ->willReturn($result)
+        ;
+
+        $exitCode = $this->getCommandTester()->execute([]);
+
+        $this->assertSame(Command::SUCCESS, $exitCode);
     }
 
-    public function testExecute(): void
+    public function testArgumentStartDate(): void
     {
-        $entityManager = $this->createMock(EntityManagerInterface::class);
-        $appRepository = $this->createMock(AppRepository::class);
-        $newUsersRepository = $this->createMock(MonthlyNewUsersRepository::class);
-        
-        // 模拟返回空数组，避免执行实际的 API 调用
-        $appRepository->expects($this->once())
-            ->method('findAll')
-            ->willReturn([]);
-        
-        $command = new GetMonthlyNewUsersCommand(
-            $appRepository,
-            $newUsersRepository,
-            $entityManager
-        );
-        
-        $application = new Application();
-        $application->add($command);
-        
-        $commandTester = new CommandTester($command);
-        $commandTester->execute([]);
-        
-        $this->assertEquals(Command::SUCCESS, $commandTester->getStatusCode());
+        $app = $this->createMock(App::class);
+        $this->appRepository->method('findAll')->willReturn([$app]);
+
+        $result = $this->createMock(\UmengUappGetNewUsersResult::class);
+        $result->method('getNewUserInfo')->willReturn([]);
+
+        $expectedStartDate = CarbonImmutable::parse('2024-01-01')->startOfDay();
+        $this->dataFetcher
+            ->expects($this->once())
+            ->method('fetchMonthlyNewUsers')
+            ->with(
+                $app,
+                self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedStartDate)),
+                self::isInstanceOf(CarbonImmutable::class)
+            )
+            ->willReturn($result)
+        ;
+
+        $exitCode = $this->getCommandTester()->execute(['startDate' => '2024-01-01']);
+
+        $this->assertSame(Command::SUCCESS, $exitCode);
+    }
+
+    public function testArgumentEndDate(): void
+    {
+        $app = $this->createMock(App::class);
+        $this->appRepository->method('findAll')->willReturn([$app]);
+
+        $result = $this->createMock(\UmengUappGetNewUsersResult::class);
+        $result->method('getNewUserInfo')->willReturn([]);
+
+        $expectedEndDate = CarbonImmutable::parse('2024-01-31')->startOfDay();
+        $this->dataFetcher
+            ->expects($this->once())
+            ->method('fetchMonthlyNewUsers')
+            ->with(
+                $app,
+                self::isInstanceOf(CarbonImmutable::class),
+                self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedEndDate))
+            )
+            ->willReturn($result)
+        ;
+
+        $exitCode = $this->getCommandTester()->execute(['endDate' => '2024-01-31']);
+
+        $this->assertSame(Command::SUCCESS, $exitCode);
+    }
+
+    public function testExecuteWithBothArgumentsShouldSucceed(): void
+    {
+        $app = $this->createMock(App::class);
+        $this->appRepository->method('findAll')->willReturn([$app]);
+
+        $result = $this->createMock(\UmengUappGetNewUsersResult::class);
+        $result->method('getNewUserInfo')->willReturn([]);
+
+        $expectedStartDate = CarbonImmutable::parse('2024-01-01')->startOfDay();
+        $expectedEndDate = CarbonImmutable::parse('2024-01-31')->startOfDay();
+        $this->dataFetcher
+            ->expects($this->once())
+            ->method('fetchMonthlyNewUsers')
+            ->with(
+                $app,
+                self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedStartDate)),
+                self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedEndDate))
+            )
+            ->willReturn($result)
+        ;
+
+        $exitCode = $this->getCommandTester()->execute([
+            'startDate' => '2024-01-01',
+            'endDate' => '2024-01-31',
+        ]);
+
+        $this->assertSame(Command::SUCCESS, $exitCode);
+    }
+
+    protected function getCommandTester(): CommandTester
+    {
+        $command = self::getService(GetMonthlyNewUsersCommand::class);
+
+        return new CommandTester($command);
+    }
+
+    protected function onSetUp(): void
+    {
+        $this->dataFetcher = $this->createMock(UmengDataFetcherInterface::class);
+        $this->appRepository = $this->createMock(AppRepository::class);
+        $this->newUsersRepository = $this->createMock(MonthlyNewUsersRepository::class);
+
+        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcher);
+        self::getContainer()->set(AppRepository::class, $this->appRepository);
+        self::getContainer()->set(MonthlyNewUsersRepository::class, $this->newUsersRepository);
     }
 }

@@ -6,8 +6,6 @@ class UmengUappGetLaunchesByChannelOrVersionResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getLaunchInfo()
     {
         return $this->launchInfo;
@@ -16,9 +14,9 @@ class UmengUappGetLaunchesByChannelOrVersionResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappCountData[] $launchInfo
+     * @param UmengUappCountData[] $launchInfo
      * 此参数必填     */
-    public function setLaunchInfo(UmengUappCountData $launchInfo)
+    public function setLaunchInfo(array $launchInfo)
     {
         $this->launchInfo = $launchInfo;
     }
@@ -27,7 +25,7 @@ class UmengUappGetLaunchesByChannelOrVersionResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'launchInfo')) {
-            $launchInfoResult = $this->stdResult->{'launchInfo'};
+            $launchInfoResult = $this->stdResult->launchInfo;
             $object = json_decode(json_encode($launchInfoResult), true);
             $this->launchInfo = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -41,7 +39,6 @@ class UmengUappGetLaunchesByChannelOrVersionResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('launchInfo')) {
             $launchInfoResult = $arrayResult['launchInfo'];
             $this->launchInfo = new UmengUappCountData();

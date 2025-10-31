@@ -9,9 +9,7 @@ class UmengUminiGetCampaignOverviewParam
      */
     public function getTimeUnit()
     {
-        $tempResult = $this->sdkStdResult['timeUnit'];
-
-        return $tempResult;
+        return $this->sdkStdResult['timeUnit'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUminiGetCampaignOverviewParam
      */
     public function getFromDate()
     {
-        $tempResult = $this->sdkStdResult['fromDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['fromDate'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUminiGetCampaignOverviewParam
      */
     public function getToDate()
     {
-        $tempResult = $this->sdkStdResult['toDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['toDate'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUminiGetCampaignOverviewParam
      */
     public function getCampaign()
     {
-        $tempResult = $this->sdkStdResult['campaign'];
-
-        return $tempResult;
+        return $this->sdkStdResult['campaign'];
     }
 
     /**
@@ -93,9 +85,7 @@ class UmengUminiGetCampaignOverviewParam
      */
     public function getPageSize()
     {
-        $tempResult = $this->sdkStdResult['pageSize'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageSize'];
     }
 
     /**
@@ -116,9 +106,7 @@ class UmengUminiGetCampaignOverviewParam
      */
     public function getPageIndex()
     {
-        $tempResult = $this->sdkStdResult['pageIndex'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageIndex'];
     }
 
     /**
@@ -139,9 +127,7 @@ class UmengUminiGetCampaignOverviewParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**
@@ -160,9 +146,7 @@ class UmengUminiGetCampaignOverviewParam
      */
     public function getIndicators()
     {
-        $tempResult = $this->sdkStdResult['indicators'];
-
-        return $tempResult;
+        return $this->sdkStdResult['indicators'];
     }
 
     /**

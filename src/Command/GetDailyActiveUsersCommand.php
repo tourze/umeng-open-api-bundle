@@ -1,19 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UmengOpenApiBundle\Command;
 
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Monolog\Attribute\WithMonologChannel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Tourze\Symfony\CronJob\Attribute\AsCronTask;
+use UmengOpenApiBundle\Entity\App;
 use UmengOpenApiBundle\Entity\DailyActiveUsers;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\DailyActiveUsersRepository;
+use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
+#[Autoconfigure(public: true)]
+#[WithMonologChannel(channel: 'umeng_open_api')]
 #[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App活跃用户数(天)')]
 class GetDailyActiveUsersCommand extends Command
@@ -24,6 +32,7 @@ class GetDailyActiveUsersCommand extends Command
         private readonly AppRepository $appRepository,
         private readonly DailyActiveUsersRepository $activeUsersRepository,
         private readonly EntityManagerInterface $entityManager,
+        private readonly UmengDataFetcherInterface $dataFetcher,
     ) {
         parent::__construct();
     }
@@ -32,70 +41,86 @@ class GetDailyActiveUsersCommand extends Command
     {
         $this
             ->addArgument('startDate', InputArgument::OPTIONAL)
-            ->addArgument('endDate', InputArgument::OPTIONAL);
+            ->addArgument('endDate', InputArgument::OPTIONAL)
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $endDate = $input->getArgument('endDate') !== null
-            ? CarbonImmutable::parse($input->getArgument('endDate'))->startOfDay()
-            : CarbonImmutable::today();
-        $startDate = $input->getArgument('startDate') !== null
-            ? CarbonImmutable::parse($input->getArgument('startDate'))->startOfDay()
-            : $endDate->subDays(30);
+        $dateRange = $this->parseDateRange($input);
 
         foreach ($this->appRepository->findAll() as $app) {
-            $account = $app->getAccount();
-
-            // 请替换第一个参数apiKey和第二个参数apiSecurity
-            $clientPolicy = new \ClientPolicy($account->getApiKey(), $account->getApiSecurity(), 'gateway.open.umeng.com');
-            $syncAPIClient = new \SyncAPIClient($clientPolicy);
-
-            $reqPolicy = new \RequestPolicy();
-            $reqPolicy->httpMethod = 'POST';
-            $reqPolicy->needAuthorization = false;
-            $reqPolicy->requestSendTimestamp = false;
-            // 测试环境只支持http
-            // $reqPolicy->useHttps = false;
-            $reqPolicy->useHttps = true;
-            $reqPolicy->useSignture = true;
-            $reqPolicy->accessPrivateApi = false;
-
-            $param = new \UmengUappGetActiveUsersParam();
-            $param->setAppkey($app->getAppKey());
-            $param->setStartDate($startDate->format('Y-m-d'));
-            $param->setEndDate($endDate->format('Y-m-d'));
-            $param->setPeriodType('daily');
-
-            $request = new \APIRequest();
-            $apiId = new \APIId('com.umeng.uapp', 'umeng.uapp.getActiveUsers', 1);
-            $request->apiId = $apiId;
-            /** @phpstan-ignore-next-line */
-
-            $request->requestEntity = $param;
-
-            $result = new \UmengUappGetActiveUsersResult();
-            $syncAPIClient->send($request, $result, $reqPolicy);
-
-            foreach ($result->getActiveUserInfo() as $item) {
-                /** @var \UmengUappCountData $item */
-                $date = CarbonImmutable::parse((string) $item->getDate())->startOfDay();
-
-                $newUsers = $this->activeUsersRepository->findOneBy([
-                    'app' => $app,
-                    'date' => $date,
-                ]);
-                if ($newUsers === null) {
-                    $newUsers = new DailyActiveUsers();
-                    $newUsers->setApp($app);
-                    $newUsers->setDate($date);
-                }
-                $newUsers->setValue((int) $item->getValue());
-                $this->entityManager->persist($newUsers);
-                $this->entityManager->flush();
-            }
+            /** @var App $app */
+            $this->processAppActiveUsers($app, $dateRange);
         }
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * @return array{CarbonImmutable, CarbonImmutable}
+     */
+    private function parseDateRange(InputInterface $input): array
+    {
+        $endDateArg = $input->getArgument('endDate');
+        $endDate = null !== $endDateArg && is_string($endDateArg)
+            ? CarbonImmutable::parse($endDateArg)->startOfDay()
+            : CarbonImmutable::today();
+        $startDateArg = $input->getArgument('startDate');
+        $startDate = null !== $startDateArg && is_string($startDateArg)
+            ? CarbonImmutable::parse($startDateArg)->startOfDay()
+            : $endDate->subDays(30);
+
+        return [$startDate, $endDate];
+    }
+
+    /**
+     * @param array{CarbonImmutable, CarbonImmutable} $dateRange
+     */
+    private function processAppActiveUsers(App $app, array $dateRange): void
+    {
+        [$startDate, $endDate] = $dateRange;
+        $result = $this->dataFetcher->fetchDailyActiveUsers($app, $startDate, $endDate);
+        $this->saveActiveUsersData($app, $result);
+    }
+
+    private function saveActiveUsersData(App $app, \UmengUappGetActiveUsersResult $result): void
+    {
+        $activeUserInfo = $result->getActiveUserInfo();
+        if (!is_iterable($activeUserInfo)) {
+            return;
+        }
+
+        foreach ($activeUserInfo as $item) {
+            /** @var \UmengUappCountData $item */
+            $date = CarbonImmutable::parse((string) $item->getDate())->startOfDay();
+
+            $dbItem = $this->activeUsersRepository->findOneBy([
+                'app' => $app,
+                'date' => $date,
+            ]);
+            if (null === $dbItem) {
+                $dbItem = new DailyActiveUsers();
+                $dbItem->setApp($app);
+                $dbItem->setDate($date);
+            }
+            /** @var DailyActiveUsers $dbItem */
+            $dbItem->setValue($this->normalizeToInt($item->getValue()));
+            $this->entityManager->persist($dbItem);
+            $this->entityManager->flush();
+        }
+    }
+
+    private function normalizeToInt(mixed $value): int
+    {
+        if (is_int($value)) {
+            return $value;
+        }
+
+        if (is_numeric($value)) {
+            return (int) $value;
+        }
+
+        return 0;
     }
 }

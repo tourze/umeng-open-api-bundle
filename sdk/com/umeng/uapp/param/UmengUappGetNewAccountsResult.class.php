@@ -6,8 +6,6 @@ class UmengUappGetNewAccountsResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return UmengUappAccountInfo[]
      */
@@ -19,9 +17,9 @@ class UmengUappGetNewAccountsResult
     /**
      * 设置UmengUappAccountInfo[]
      *
-     * @param array include @see UmengUappAccountInfo[] $newAccountInfo
+     * @param UmengUappAccountInfo[] $newAccountInfo
      * 此参数必填     */
-    public function setNewAccountInfo(UmengUappAccountInfo $newAccountInfo)
+    public function setNewAccountInfo(array $newAccountInfo)
     {
         $this->newAccountInfo = $newAccountInfo;
     }
@@ -30,7 +28,7 @@ class UmengUappGetNewAccountsResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'newAccountInfo')) {
-            $newAccountInfoResult = $this->stdResult->{'newAccountInfo'};
+            $newAccountInfoResult = $this->stdResult->newAccountInfo;
             $object = json_decode(json_encode($newAccountInfoResult), true);
             $this->newAccountInfo = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -44,7 +42,6 @@ class UmengUappGetNewAccountsResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('newAccountInfo')) {
             $newAccountInfoResult = $arrayResult['newAccountInfo'];
             $this->newAccountInfo = new UmengUappAccountInfo();

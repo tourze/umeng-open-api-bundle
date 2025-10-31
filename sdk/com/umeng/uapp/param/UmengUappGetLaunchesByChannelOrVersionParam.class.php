@@ -9,9 +9,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
      */
     public function getAppkey()
     {
-        $tempResult = $this->sdkStdResult['appkey'];
-
-        return $tempResult;
+        return $this->sdkStdResult['appkey'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
      */
     public function getStartDate()
     {
-        $tempResult = $this->sdkStdResult['startDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['startDate'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
      */
     public function getEndDate()
     {
-        $tempResult = $this->sdkStdResult['endDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['endDate'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
      */
     public function getPeriodType()
     {
-        $tempResult = $this->sdkStdResult['periodType'];
-
-        return $tempResult;
+        return $this->sdkStdResult['periodType'];
     }
 
     /**
@@ -93,9 +85,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
      */
     public function getChannels()
     {
-        $tempResult = $this->sdkStdResult['channels'];
-
-        return $tempResult;
+        return $this->sdkStdResult['channels'];
     }
 
     /**
@@ -116,9 +106,7 @@ class UmengUappGetLaunchesByChannelOrVersionParam
      */
     public function getVersions()
     {
-        $tempResult = $this->sdkStdResult['versions'];
-
-        return $tempResult;
+        return $this->sdkStdResult['versions'];
     }
 
     /**

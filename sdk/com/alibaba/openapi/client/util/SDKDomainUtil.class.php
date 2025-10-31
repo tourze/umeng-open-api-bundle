@@ -6,15 +6,14 @@ class SDKDomainUtil
     {
         if ($resultValue instanceof DateTime) {
             return $resultValue;
-        } elseif ($resultValue instanceof ByteArray) {
-            $tempValue = base64_encode($resultValue->getBytesValue());
-
-            return $tempValue;
-        } elseif ($resultValue instanceof SDKDomain) {
-            $sdkDomainSubArray = $this->generateSDKDomainArray($resultValue);
-
-            return $sdkDomainSubArray;
-        } elseif (is_array($resultValue)) {
+        }
+        if ($resultValue instanceof ByteArray) {
+            return base64_encode($resultValue->getBytesValue());
+        }
+        if ($resultValue instanceof SDKDomain) {
+            return $this->generateSDKDomainArray($resultValue);
+        }
+        if (is_array($resultValue)) {
             $sdkDomainSubArrayArray = [];
             foreach ($resultValue as $tempValue) {
                 $result = $this->processSDKDomain($tempValue);

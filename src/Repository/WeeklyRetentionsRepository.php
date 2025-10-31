@@ -1,22 +1,50 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UmengOpenApiBundle\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Tourze\PHPUnitSymfonyKernelTest\Attribute\AsRepository;
 use UmengOpenApiBundle\Entity\WeeklyRetentions;
 
 /**
- * @method WeeklyRetentions|null find($id, $lockMode = null, $lockVersion = null)
- * @method WeeklyRetentions|null findOneBy(array $criteria, array $orderBy = null)
- * @method WeeklyRetentions[]    findAll()
- * @method WeeklyRetentions[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<WeeklyRetentions>
  */
+#[AsRepository(entityClass: WeeklyRetentions::class)]
 class WeeklyRetentionsRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, WeeklyRetentions::class);
+    }
+
+    public function save(WeeklyRetentions $entity, bool $flush = true): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(WeeklyRetentions $entity, bool $flush = true): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    /**
+     * @param array<string, mixed> $criteria
+     * @param array<string, string>|null $orderBy
+     */
+    public function findOneBy(array $criteria, ?array $orderBy = null): ?WeeklyRetentions
+    {
+        /** @var WeeklyRetentions|null */
+        return parent::findOneBy($criteria, $orderBy);
     }
 }

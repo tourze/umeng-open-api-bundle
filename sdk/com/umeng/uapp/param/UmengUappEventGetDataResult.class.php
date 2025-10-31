@@ -6,8 +6,6 @@ class UmengUappEventGetDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getEventData()
     {
         return $this->eventData;
@@ -16,9 +14,9 @@ class UmengUappEventGetDataResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappDateCountInfo[] $eventData
+     * @param UmengUappDateCountInfo[] $eventData
      * 此参数必填     */
-    public function setEventData(UmengUappDateCountInfo $eventData)
+    public function setEventData(array $eventData)
     {
         $this->eventData = $eventData;
     }
@@ -27,7 +25,7 @@ class UmengUappEventGetDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'eventData')) {
-            $eventDataResult = $this->stdResult->{'eventData'};
+            $eventDataResult = $this->stdResult->eventData;
             $object = json_decode(json_encode($eventDataResult), true);
             $this->eventData = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -41,7 +39,6 @@ class UmengUappEventGetDataResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('eventData')) {
             $eventDataResult = $arrayResult['eventData'];
             $this->eventData = new UmengUappDateCountInfo();

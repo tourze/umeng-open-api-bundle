@@ -10,8 +10,6 @@ class UmengUappGetAppListResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getAppInfos()
     {
         return $this->appInfos;
@@ -20,9 +18,9 @@ class UmengUappGetAppListResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappAppInfoData[] $appInfos
+     * @param UmengUappAppInfoData[] $appInfos
      * 此参数必填     */
-    public function setAppInfos(UmengUappAppInfoData $appInfos)
+    public function setAppInfos(array $appInfos)
     {
         $this->appInfos = $appInfos;
     }
@@ -67,7 +65,7 @@ class UmengUappGetAppListResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'appInfos')) {
-            $appInfosResult = $this->stdResult->{'appInfos'};
+            $appInfosResult = $this->stdResult->appInfos;
             $object = json_decode(json_encode($appInfosResult), true);
             $this->appInfos = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -78,16 +76,15 @@ class UmengUappGetAppListResult
             }
         }
         if (property_exists($this->stdResult, 'totalPage')) {
-            $this->totalPage = $this->stdResult->{'totalPage'};
+            $this->totalPage = $this->stdResult->totalPage;
         }
         if (property_exists($this->stdResult, 'page')) {
-            $this->page = $this->stdResult->{'page'};
+            $this->page = $this->stdResult->page;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($this->arrayResult->offsetExists('appInfos')) {
             $appInfosResult = $arrayResult['appInfos'];
             $this->appInfos = new UmengUappAppInfoData();

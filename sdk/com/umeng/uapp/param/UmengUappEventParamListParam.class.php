@@ -9,9 +9,7 @@ class UmengUappEventParamListParam
      */
     public function getStartDate()
     {
-        $tempResult = $this->sdkStdResult['startDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['startDate'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUappEventParamListParam
      */
     public function getEndDate()
     {
-        $tempResult = $this->sdkStdResult['endDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['endDate'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUappEventParamListParam
      */
     public function getEventId()
     {
-        $tempResult = $this->sdkStdResult['eventId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['eventId'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUappEventParamListParam
      */
     public function getAppkey()
     {
-        $tempResult = $this->sdkStdResult['appkey'];
-
-        return $tempResult;
+        return $this->sdkStdResult['appkey'];
     }
 
     /**

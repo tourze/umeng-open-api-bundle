@@ -9,9 +9,7 @@ class UmengUappGetVersionDataParam
      */
     public function getAppkey()
     {
-        $tempResult = $this->sdkStdResult['appkey'];
-
-        return $tempResult;
+        return $this->sdkStdResult['appkey'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUappGetVersionDataParam
      */
     public function getDate()
     {
-        $tempResult = $this->sdkStdResult['date'];
-
-        return $tempResult;
+        return $this->sdkStdResult['date'];
     }
 
     /**

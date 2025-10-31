@@ -22,8 +22,6 @@ class UmengUappAllAppData extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 今日活跃用户
      */
@@ -199,37 +197,36 @@ class UmengUappAllAppData extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'todayActivityUsers')) {
-            $this->todayActivityUsers = $this->stdResult->{'todayActivityUsers'};
+            $this->todayActivityUsers = $this->stdResult->todayActivityUsers;
         }
         if (property_exists($this->stdResult, 'todayNewUsers')) {
-            $this->todayNewUsers = $this->stdResult->{'todayNewUsers'};
+            $this->todayNewUsers = $this->stdResult->todayNewUsers;
         }
         if (property_exists($this->stdResult, 'todayLaunches')) {
-            $this->todayLaunches = $this->stdResult->{'todayLaunches'};
+            $this->todayLaunches = $this->stdResult->todayLaunches;
         }
         if (property_exists($this->stdResult, 'yesterdayActivityUsers')) {
-            $this->yesterdayActivityUsers = $this->stdResult->{'yesterdayActivityUsers'};
+            $this->yesterdayActivityUsers = $this->stdResult->yesterdayActivityUsers;
         }
         if (property_exists($this->stdResult, 'yesterdayNewUsers')) {
-            $this->yesterdayNewUsers = $this->stdResult->{'yesterdayNewUsers'};
+            $this->yesterdayNewUsers = $this->stdResult->yesterdayNewUsers;
         }
         if (property_exists($this->stdResult, 'yesterdayLaunches')) {
-            $this->yesterdayLaunches = $this->stdResult->{'yesterdayLaunches'};
+            $this->yesterdayLaunches = $this->stdResult->yesterdayLaunches;
         }
         if (property_exists($this->stdResult, 'yesterdayUniqNewUsers')) {
-            $this->yesterdayUniqNewUsers = $this->stdResult->{'yesterdayUniqNewUsers'};
+            $this->yesterdayUniqNewUsers = $this->stdResult->yesterdayUniqNewUsers;
         }
         if (property_exists($this->stdResult, 'yesterdayUniqActiveUsers')) {
-            $this->yesterdayUniqActiveUsers = $this->stdResult->{'yesterdayUniqActiveUsers'};
+            $this->yesterdayUniqActiveUsers = $this->stdResult->yesterdayUniqActiveUsers;
         }
         if (property_exists($this->stdResult, 'totalUsers')) {
-            $this->totalUsers = $this->stdResult->{'totalUsers'};
+            $this->totalUsers = $this->stdResult->totalUsers;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('todayActivityUsers')) {
             $this->todayActivityUsers = $arrayResult['todayActivityUsers'];
         }

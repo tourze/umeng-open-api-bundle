@@ -9,9 +9,7 @@ class UmengApptrackGetPlanListParam
      */
     public function getAppKey()
     {
-        $tempResult = $this->sdkStdResult['appKey'];
-
-        return $tempResult;
+        return $this->sdkStdResult['appKey'];
     }
 
     /**
@@ -32,9 +30,7 @@ class UmengApptrackGetPlanListParam
      */
     public function getPageNum()
     {
-        $tempResult = $this->sdkStdResult['pageNum'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageNum'];
     }
 
     /**
@@ -55,9 +51,7 @@ class UmengApptrackGetPlanListParam
      */
     public function getPageSize()
     {
-        $tempResult = $this->sdkStdResult['pageSize'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageSize'];
     }
 
     /**

@@ -16,8 +16,6 @@ class ExampleFamily extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return int|null 家庭编号
      */
@@ -137,52 +135,78 @@ class ExampleFamily extends SDKDomain
     public function setStdResult(mixed $stdResult): void
     {
         $this->stdResult = $stdResult;
-        $object = json_encode($stdResult);
+
+        $this->setFamilyNumberFromStdResult();
+        $this->setParentsFromStdResult();
+        $this->setChildrenFromStdResult();
+        $this->setOwnedCarsFromStdResult();
+        $this->setMyHouseFromStdResult();
+    }
+
+    private function setFamilyNumberFromStdResult(): void
+    {
         if (property_exists($this->stdResult, 'familyNumber')) {
-            $this->familyNumber = $this->stdResult->{'familyNumber'};
+            $this->familyNumber = $this->stdResult->familyNumber;
         }
+    }
+
+    private function setParentsFromStdResult(): void
+    {
         if (property_exists($this->stdResult, 'father')) {
-            $fatherResult = $this->stdResult->{'father'};
             $this->father = new ExamplePerson();
-            $this->father->setStdResult($fatherResult);
+            $this->father->setStdResult($this->stdResult->father);
         }
+
         if (property_exists($this->stdResult, 'mother')) {
-            $motherResult = $this->stdResult->{'mother'};
             $this->mother = new ExamplePerson();
-            $this->mother->setStdResult($motherResult);
+            $this->mother->setStdResult($this->stdResult->mother);
         }
-        if (property_exists($this->stdResult, 'children')) {
-            $childrenResult = $this->stdResult->{'children'};
-            $object = json_decode(json_encode($childrenResult), true);
-            $this->children = [];
-            for ($i = 0; $i < count($object); ++$i) {
-                $arrayobject = new ArrayObject($object[$i]);
-                $ExamplePersonResult = new ExamplePerson();
-                $ExamplePersonResult->setArrayResult($arrayobject);
-                $this->children[$i] = $ExamplePersonResult;
-            }
+    }
+
+    private function setChildrenFromStdResult(): void
+    {
+        if (!property_exists($this->stdResult, 'children')) {
+            return;
         }
-        if (property_exists($this->stdResult, 'ownedCars')) {
-            $ownedCarsResult = $this->stdResult->{'ownedCars'};
-            $object = json_decode(json_encode($ownedCarsResult), true);
-            $this->ownedCars = [];
-            for ($i = 0; $i < count($object); ++$i) {
-                $arrayobject = new ArrayObject($object[$i]);
-                $ExampleCarResult = new ExampleCar();
-                $ExampleCarResult->setArrayResult($arrayobject);
-                $this->ownedCars[$i] = $ExampleCarResult;
-            }
+
+        $childrenData = json_decode(json_encode($this->stdResult->children), true);
+        $this->children = [];
+
+        foreach ($childrenData as $i => $childData) {
+            $arrayObject = new ArrayObject($childData);
+            $child = new ExamplePerson();
+            $child->setArrayResult($arrayObject);
+            $this->children[$i] = $child;
         }
+    }
+
+    private function setOwnedCarsFromStdResult(): void
+    {
+        if (!property_exists($this->stdResult, 'ownedCars')) {
+            return;
+        }
+
+        $carsData = json_decode(json_encode($this->stdResult->ownedCars), true);
+        $this->ownedCars = [];
+
+        foreach ($carsData as $i => $carData) {
+            $arrayObject = new ArrayObject($carData);
+            $car = new ExampleCar();
+            $car->setArrayResult($arrayObject);
+            $this->ownedCars[$i] = $car;
+        }
+    }
+
+    private function setMyHouseFromStdResult(): void
+    {
         if (property_exists($this->stdResult, 'myHouse')) {
-            $myHouseResult = $this->stdResult->{'myHouse'};
             $this->myHouse = new ExampleHouse();
-            $this->myHouse->setStdResult($myHouseResult);
+            $this->myHouse->setStdResult($this->stdResult->myHouse);
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult): void
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('familyNumber')) {
             $this->familyNumber = $arrayResult['familyNumber'];
         }

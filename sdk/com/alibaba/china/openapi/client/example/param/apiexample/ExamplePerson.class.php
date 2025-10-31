@@ -12,8 +12,6 @@ class ExamplePerson extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getName(): ?string
     {
         return $this->name;
@@ -56,9 +54,9 @@ class ExamplePerson extends SDKDomain
     /**
      * 设置
      *
-     * @param string|\DateTime $birthday
-     *                       参数示例：<pre></pre>
-     *                       此参数必填
+     * @param string|DateTime $birthday
+     *                                  参数示例：<pre></pre>
+     *                                  此参数必填
      */
     public function setBirthday(mixed $birthday): void
     {
@@ -86,22 +84,21 @@ class ExamplePerson extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'name')) {
-            $this->name = $this->stdResult->{'name'};
+            $this->name = $this->stdResult->name;
         }
         if (property_exists($this->stdResult, 'age')) {
-            $this->age = $this->stdResult->{'age'};
+            $this->age = $this->stdResult->age;
         }
         if (property_exists($this->stdResult, 'birthday')) {
-            $this->birthday = $this->stdResult->{'birthday'};
+            $this->birthday = $this->stdResult->birthday;
         }
         if (property_exists($this->stdResult, 'mobileNumber')) {
-            $this->mobileNumber = $this->stdResult->{'mobileNumber'};
+            $this->mobileNumber = $this->stdResult->mobileNumber;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult): void
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('name')) {
             $this->name = $arrayResult['name'];
         }

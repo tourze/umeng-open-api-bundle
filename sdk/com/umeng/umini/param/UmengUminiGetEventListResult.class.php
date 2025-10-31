@@ -12,8 +12,6 @@ class UmengUminiGetEventListResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getData()
     {
         return $this->data;
@@ -22,9 +20,9 @@ class UmengUminiGetEventListResult
     /**
      * 设置
      *
-     * @param array include @see UmengUminiEventDTO[] $data
+     * @param UmengUminiEventDTO[] $data
      * 此参数必填     */
-    public function setData(UmengUminiEventDTO $data)
+    public function setData(array $data)
     {
         $this->data = $data;
     }
@@ -78,7 +76,7 @@ class UmengUminiGetEventListResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'data')) {
-            $dataResult = $this->stdResult->{'data'};
+            $dataResult = $this->stdResult->data;
             $object = json_decode(json_encode($dataResult), true);
             $this->data = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -89,19 +87,18 @@ class UmengUminiGetEventListResult
             }
         }
         if (property_exists($this->stdResult, 'msg')) {
-            $this->msg = $this->stdResult->{'msg'};
+            $this->msg = $this->stdResult->msg;
         }
         if (property_exists($this->stdResult, 'code')) {
-            $this->code = $this->stdResult->{'code'};
+            $this->code = $this->stdResult->code;
         }
         if (property_exists($this->stdResult, 'success')) {
-            $this->success = $this->stdResult->{'success'};
+            $this->success = $this->stdResult->success;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('data')) {
             $dataResult = $arrayResult['data'];
             $this->data = new UmengUminiEventDTO();

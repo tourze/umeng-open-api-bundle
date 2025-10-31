@@ -9,9 +9,7 @@ class UmengUappGetAppListParam
      */
     public function getPage()
     {
-        $tempResult = $this->sdkStdResult['page'];
-
-        return $tempResult;
+        return $this->sdkStdResult['page'];
     }
 
     /**
@@ -32,9 +30,7 @@ class UmengUappGetAppListParam
      */
     public function getPerPage()
     {
-        $tempResult = $this->sdkStdResult['perPage'];
-
-        return $tempResult;
+        return $this->sdkStdResult['perPage'];
     }
 
     /**
@@ -52,9 +48,7 @@ class UmengUappGetAppListParam
 
     public function getAccessToken()
     {
-        $tempResult = $this->sdkStdResult['accessToken'];
-
-        return $tempResult;
+        return $this->sdkStdResult['accessToken'];
     }
 
     /**

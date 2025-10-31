@@ -6,8 +6,6 @@ class ExampleFamilyGetResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return ExampleFamily|null
      */
@@ -29,7 +27,6 @@ class ExampleFamilyGetResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('result')) {
             $resultResult = $arrayResult['result'];
             $this->result = new ExampleFamily();
@@ -41,7 +38,7 @@ class ExampleFamilyGetResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'result')) {
-            $resultResult = $this->stdResult->{'result'};
+            $resultResult = $this->stdResult->result;
             $this->result = new ExampleFamily();
             $this->result->setStdResult($resultResult);
         }

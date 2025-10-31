@@ -1,0 +1,4 @@
+services:
+  UmengOpenApiBundle\DataFixtures\:
+    resource: '../../DataFixtures/*'
+    tags: [doctrine.fixture.orm]

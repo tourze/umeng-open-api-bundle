@@ -8,8 +8,6 @@ class UmengApptrackGetActiveDetailDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return UmengApptrackGetActiveDetailData 激活数据明细
      */
@@ -21,9 +19,9 @@ class UmengApptrackGetActiveDetailDataResult
     /**
      * 设置激活数据明细
      *
-     * @param array include @see UmengApptrackAppDownload[] $data
+     * @param UmengApptrackAppDownload[] $data
      * 此参数必填     */
-    public function setData(UmengApptrackAppDownload $data)
+    public function setData(array $data)
     {
         $this->data = $data;
     }
@@ -50,7 +48,7 @@ class UmengApptrackGetActiveDetailDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'data')) {
-            $dataResult = $this->stdResult->{'data'};
+            $dataResult = $this->stdResult->data;
             $object = json_decode(json_encode($dataResult), true);
             $this->data = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -61,13 +59,12 @@ class UmengApptrackGetActiveDetailDataResult
             }
         }
         if (property_exists($this->stdResult, 'total')) {
-            $this->total = $this->stdResult->{'total'};
+            $this->total = $this->stdResult->total;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('data')) {
             $dataResult = $arrayResult['data'];
             $this->data = new UmengApptrackAppDownload();

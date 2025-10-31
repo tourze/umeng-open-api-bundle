@@ -13,7 +13,7 @@ class ByteArray
     {
         return $this->bytesValue;
     }
-    
+
     /**
      * @deprecated Use getBytesValue() instead
      */

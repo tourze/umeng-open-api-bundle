@@ -12,8 +12,6 @@ class UmengApptrackGetRegisterAnalysis extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 注册id
      */
@@ -94,22 +92,21 @@ class UmengApptrackGetRegisterAnalysis extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'registerId')) {
-            $this->registerId = $this->stdResult->{'registerId'};
+            $this->registerId = $this->stdResult->registerId;
         }
         if (property_exists($this->stdResult, 'eventDs')) {
-            $this->eventDs = $this->stdResult->{'eventDs'};
+            $this->eventDs = $this->stdResult->eventDs;
         }
         if (property_exists($this->stdResult, 'activateDs')) {
-            $this->activateDs = $this->stdResult->{'activateDs'};
+            $this->activateDs = $this->stdResult->activateDs;
         }
         if (property_exists($this->stdResult, 'clickDs')) {
-            $this->clickDs = $this->stdResult->{'clickDs'};
+            $this->clickDs = $this->stdResult->clickDs;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('registerId')) {
             $this->registerId = $arrayResult['registerId'];
         }

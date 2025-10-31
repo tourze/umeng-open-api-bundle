@@ -16,8 +16,6 @@ class UmengUminiSharePageIndicatorDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 分享回流比
      */
@@ -136,28 +134,27 @@ class UmengUminiSharePageIndicatorDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'reflowRatio')) {
-            $this->reflowRatio = $this->stdResult->{'reflowRatio'};
+            $this->reflowRatio = $this->stdResult->reflowRatio;
         }
         if (property_exists($this->stdResult, 'path')) {
-            $this->path = $this->stdResult->{'path'};
+            $this->path = $this->stdResult->path;
         }
         if (property_exists($this->stdResult, 'reflow')) {
-            $this->reflow = $this->stdResult->{'reflow'};
+            $this->reflow = $this->stdResult->reflow;
         }
         if (property_exists($this->stdResult, 'newUser')) {
-            $this->newUser = $this->stdResult->{'newUser'};
+            $this->newUser = $this->stdResult->newUser;
         }
         if (property_exists($this->stdResult, 'count')) {
-            $this->count = $this->stdResult->{'count'};
+            $this->count = $this->stdResult->count;
         }
         if (property_exists($this->stdResult, 'user')) {
-            $this->user = $this->stdResult->{'user'};
+            $this->user = $this->stdResult->user;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('reflowRatio')) {
             $this->reflowRatio = $arrayResult['reflowRatio'];
         }

@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UmengOpenApiBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Stringable;
 use Symfony\Component\Serializer\Attribute\Ignore;
-use Tourze\DoctrineSnowflakeBundle\Service\SnowflakeIdGenerator;
+use Symfony\Component\Validator\Constraints as Assert;
 use Tourze\DoctrineSnowflakeBundle\Traits\SnowflakeKeyAware;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use Tourze\DoctrineTrackBundle\Attribute\TrackColumn;
@@ -17,24 +18,36 @@ use UmengOpenApiBundle\Repository\AccountRepository;
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
 #[ORM\Table(name: 'ims_umeng_open_api_account', options: ['comment' => '开放平台'])]
-class Account implements Stringable
+class Account implements \Stringable
 {
     use TimestampableAware;
     use BlameableAware;
     use SnowflakeKeyAware;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false, 'comment' => '是否有效'])]
     #[TrackColumn]
+    #[Assert\Type(type: 'bool')]
+    #[Assert\NotNull]
     private ?bool $valid = false;
 
     #[ORM\Column(length: 100, options: ['comment' => '账户名称'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 100)]
     private ?string $name = null;
 
     #[ORM\Column(length: 40, options: ['comment' => 'API密钥'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 40)]
     private ?string $apiKey = null;
 
     #[ORM\Column(length: 40, options: ['comment' => 'API安全密钥'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 40)]
     private ?string $apiSecurity = null;
 
+    /**
+     * @var Collection<int, App>
+     */
     #[Ignore]
     #[ORM\OneToMany(mappedBy: 'account', targetEntity: App::class)]
     private Collection $apps;
@@ -44,17 +57,14 @@ class Account implements Stringable
         $this->apps = new ArrayCollection();
     }
 
-
     public function isValid(): ?bool
     {
         return $this->valid;
     }
 
-    public function setValid(?bool $valid): self
+    public function setValid(?bool $valid): void
     {
         $this->valid = $valid;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -62,11 +72,9 @@ class Account implements Stringable
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
     public function getApiKey(): ?string
@@ -74,11 +82,9 @@ class Account implements Stringable
         return $this->apiKey;
     }
 
-    public function setApiKey(string $apiKey): static
+    public function setApiKey(string $apiKey): void
     {
         $this->apiKey = $apiKey;
-
-        return $this;
     }
 
     public function getApiSecurity(): ?string
@@ -86,11 +92,9 @@ class Account implements Stringable
         return $this->apiSecurity;
     }
 
-    public function setApiSecurity(string $apiSecurity): static
+    public function setApiSecurity(string $apiSecurity): void
     {
         $this->apiSecurity = $apiSecurity;
-
-        return $this;
     }
 
     /**
@@ -101,17 +105,23 @@ class Account implements Stringable
         return $this->apps;
     }
 
-    public function addApp(App $app): static
+    /**
+     * @param Collection<int, App> $apps
+     */
+    public function setApps(Collection $apps): void
+    {
+        $this->apps = $apps;
+    }
+
+    public function addApp(App $app): void
     {
         if (!$this->apps->contains($app)) {
             $this->apps->add($app);
             $app->setAccount($this);
         }
-
-        return $this;
     }
 
-    public function removeApp(App $app): static
+    public function removeApp(App $app): void
     {
         if ($this->apps->removeElement($app)) {
             // set the owning side to null (unless already changed)
@@ -119,8 +129,6 @@ class Account implements Stringable
                 $app->setAccount(null);
             }
         }
-
-        return $this;
     }
 
     public function __toString(): string

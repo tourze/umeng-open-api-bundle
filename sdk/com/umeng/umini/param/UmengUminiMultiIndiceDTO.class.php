@@ -16,8 +16,6 @@ class UmengUminiMultiIndiceDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 修改时间
      */
@@ -136,28 +134,27 @@ class UmengUminiMultiIndiceDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'gmtModified')) {
-            $this->gmtModified = $this->stdResult->{'gmtModified'};
+            $this->gmtModified = $this->stdResult->gmtModified;
         }
         if (property_exists($this->stdResult, 'indicesId')) {
-            $this->indicesId = $this->stdResult->{'indicesId'};
+            $this->indicesId = $this->stdResult->indicesId;
         }
         if (property_exists($this->stdResult, 'code')) {
-            $this->code = $this->stdResult->{'code'};
+            $this->code = $this->stdResult->code;
         }
         if (property_exists($this->stdResult, 'propertyName')) {
-            $this->propertyName = $this->stdResult->{'propertyName'};
+            $this->propertyName = $this->stdResult->propertyName;
         }
         if (property_exists($this->stdResult, 'displayName')) {
-            $this->displayName = $this->stdResult->{'displayName'};
+            $this->displayName = $this->stdResult->displayName;
         }
         if (property_exists($this->stdResult, 'eventName')) {
-            $this->eventName = $this->stdResult->{'eventName'};
+            $this->eventName = $this->stdResult->eventName;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('gmtModified')) {
             $this->gmtModified = $arrayResult['gmtModified'];
         }

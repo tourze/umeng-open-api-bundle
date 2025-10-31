@@ -6,8 +6,6 @@ class UmengUappGetYesterdayDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getYesterdayData()
     {
         return $this->yesterdayData;
@@ -25,7 +23,6 @@ class UmengUappGetYesterdayDataResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('yesterdayData')) {
             $yesterdayDataResult = $arrayResult['yesterdayData'];
             $this->yesterdayData = new UmengUappDailyDataInfo();
@@ -37,7 +34,7 @@ class UmengUappGetYesterdayDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'yesterdayData')) {
-            $yesterdayDataResult = $this->stdResult->{'yesterdayData'};
+            $yesterdayDataResult = $this->stdResult->yesterdayData;
             $this->yesterdayData = new UmengUappDailyDataInfo();
             $this->yesterdayData->setStdResult($yesterdayDataResult);
         }

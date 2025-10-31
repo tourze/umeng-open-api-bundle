@@ -1,22 +1,50 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UmengOpenApiBundle\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Tourze\PHPUnitSymfonyKernelTest\Attribute\AsRepository;
 use UmengOpenApiBundle\Entity\ThirtyDayNewUsers;
 
 /**
- * @method ThirtyDayNewUsers|null find($id, $lockMode = null, $lockVersion = null)
- * @method ThirtyDayNewUsers|null findOneBy(array $criteria, array $orderBy = null)
- * @method ThirtyDayNewUsers[]    findAll()
- * @method ThirtyDayNewUsers[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<ThirtyDayNewUsers>
  */
+#[AsRepository(entityClass: ThirtyDayNewUsers::class)]
 class ThirtyDayNewUsersRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ThirtyDayNewUsers::class);
+    }
+
+    public function save(ThirtyDayNewUsers $entity, bool $flush = true): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(ThirtyDayNewUsers $entity, bool $flush = true): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    /**
+     * @param array<string, mixed> $criteria
+     * @param array<string, string>|null $orderBy
+     */
+    public function findOneBy(array $criteria, ?array $orderBy = null): ?ThirtyDayNewUsers
+    {
+        /** @var ThirtyDayNewUsers|null */
+        return parent::findOneBy($criteria, $orderBy);
     }
 }

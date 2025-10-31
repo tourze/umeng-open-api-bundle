@@ -9,9 +9,7 @@ class UmengUminiBatchCreateEventParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**
@@ -30,18 +28,16 @@ class UmengUminiBatchCreateEventParam
      */
     public function getEventList()
     {
-        $tempResult = $this->sdkStdResult['eventList'];
-
-        return $tempResult;
+        return $this->sdkStdResult['eventList'];
     }
 
     /**
      * 设置事件列表
      *
-     * @param array include @see UmengUminiEventDTO[] $eventList
-     * 参数示例：<pre></pre>
+     * @param UmengUminiEventDTO[] $eventList
+     *                                        参数示例：<pre></pre>
      * 此参数必填     */
-    public function setEventList(UmengUminiEventDTO $eventList)
+    public function setEventList(array $eventList)
     {
         $this->sdkStdResult['eventList'] = $eventList;
     }

@@ -9,9 +9,7 @@ class UmengUminiInitMultiLevelTreeParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**
@@ -30,16 +28,14 @@ class UmengUminiInitMultiLevelTreeParam
      */
     public function getTreeJson()
     {
-        $tempResult = $this->sdkStdResult['treeJson'];
-
-        return $tempResult;
+        return $this->sdkStdResult['treeJson'];
     }
 
     /**
      * 设置JSON层级分组结构（最多五级）；
      *
      * @param string $treeJson
-     *                         参数示例：<pre>{"head":["国家","省","城市","门店"],"rows":[["中国","北京","朝阳区","金辉大厦店"],["中国","北京","朝阳区","绿地中心店"]]}</pre>
+     *                         参数示例：<pre>{"head":["国家","省","城市","门店"],"rows":[["中国","北京","朝阳区","金辉大厦店"],["中国","北京","朝阳区","绿地中心店"]}</pre>
      * 此参数必填     */
     public function setTreeJson($treeJson)
     {

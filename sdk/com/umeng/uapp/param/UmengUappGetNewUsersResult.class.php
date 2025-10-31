@@ -6,8 +6,6 @@ class UmengUappGetNewUsersResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return umeng.uapp.count.Data[]
      */
@@ -19,9 +17,9 @@ class UmengUappGetNewUsersResult
     /**
      * 设置umeng.uapp.count.Data[]
      *
-     * @param array include @see UmengUappCountData[] $newUserInfo
+     * @param UmengUappCountData[] $newUserInfo
      * 此参数必填     */
-    public function setNewUserInfo(UmengUappCountData $newUserInfo)
+    public function setNewUserInfo(array $newUserInfo)
     {
         $this->newUserInfo = $newUserInfo;
     }
@@ -30,7 +28,7 @@ class UmengUappGetNewUsersResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'newUserInfo')) {
-            $newUserInfoResult = $this->stdResult->{'newUserInfo'};
+            $newUserInfoResult = $this->stdResult->newUserInfo;
             $object = json_decode(json_encode($newUserInfoResult), true);
             $this->newUserInfo = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -44,7 +42,6 @@ class UmengUappGetNewUsersResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('newUserInfo')) {
             $newUserInfoResult = $arrayResult['newUserInfo'];
             $this->newUserInfo = new UmengUappCountData();

@@ -9,9 +9,7 @@ class ExampleFamilyPostParam
      */
     public function getFamily()
     {
-        $tempResult = $this->sdkStdResult['family'];
-
-        return $tempResult;
+        return $this->sdkStdResult['family'];
     }
 
     /**
@@ -31,9 +29,7 @@ class ExampleFamilyPostParam
      */
     public function getComments()
     {
-        $tempResult = $this->sdkStdResult['comments'];
-
-        return $tempResult;
+        return $this->sdkStdResult['comments'];
     }
 
     /**
@@ -53,18 +49,13 @@ class ExampleFamilyPostParam
      */
     public function getHouseImg()
     {
-        $tempResult = $this->sdkStdResult['houseImg'];
-
-        return $tempResult;
+        return $this->sdkStdResult['houseImg'];
     }
 
     /**
      * 设置房屋信息
      *
-     * @param
-     *            array include @see Byte[] $houseImg
-     *            参数示例：<pre></pre>
-     *            此参数必填
+     * @param array $houseImg Byte[] 参数示例：此参数必填
      */
     public function setHouseImg($houseImg)
     {

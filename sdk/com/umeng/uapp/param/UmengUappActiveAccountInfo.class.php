@@ -10,8 +10,6 @@ class UmengUappActiveAccountInfo extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 统计日期
      */
@@ -73,19 +71,18 @@ class UmengUappActiveAccountInfo extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'date')) {
-            $this->date = $this->stdResult->{'date'};
+            $this->date = $this->stdResult->date;
         }
         if (property_exists($this->stdResult, 'activeUser')) {
-            $this->activeUser = $this->stdResult->{'activeUser'};
+            $this->activeUser = $this->stdResult->activeUser;
         }
         if (property_exists($this->stdResult, 'activeAccount')) {
-            $this->activeAccount = $this->stdResult->{'activeAccount'};
+            $this->activeAccount = $this->stdResult->activeAccount;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('date')) {
             $this->date = $arrayResult['date'];
         }

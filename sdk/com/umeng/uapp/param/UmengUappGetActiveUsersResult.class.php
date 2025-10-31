@@ -6,8 +6,6 @@ class UmengUappGetActiveUsersResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return umeng.uapp.count.Data[]
      */
@@ -19,9 +17,9 @@ class UmengUappGetActiveUsersResult
     /**
      * 设置umeng.uapp.count.Data[]
      *
-     * @param array include @see UmengUappCountData[] $activeUserInfo
+     * @param UmengUappCountData[] $activeUserInfo
      * 此参数必填     */
-    public function setActiveUserInfo(UmengUappCountData $activeUserInfo)
+    public function setActiveUserInfo(array $activeUserInfo)
     {
         $this->activeUserInfo = $activeUserInfo;
     }
@@ -30,7 +28,7 @@ class UmengUappGetActiveUsersResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'activeUserInfo')) {
-            $activeUserInfoResult = $this->stdResult->{'activeUserInfo'};
+            $activeUserInfoResult = $this->stdResult->activeUserInfo;
             $object = json_decode(json_encode($activeUserInfoResult), true);
             $this->activeUserInfo = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -44,7 +42,6 @@ class UmengUappGetActiveUsersResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('activeUserInfo')) {
             $activeUserInfoResult = $arrayResult['activeUserInfo'];
             $this->activeUserInfo = new UmengUappCountData();

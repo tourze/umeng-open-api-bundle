@@ -2,56 +2,169 @@
 
 namespace UmengOpenApiBundle\Tests\Command;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Application;
+use Carbon\CarbonImmutable;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractCommandTestCase;
 use UmengOpenApiBundle\Command\GetDailyNewUsersCommand;
-use Doctrine\ORM\EntityManagerInterface;
+use UmengOpenApiBundle\Entity\Account;
+use UmengOpenApiBundle\Entity\App;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\DailyNewUsersRepository;
+use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
-class GetDailyNewUsersCommandTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(GetDailyNewUsersCommand::class)]
+#[RunTestsInSeparateProcesses]
+final class GetDailyNewUsersCommandTest extends AbstractCommandTestCase
 {
-    public function testConfigure(): void
+    private GetDailyNewUsersCommand $command;
+
+    private CommandTester $commandTester;
+
+    /** @var UmengDataFetcherInterface&MockObject */
+    private MockObject $dataFetcherMock;
+
+    /** @var AppRepository&MockObject */
+    private MockObject $appRepositoryMock;
+
+    /** @var DailyNewUsersRepository&MockObject */
+    private MockObject $newUsersRepositoryMock;
+
+    public function testExecuteWithoutArgumentsShouldSucceed(): void
     {
-        $entityManager = $this->createMock(EntityManagerInterface::class);
-        $appRepository = $this->createMock(AppRepository::class);
-        $newUsersRepository = $this->createMock(DailyNewUsersRepository::class);
-        
-        $command = new GetDailyNewUsersCommand(
-            $appRepository,
-            $newUsersRepository,
-            $entityManager
-        );
-        
-        $this->assertNotNull($command->getName());
-        $this->assertNotNull($command->getDescription());
+        $app = $this->createMockApp();
+
+        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+
+        $mockResult = $this->createMockResult();
+        $this->dataFetcherMock
+            ->method('fetchDailyNewUsers')
+            ->willReturn($mockResult)
+        ;
+
+        $this->newUsersRepositoryMock->method('findOneBy')->willReturn(null);
+
+        $exitCode = $this->commandTester->execute([]);
+
+        $this->assertSame(Command::SUCCESS, $exitCode);
     }
 
-    public function testExecute(): void
+    public function testExecuteWithBothArgumentsShouldSucceed(): void
     {
-        $entityManager = $this->createMock(EntityManagerInterface::class);
-        $appRepository = $this->createMock(AppRepository::class);
-        $newUsersRepository = $this->createMock(DailyNewUsersRepository::class);
-        
-        // 模拟返回空数组，避免执行实际的 API 调用
-        $appRepository->expects($this->once())
-            ->method('findAll')
-            ->willReturn([]);
-        
-        $command = new GetDailyNewUsersCommand(
-            $appRepository,
-            $newUsersRepository,
-            $entityManager
-        );
-        
-        $application = new Application();
-        $application->add($command);
-        
-        $commandTester = new CommandTester($command);
-        $commandTester->execute([]);
-        
-        $this->assertEquals(Command::SUCCESS, $commandTester->getStatusCode());
+        $app = $this->createMockApp();
+
+        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+
+        $mockResult = $this->createMockResult();
+        $this->dataFetcherMock
+            ->expects($this->once())
+            ->method('fetchDailyNewUsers')
+            ->with(
+                $app,
+                self::callback(function ($startDate) {
+                    return $startDate instanceof CarbonImmutable && '2024-01-01' === $startDate->format('Y-m-d');
+                }),
+                self::callback(function ($endDate) {
+                    return $endDate instanceof CarbonImmutable && '2024-01-31' === $endDate->format('Y-m-d');
+                })
+            )
+            ->willReturn($mockResult)
+        ;
+
+        $this->newUsersRepositoryMock->method('findOneBy')->willReturn(null);
+
+        $exitCode = $this->commandTester->execute([
+            'startDate' => '2024-01-01',
+            'endDate' => '2024-01-31',
+        ]);
+
+        $this->assertSame(Command::SUCCESS, $exitCode);
+    }
+
+    public function testArgumentStartDate(): void
+    {
+        $mockResult = $this->createMock(\UmengUappGetNewUsersResult::class);
+        $mockResult->method('getNewUserInfo')->willReturn([]);
+
+        $this->dataFetcherMock->method('fetchDailyNewUsers')
+            ->willReturn($mockResult)
+        ;
+
+        $exitCode = $this->commandTester->execute(['startDate' => '2024-01-01']);
+        $this->assertSame(Command::SUCCESS, $exitCode);
+    }
+
+    public function testArgumentEndDate(): void
+    {
+        $mockResult = $this->createMock(\UmengUappGetNewUsersResult::class);
+        $mockResult->method('getNewUserInfo')->willReturn([]);
+
+        $this->dataFetcherMock->method('fetchDailyNewUsers')
+            ->willReturn($mockResult)
+        ;
+
+        $exitCode = $this->commandTester->execute(['endDate' => '2024-01-01']);
+        $this->assertSame(Command::SUCCESS, $exitCode);
+    }
+
+    protected function getCommandTester(): CommandTester
+    {
+        return $this->commandTester;
+    }
+
+    protected function onSetUp(): void
+    {
+        $this->dataFetcherMock = $this->createMock(UmengDataFetcherInterface::class);
+        $this->appRepositoryMock = $this->createMock(AppRepository::class);
+        $this->newUsersRepositoryMock = $this->createMock(DailyNewUsersRepository::class);
+
+        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcherMock);
+        self::getContainer()->set(AppRepository::class, $this->appRepositoryMock);
+        self::getContainer()->set(DailyNewUsersRepository::class, $this->newUsersRepositoryMock);
+
+        $this->command = self::getService(GetDailyNewUsersCommand::class);
+        $this->commandTester = new CommandTester($this->command);
+    }
+
+    private function createMockApp(): App
+    {
+        $account = new Account();
+        $account->setName('Test Account');
+        $account->setApiKey('test_api_key');
+        $account->setApiSecurity('test_secret');
+
+        self::getEntityManager()->persist($account);
+        self::getEntityManager()->flush();
+
+        $app = new App();
+        $app->setAccount($account);
+        $app->setAppKey('test_app_key');
+        $app->setName('Test App');
+        $app->setPlatform('android');
+        $app->setPopular(false);
+        $app->setUseGameSdk(false);
+
+        self::getEntityManager()->persist($app);
+        self::getEntityManager()->flush();
+
+        return $app;
+    }
+
+    private function createMockResult(): \UmengUappGetNewUsersResult
+    {
+        $mockCountData = $this->createMock(\UmengUappCountData::class);
+        $mockCountData->method('getDate')->willReturn('2024-01-01');
+        $mockCountData->method('getValue')->willReturn(200);
+
+        $mockResult = $this->createMock(\UmengUappGetNewUsersResult::class);
+        $mockResult->method('getNewUserInfo')->willReturn([$mockCountData]);
+
+        return $mockResult;
     }
 }

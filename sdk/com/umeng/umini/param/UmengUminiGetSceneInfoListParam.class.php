@@ -9,9 +9,7 @@ class UmengUminiGetSceneInfoListParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUminiGetSceneInfoListParam
      */
     public function getSourceType()
     {
-        $tempResult = $this->sdkStdResult['sourceType'];
-
-        return $tempResult;
+        return $this->sdkStdResult['sourceType'];
     }
 
     /**

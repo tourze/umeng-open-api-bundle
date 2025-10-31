@@ -6,8 +6,6 @@ class UmengUappGetNewUsersByChannelOrVersionResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getNewUserInfo()
     {
         return $this->newUserInfo;
@@ -16,9 +14,9 @@ class UmengUappGetNewUsersByChannelOrVersionResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappCountData[] $newUserInfo
+     * @param UmengUappCountData[] $newUserInfo
      * 此参数必填     */
-    public function setNewUserInfo(UmengUappCountData $newUserInfo)
+    public function setNewUserInfo(array $newUserInfo)
     {
         $this->newUserInfo = $newUserInfo;
     }
@@ -27,7 +25,7 @@ class UmengUappGetNewUsersByChannelOrVersionResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'newUserInfo')) {
-            $newUserInfoResult = $this->stdResult->{'newUserInfo'};
+            $newUserInfoResult = $this->stdResult->newUserInfo;
             $object = json_decode(json_encode($newUserInfoResult), true);
             $this->newUserInfo = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -41,7 +39,6 @@ class UmengUappGetNewUsersByChannelOrVersionResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('newUserInfo')) {
             $newUserInfoResult = $arrayResult['newUserInfo'];
             $this->newUserInfo = new UmengUappCountData();

@@ -18,8 +18,6 @@ class UmengApptrackGetRegisterLoginDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return int 注册数量
      */
@@ -150,31 +148,30 @@ class UmengApptrackGetRegisterLoginDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'register')) {
-            $this->register = $this->stdResult->{'register'};
+            $this->register = $this->stdResult->register;
         }
         if (property_exists($this->stdResult, 'login')) {
-            $this->login = $this->stdResult->{'login'};
+            $this->login = $this->stdResult->login;
         }
         if (property_exists($this->stdResult, 'roleDevice')) {
-            $this->roleDevice = $this->stdResult->{'roleDevice'};
+            $this->roleDevice = $this->stdResult->roleDevice;
         }
         if (property_exists($this->stdResult, 'orderDevice')) {
-            $this->orderDevice = $this->stdResult->{'orderDevice'};
+            $this->orderDevice = $this->stdResult->orderDevice;
         }
         if (property_exists($this->stdResult, 'orderAmount')) {
-            $this->orderAmount = $this->stdResult->{'orderAmount'};
+            $this->orderAmount = $this->stdResult->orderAmount;
         }
         if (property_exists($this->stdResult, 'payDevice')) {
-            $this->payDevice = $this->stdResult->{'payDevice'};
+            $this->payDevice = $this->stdResult->payDevice;
         }
         if (property_exists($this->stdResult, 'amount')) {
-            $this->amount = $this->stdResult->{'amount'};
+            $this->amount = $this->stdResult->amount;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('register')) {
             $this->register = $arrayResult['register'];
         }

@@ -10,8 +10,6 @@ class UmengUappParamInfo extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 参数ID
      */
@@ -73,19 +71,18 @@ class UmengUappParamInfo extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'paramId')) {
-            $this->paramId = $this->stdResult->{'paramId'};
+            $this->paramId = $this->stdResult->paramId;
         }
         if (property_exists($this->stdResult, 'name')) {
-            $this->name = $this->stdResult->{'name'};
+            $this->name = $this->stdResult->name;
         }
         if (property_exists($this->stdResult, 'displayName')) {
-            $this->displayName = $this->stdResult->{'displayName'};
+            $this->displayName = $this->stdResult->displayName;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('paramId')) {
             $this->paramId = $arrayResult['paramId'];
         }

@@ -12,8 +12,6 @@ class UmengUminiGetOverviewResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getData()
     {
         return $this->data;
@@ -76,7 +74,6 @@ class UmengUminiGetOverviewResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('data')) {
             $dataResult = $arrayResult['data'];
             $this->data = new UmengUminiOverviewDTO();
@@ -97,18 +94,18 @@ class UmengUminiGetOverviewResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'data')) {
-            $dataResult = $this->stdResult->{'data'};
+            $dataResult = $this->stdResult->data;
             $this->data = new UmengUminiOverviewDTO();
             $this->data->setStdResult($dataResult);
         }
         if (property_exists($this->stdResult, 'msg')) {
-            $this->msg = $this->stdResult->{'msg'};
+            $this->msg = $this->stdResult->msg;
         }
         if (property_exists($this->stdResult, 'code')) {
-            $this->code = $this->stdResult->{'code'};
+            $this->code = $this->stdResult->code;
         }
         if (property_exists($this->stdResult, 'success')) {
-            $this->success = $this->stdResult->{'success'};
+            $this->success = $this->stdResult->success;
         }
     }
 }

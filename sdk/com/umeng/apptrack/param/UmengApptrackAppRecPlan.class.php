@@ -12,8 +12,6 @@ class UmengApptrackAppRecPlan extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 计划Id
      */
@@ -94,22 +92,21 @@ class UmengApptrackAppRecPlan extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'planId')) {
-            $this->planId = $this->stdResult->{'planId'};
+            $this->planId = $this->stdResult->planId;
         }
         if (property_exists($this->stdResult, 'planName')) {
-            $this->planName = $this->stdResult->{'planName'};
+            $this->planName = $this->stdResult->planName;
         }
         if (property_exists($this->stdResult, 'startDay')) {
-            $this->startDay = $this->stdResult->{'startDay'};
+            $this->startDay = $this->stdResult->startDay;
         }
         if (property_exists($this->stdResult, 'endDay')) {
-            $this->endDay = $this->stdResult->{'endDay'};
+            $this->endDay = $this->stdResult->endDay;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('planId')) {
             $this->planId = $arrayResult['planId'];
         }

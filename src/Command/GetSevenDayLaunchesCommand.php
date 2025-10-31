@@ -1,29 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UmengOpenApiBundle\Command;
 
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Monolog\Attribute\WithMonologChannel;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Tourze\Symfony\CronJob\Attribute\AsCronTask;
+use UmengOpenApiBundle\Entity\App;
 use UmengOpenApiBundle\Entity\SevenDaysLaunches;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\SevenDaysLaunchesRepository;
+use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
+#[Autoconfigure(public: true)]
+#[WithMonologChannel(channel: 'umeng_open_api')]
 #[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App启动次数(7天)')]
 class GetSevenDayLaunchesCommand extends Command
 {
-    
     public const NAME = 'umeng-open-api:get-seven-day-launches';
-public function __construct(
+
+    public function __construct(
         private readonly AppRepository $appRepository,
         private readonly SevenDaysLaunchesRepository $sevenDaysLaunchesRepository,
         private readonly EntityManagerInterface $entityManager,
+        private readonly UmengDataFetcherInterface $dataFetcher,
     ) {
         parent::__construct();
     }
@@ -32,68 +42,75 @@ public function __construct(
     {
         $this
             ->addArgument('startDate', InputArgument::OPTIONAL)
-            ->addArgument('endDate', InputArgument::OPTIONAL);
+            ->addArgument('endDate', InputArgument::OPTIONAL)
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $endDate = $input->getArgument('endDate') !== null ? CarbonImmutable::parse($input->getArgument('endDate'))->startOfDay()
-            : CarbonImmutable::today();
-        $startDate = $input->getArgument('startDate') !== null ? CarbonImmutable::parse($input->getArgument('startDate'))->startOfDay()
-            : $endDate->subDays(7);
+        $dateRange = $this->parseDateRange($input);
 
         foreach ($this->appRepository->findAll() as $app) {
-            $account = $app->getAccount();
-
-            // 请替换第一个参数apiKey和第二个参数apiSecurity
-            $clientPolicy = new \ClientPolicy($account->getApiKey(), $account->getApiSecurity(), 'gateway.open.umeng.com');
-            $syncAPIClient = new \SyncAPIClient($clientPolicy);
-
-            $reqPolicy = new \RequestPolicy();
-            $reqPolicy->httpMethod = 'POST';
-            $reqPolicy->needAuthorization = false;
-            $reqPolicy->requestSendTimestamp = false;
-            // 测试环境只支持http
-            // $reqPolicy->useHttps = false;
-            $reqPolicy->useHttps = true;
-            $reqPolicy->useSignture = true;
-            $reqPolicy->accessPrivateApi = false;
-
-            $param = new \UmengUappGetLaunchesParam();
-            $param->setAppkey($app->getAppKey());
-            $param->setStartDate($startDate->format('Y-m-d'));
-            $param->setEndDate($endDate->format('Y-m-d'));
-            $param->setPeriodType('7day');
-
-            $request = new \APIRequest();
-            $apiId = new \APIId('com.umeng.uapp', 'umeng.uapp.getLaunches', 1);
-            $request->apiId = $apiId;
-            /** @phpstan-ignore-next-line */
-
-            $request->requestEntity = $param;
-
-            $result = new \UmengUappGetLaunchesResult();
-            $syncAPIClient->send($request, $result, $reqPolicy);
-
-            foreach ($result->getLaunchInfo() as $item) {
-                /** @var \UmengUappCountData $item */
-                $date = CarbonImmutable::parse((string) $item->getDate())->startOfDay();
-
-                $dbItem = $this->sevenDaysLaunchesRepository->findOneBy([
-                    'app' => $app,
-                    'date' => $date,
-                ]);
-                if ($dbItem === null) {
-                    $dbItem = new SevenDaysLaunches();
-                    $dbItem->setApp($app);
-                    $dbItem->setDate($date);
-                }
-                $dbItem->setValue((int) $item->getValue());
-                $this->entityManager->persist($dbItem);
-                $this->entityManager->flush();
-            }
+            /** @var App $app */
+            $this->processApp($app, $dateRange['startDate'], $dateRange['endDate']);
         }
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * @return array{startDate: CarbonImmutable, endDate: CarbonImmutable}
+     */
+    private function parseDateRange(InputInterface $input): array
+    {
+        $endDateArg = $input->getArgument('endDate');
+        $endDate = null !== $endDateArg && is_string($endDateArg)
+            ? CarbonImmutable::parse($endDateArg)->startOfDay()
+            : CarbonImmutable::today();
+
+        $startDateArg = $input->getArgument('startDate');
+        $startDate = null !== $startDateArg && is_string($startDateArg)
+            ? CarbonImmutable::parse($startDateArg)->startOfDay()
+            : $endDate->subDays(7);
+
+        return ['startDate' => $startDate, 'endDate' => $endDate];
+    }
+
+    private function processApp(App $app, CarbonImmutable $startDate, CarbonImmutable $endDate): void
+    {
+        $result = $this->dataFetcher->fetchSevenDayLaunches($app, $startDate, $endDate);
+        $this->saveResults($app, $result);
+    }
+
+    private function saveResults(App $app, \UmengUappGetLaunchesResult $result): void
+    {
+        $launchInfo = $result->getLaunchInfo();
+        if (!is_iterable($launchInfo)) {
+            return;
+        }
+
+        foreach ($launchInfo as $item) {
+            /** @var \UmengUappCountData $item */
+            $date = CarbonImmutable::parse((string) $item->getDate())->startOfDay();
+            $this->saveLaunchData($app, $date, (int) $item->getValue());
+        }
+    }
+
+    private function saveLaunchData(App $app, CarbonImmutable $date, int $value): void
+    {
+        $launches = $this->sevenDaysLaunchesRepository->findOneBy([
+            'app' => $app,
+            'date' => $date,
+        ]);
+
+        if (null === $launches) {
+            $launches = new SevenDaysLaunches();
+            $launches->setApp($app);
+            $launches->setDate($date);
+        }
+
+        $launches->setValue($value);
+        $this->entityManager->persist($launches);
+        $this->entityManager->flush();
     }
 }

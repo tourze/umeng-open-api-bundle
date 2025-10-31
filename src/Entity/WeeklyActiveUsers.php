@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UmengOpenApiBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Stringable;
+use Symfony\Component\Validator\Constraints as Assert;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use UmengOpenApiBundle\Repository\WeeklyActiveUsersRepository;
 
@@ -14,27 +16,30 @@ use UmengOpenApiBundle\Repository\WeeklyActiveUsersRepository;
 #[ORM\Entity(repositoryClass: WeeklyActiveUsersRepository::class)]
 #[ORM\Table(name: 'ims_umeng_weekly_active_users', options: ['comment' => '活跃用户数by周'])]
 #[ORM\UniqueConstraint(name: 'ims_umeng_weekly_active_users_idx_uniq', columns: ['app_id', 'date'])]
-class WeeklyActiveUsers implements Stringable
+class WeeklyActiveUsers implements \Stringable
 {
+    use TimestampableAware;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
-    private ?int $id = 0;
+    private int $id = 0;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
-    use TimestampableAware;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private App $app;
 
-#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '统计日期'])]
-    private \DateTimeInterface $date;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '统计日期'])]
+    #[Assert\NotNull]
+    private ?\DateTimeInterface $date;
 
     #[ORM\Column(options: ['comment' => '活跃用户数'])]
+    #[Assert\PositiveOrZero]
     private int $value;
 
     public function getApp(): App
@@ -42,23 +47,19 @@ class WeeklyActiveUsers implements Stringable
         return $this->app;
     }
 
-    public function setApp(App $app): static
+    public function setApp(App $app): void
     {
         $this->app = $app;
-
-        return $this;
     }
 
-    public function getDate(): \DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setDate(?\DateTimeInterface $date): void
     {
         $this->date = $date;
-
-        return $this;
     }
 
     public function getValue(): int
@@ -66,11 +67,9 @@ class WeeklyActiveUsers implements Stringable
         return $this->value;
     }
 
-    public function setValue(int $value): static
+    public function setValue(int $value): void
     {
         $this->value = $value;
-
-        return $this;
     }
 
     public function __toString(): string

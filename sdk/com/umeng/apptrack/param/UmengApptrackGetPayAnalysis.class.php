@@ -18,8 +18,6 @@ class UmengApptrackGetPayAnalysis extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 付费(拍下)ID
      */
@@ -157,31 +155,30 @@ class UmengApptrackGetPayAnalysis extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'payId')) {
-            $this->payId = $this->stdResult->{'payId'};
+            $this->payId = $this->stdResult->payId;
         }
         if (property_exists($this->stdResult, 'payItem')) {
-            $this->payItem = $this->stdResult->{'payItem'};
+            $this->payItem = $this->stdResult->payItem;
         }
         if (property_exists($this->stdResult, 'orderId')) {
-            $this->orderId = $this->stdResult->{'orderId'};
+            $this->orderId = $this->stdResult->orderId;
         }
         if (property_exists($this->stdResult, 'amount')) {
-            $this->amount = $this->stdResult->{'amount'};
+            $this->amount = $this->stdResult->amount;
         }
         if (property_exists($this->stdResult, 'activateDs')) {
-            $this->activateDs = $this->stdResult->{'activateDs'};
+            $this->activateDs = $this->stdResult->activateDs;
         }
         if (property_exists($this->stdResult, 'eventDs')) {
-            $this->eventDs = $this->stdResult->{'eventDs'};
+            $this->eventDs = $this->stdResult->eventDs;
         }
         if (property_exists($this->stdResult, 'clickDs')) {
-            $this->clickDs = $this->stdResult->{'clickDs'};
+            $this->clickDs = $this->stdResult->clickDs;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('payId')) {
             $this->payId = $arrayResult['payId'];
         }

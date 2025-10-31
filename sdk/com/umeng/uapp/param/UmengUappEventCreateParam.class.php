@@ -9,9 +9,7 @@ class UmengUappEventCreateParam
      */
     public function getAppkey()
     {
-        $tempResult = $this->sdkStdResult['appkey'];
-
-        return $tempResult;
+        return $this->sdkStdResult['appkey'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUappEventCreateParam
      */
     public function getEventName()
     {
-        $tempResult = $this->sdkStdResult['eventName'];
-
-        return $tempResult;
+        return $this->sdkStdResult['eventName'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUappEventCreateParam
      */
     public function getEventDisplayName()
     {
-        $tempResult = $this->sdkStdResult['eventDisplayName'];
-
-        return $tempResult;
+        return $this->sdkStdResult['eventDisplayName'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUappEventCreateParam
      */
     public function getEventType()
     {
-        $tempResult = $this->sdkStdResult['eventType'];
-
-        return $tempResult;
+        return $this->sdkStdResult['eventType'];
     }
 
     /**

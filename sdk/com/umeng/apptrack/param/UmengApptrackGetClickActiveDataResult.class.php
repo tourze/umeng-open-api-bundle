@@ -16,8 +16,6 @@ class UmengApptrackGetClickActiveDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 点击pv
      */
@@ -130,28 +128,27 @@ class UmengApptrackGetClickActiveDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'clickPv')) {
-            $this->clickPv = $this->stdResult->{'clickPv'};
+            $this->clickPv = $this->stdResult->clickPv;
         }
         if (property_exists($this->stdResult, 'clickUv')) {
-            $this->clickUv = $this->stdResult->{'clickUv'};
+            $this->clickUv = $this->stdResult->clickUv;
         }
         if (property_exists($this->stdResult, 'activateUv')) {
-            $this->activateUv = $this->stdResult->{'activateUv'};
+            $this->activateUv = $this->stdResult->activateUv;
         }
         if (property_exists($this->stdResult, 'activateRate')) {
-            $this->activateRate = $this->stdResult->{'activateRate'};
+            $this->activateRate = $this->stdResult->activateRate;
         }
         if (property_exists($this->stdResult, 'totalActivateUv')) {
-            $this->totalActivateUv = $this->stdResult->{'totalActivateUv'};
+            $this->totalActivateUv = $this->stdResult->totalActivateUv;
         }
         if (property_exists($this->stdResult, 'activateDevice')) {
-            $this->activateDevice = $this->stdResult->{'activateDevice'};
+            $this->activateDevice = $this->stdResult->activateDevice;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('clickPv')) {
             $this->clickPv = $arrayResult['clickPv'];
         }

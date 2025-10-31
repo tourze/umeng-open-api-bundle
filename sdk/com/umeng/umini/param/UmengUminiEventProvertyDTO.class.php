@@ -6,8 +6,6 @@ class UmengUminiEventProvertyDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 属性名
      */
@@ -31,13 +29,12 @@ class UmengUminiEventProvertyDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'propertyName')) {
-            $this->propertyName = $this->stdResult->{'propertyName'};
+            $this->propertyName = $this->stdResult->propertyName;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('propertyName')) {
             $this->propertyName = $arrayResult['propertyName'];
         }

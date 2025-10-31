@@ -9,9 +9,7 @@ class UmengUminiGetEventOverviewParam
      */
     public function getTimeUnit()
     {
-        $tempResult = $this->sdkStdResult['timeUnit'];
-
-        return $tempResult;
+        return $this->sdkStdResult['timeUnit'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUminiGetEventOverviewParam
      */
     public function getFromDate()
     {
-        $tempResult = $this->sdkStdResult['fromDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['fromDate'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUminiGetEventOverviewParam
      */
     public function getToDate()
     {
-        $tempResult = $this->sdkStdResult['toDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['toDate'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUminiGetEventOverviewParam
      */
     public function getEventName()
     {
-        $tempResult = $this->sdkStdResult['eventName'];
-
-        return $tempResult;
+        return $this->sdkStdResult['eventName'];
     }
 
     /**
@@ -93,9 +85,7 @@ class UmengUminiGetEventOverviewParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**

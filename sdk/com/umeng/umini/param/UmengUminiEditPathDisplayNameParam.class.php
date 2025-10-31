@@ -9,9 +9,7 @@ class UmengUminiEditPathDisplayNameParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUminiEditPathDisplayNameParam
      */
     public function getDisplayName()
     {
-        $tempResult = $this->sdkStdResult['displayName'];
-
-        return $tempResult;
+        return $this->sdkStdResult['displayName'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUminiEditPathDisplayNameParam
      */
     public function getPath()
     {
-        $tempResult = $this->sdkStdResult['path'];
-
-        return $tempResult;
+        return $this->sdkStdResult['path'];
     }
 
     /**

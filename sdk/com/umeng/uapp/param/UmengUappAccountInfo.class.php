@@ -14,8 +14,6 @@ class UmengUappAccountInfo extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 统计日期
      */
@@ -84,8 +82,8 @@ class UmengUappAccountInfo extends SDKDomain
     /**
      * 设置小时新增用户（按小时查询时）
      *
-     * @param array include @see Integer[] $hourNewUser
-     * 参数示例：<pre>[11,65,49,4,4,8,25,29,31,29,32,29,38,63,39,33,34,41,40,53,12,77,86,50]</pre>
+     * @param int[] $hourNewUser
+     *                           参数示例：<pre>[11,65,49,4,4,8,25,29,31,29,32,29,38,63,39,33,34,41,40,53,12,77,86,50]</pre>
      * 此参数必填     */
     public function setHourNewUser($hourNewUser)
     {
@@ -103,8 +101,8 @@ class UmengUappAccountInfo extends SDKDomain
     /**
      * 设置小时新增账号（按小时查询时）
      *
-     * @param array include @see Integer[] $hourNewAccount
-     * 参数示例：<pre>[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]</pre>
+     * @param int[] $hourNewAccount
+     *                              参数示例：<pre>[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]</pre>
      * 此参数必填     */
     public function setHourNewAccount($hourNewAccount)
     {
@@ -115,25 +113,24 @@ class UmengUappAccountInfo extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'date')) {
-            $this->date = $this->stdResult->{'date'};
+            $this->date = $this->stdResult->date;
         }
         if (property_exists($this->stdResult, 'newUser')) {
-            $this->newUser = $this->stdResult->{'newUser'};
+            $this->newUser = $this->stdResult->newUser;
         }
         if (property_exists($this->stdResult, 'newAccount')) {
-            $this->newAccount = $this->stdResult->{'newAccount'};
+            $this->newAccount = $this->stdResult->newAccount;
         }
         if (property_exists($this->stdResult, 'hourNewUser')) {
-            $this->hourNewUser = $this->stdResult->{'hourNewUser'};
+            $this->hourNewUser = $this->stdResult->hourNewUser;
         }
         if (property_exists($this->stdResult, 'hourNewAccount')) {
-            $this->hourNewAccount = $this->stdResult->{'hourNewAccount'};
+            $this->hourNewAccount = $this->stdResult->hourNewAccount;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('date')) {
             $this->date = $arrayResult['date'];
         }

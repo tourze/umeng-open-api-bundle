@@ -9,9 +9,7 @@ class UmengUappGetRetentionsParam
      */
     public function getAppkey()
     {
-        $tempResult = $this->sdkStdResult['appkey'];
-
-        return $tempResult;
+        return $this->sdkStdResult['appkey'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUappGetRetentionsParam
      */
     public function getStartDate()
     {
-        $tempResult = $this->sdkStdResult['startDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['startDate'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUappGetRetentionsParam
      */
     public function getEndDate()
     {
-        $tempResult = $this->sdkStdResult['endDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['endDate'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUappGetRetentionsParam
      */
     public function getPeriodType()
     {
-        $tempResult = $this->sdkStdResult['periodType'];
-
-        return $tempResult;
+        return $this->sdkStdResult['periodType'];
     }
 
     /**
@@ -95,9 +87,7 @@ class UmengUappGetRetentionsParam
      */
     public function getChannel()
     {
-        $tempResult = $this->sdkStdResult['channel'];
-
-        return $tempResult;
+        return $this->sdkStdResult['channel'];
     }
 
     /**
@@ -118,9 +108,7 @@ class UmengUappGetRetentionsParam
      */
     public function getVersion()
     {
-        $tempResult = $this->sdkStdResult['version'];
-
-        return $tempResult;
+        return $this->sdkStdResult['version'];
     }
 
     /**
@@ -141,9 +129,7 @@ class UmengUappGetRetentionsParam
      */
     public function getType()
     {
-        $tempResult = $this->sdkStdResult['type'];
-
-        return $tempResult;
+        return $this->sdkStdResult['type'];
     }
 
     /**

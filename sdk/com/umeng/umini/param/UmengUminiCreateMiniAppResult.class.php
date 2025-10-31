@@ -12,8 +12,6 @@ class UmengUminiCreateMiniAppResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 状态码
      */
@@ -90,22 +88,21 @@ class UmengUminiCreateMiniAppResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'code')) {
-            $this->code = $this->stdResult->{'code'};
+            $this->code = $this->stdResult->code;
         }
         if (property_exists($this->stdResult, 'success')) {
-            $this->success = $this->stdResult->{'success'};
+            $this->success = $this->stdResult->success;
         }
         if (property_exists($this->stdResult, 'data')) {
-            $this->data = $this->stdResult->{'data'};
+            $this->data = $this->stdResult->data;
         }
         if (property_exists($this->stdResult, 'msg')) {
-            $this->msg = $this->stdResult->{'msg'};
+            $this->msg = $this->stdResult->msg;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('code')) {
             $this->code = $arrayResult['code'];
         }

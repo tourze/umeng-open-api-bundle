@@ -6,8 +6,6 @@ class UmengUappGetDailyDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return UmengUappDailyDataInfo
      */
@@ -28,7 +26,6 @@ class UmengUappGetDailyDataResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('dailyData')) {
             $dailyDataResult = $arrayResult['dailyData'];
             $this->dailyData = new UmengUappDailyDataInfo();
@@ -40,7 +37,7 @@ class UmengUappGetDailyDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'dailyData')) {
-            $dailyDataResult = $this->stdResult->{'dailyData'};
+            $dailyDataResult = $this->stdResult->dailyData;
             $this->dailyData = new UmengUappDailyDataInfo();
             $this->dailyData->setStdResult($dailyDataResult);
         }

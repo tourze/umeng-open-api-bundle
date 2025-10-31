@@ -6,8 +6,6 @@ class UmengUappEventGetUniqueUsersResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getUniqueUsers()
     {
         return $this->uniqueUsers;
@@ -16,9 +14,9 @@ class UmengUappEventGetUniqueUsersResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappDateCountInfo[] $uniqueUsers
+     * @param UmengUappDateCountInfo[] $uniqueUsers
      * 此参数必填     */
-    public function setUniqueUsers(UmengUappDateCountInfo $uniqueUsers)
+    public function setUniqueUsers(array $uniqueUsers)
     {
         $this->uniqueUsers = $uniqueUsers;
     }
@@ -27,7 +25,7 @@ class UmengUappEventGetUniqueUsersResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'uniqueUsers')) {
-            $uniqueUsersResult = $this->stdResult->{'uniqueUsers'};
+            $uniqueUsersResult = $this->stdResult->uniqueUsers;
             $object = json_decode(json_encode($uniqueUsersResult), true);
             $this->uniqueUsers = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -41,7 +39,6 @@ class UmengUappEventGetUniqueUsersResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('uniqueUsers')) {
             $uniqueUsersResult = $arrayResult['uniqueUsers'];
             $this->uniqueUsers = new UmengUappDateCountInfo();

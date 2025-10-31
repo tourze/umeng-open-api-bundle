@@ -22,8 +22,6 @@ class UmengUminiCustomerSourceDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return id
      */
@@ -199,37 +197,36 @@ class UmengUminiCustomerSourceDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'id')) {
-            $this->id = $this->stdResult->{'id'};
+            $this->id = $this->stdResult->id;
         }
         if (property_exists($this->stdResult, 'name')) {
-            $this->name = $this->stdResult->{'name'};
+            $this->name = $this->stdResult->name;
         }
         if (property_exists($this->stdResult, 'url')) {
-            $this->url = $this->stdResult->{'url'};
+            $this->url = $this->stdResult->url;
         }
         if (property_exists($this->stdResult, 'onceDuration')) {
-            $this->onceDuration = $this->stdResult->{'onceDuration'};
+            $this->onceDuration = $this->stdResult->onceDuration;
         }
         if (property_exists($this->stdResult, 'activeUser')) {
-            $this->activeUser = $this->stdResult->{'activeUser'};
+            $this->activeUser = $this->stdResult->activeUser;
         }
         if (property_exists($this->stdResult, 'newUser')) {
-            $this->newUser = $this->stdResult->{'newUser'};
+            $this->newUser = $this->stdResult->newUser;
         }
         if (property_exists($this->stdResult, 'launch')) {
-            $this->launch = $this->stdResult->{'launch'};
+            $this->launch = $this->stdResult->launch;
         }
         if (property_exists($this->stdResult, 'visitTimes')) {
-            $this->visitTimes = $this->stdResult->{'visitTimes'};
+            $this->visitTimes = $this->stdResult->visitTimes;
         }
         if (property_exists($this->stdResult, 'createDateTime')) {
-            $this->createDateTime = $this->stdResult->{'createDateTime'};
+            $this->createDateTime = $this->stdResult->createDateTime;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('id')) {
             $this->id = $arrayResult['id'];
         }

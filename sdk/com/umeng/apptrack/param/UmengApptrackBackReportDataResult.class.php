@@ -6,8 +6,6 @@ class UmengApptrackBackReportDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getResult()
     {
         return $this->result;
@@ -27,13 +25,12 @@ class UmengApptrackBackReportDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'result')) {
-            $this->result = $this->stdResult->{'result'};
+            $this->result = $this->stdResult->result;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('result')) {
             $this->result = $arrayResult['result'];
         }

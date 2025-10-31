@@ -9,9 +9,7 @@ class UmengUappGetChannelDataParam
      */
     public function getAppkey()
     {
-        $tempResult = $this->sdkStdResult['appkey'];
-
-        return $tempResult;
+        return $this->sdkStdResult['appkey'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUappGetChannelDataParam
      */
     public function getDate()
     {
-        $tempResult = $this->sdkStdResult['date'];
-
-        return $tempResult;
+        return $this->sdkStdResult['date'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUappGetChannelDataParam
      */
     public function getPerPage()
     {
-        $tempResult = $this->sdkStdResult['perPage'];
-
-        return $tempResult;
+        return $this->sdkStdResult['perPage'];
     }
 
     /**
@@ -74,9 +68,7 @@ class UmengUappGetChannelDataParam
      */
     public function getPage()
     {
-        $tempResult = $this->sdkStdResult['page'];
-
-        return $tempResult;
+        return $this->sdkStdResult['page'];
     }
 
     /**

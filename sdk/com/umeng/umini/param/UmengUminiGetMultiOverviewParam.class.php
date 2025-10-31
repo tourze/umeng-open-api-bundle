@@ -9,9 +9,7 @@ class UmengUminiGetMultiOverviewParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUminiGetMultiOverviewParam
      */
     public function getIsv()
     {
-        $tempResult = $this->sdkStdResult['isv'];
-
-        return $tempResult;
+        return $this->sdkStdResult['isv'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUminiGetMultiOverviewParam
      */
     public function getFromDate()
     {
-        $tempResult = $this->sdkStdResult['fromDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['fromDate'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUminiGetMultiOverviewParam
      */
     public function getToDate()
     {
-        $tempResult = $this->sdkStdResult['toDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['toDate'];
     }
 
     /**
@@ -93,9 +85,7 @@ class UmengUminiGetMultiOverviewParam
      */
     public function getTimeUnit()
     {
-        $tempResult = $this->sdkStdResult['timeUnit'];
-
-        return $tempResult;
+        return $this->sdkStdResult['timeUnit'];
     }
 
     /**
@@ -114,9 +104,7 @@ class UmengUminiGetMultiOverviewParam
      */
     public function getGroupName()
     {
-        $tempResult = $this->sdkStdResult['groupName'];
-
-        return $tempResult;
+        return $this->sdkStdResult['groupName'];
     }
 
     /**

@@ -14,8 +14,6 @@ class UmengUminiLandingPageDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 页面URL
      */
@@ -115,25 +113,24 @@ class UmengUminiLandingPageDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'page')) {
-            $this->page = $this->stdResult->{'page'};
+            $this->page = $this->stdResult->page;
         }
         if (property_exists($this->stdResult, 'displayName')) {
-            $this->displayName = $this->stdResult->{'displayName'};
+            $this->displayName = $this->stdResult->displayName;
         }
         if (property_exists($this->stdResult, 'visitTimes')) {
-            $this->visitTimes = $this->stdResult->{'visitTimes'};
+            $this->visitTimes = $this->stdResult->visitTimes;
         }
         if (property_exists($this->stdResult, 'visitUser')) {
-            $this->visitUser = $this->stdResult->{'visitUser'};
+            $this->visitUser = $this->stdResult->visitUser;
         }
         if (property_exists($this->stdResult, 'jumpRatio')) {
-            $this->jumpRatio = $this->stdResult->{'jumpRatio'};
+            $this->jumpRatio = $this->stdResult->jumpRatio;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('page')) {
             $this->page = $arrayResult['page'];
         }

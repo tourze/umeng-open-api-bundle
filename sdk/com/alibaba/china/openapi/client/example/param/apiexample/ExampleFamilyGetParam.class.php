@@ -9,9 +9,7 @@ class ExampleFamilyGetParam
      */
     public function getFamilyNumber()
     {
-        $tempResult = $this->sdkStdResult['familyNumber'];
-
-        return $tempResult;
+        return $this->sdkStdResult['familyNumber'];
     }
 
     /**

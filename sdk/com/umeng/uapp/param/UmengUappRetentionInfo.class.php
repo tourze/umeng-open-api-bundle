@@ -10,8 +10,6 @@ class UmengUappRetentionInfo extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 统计日期
      */
@@ -61,8 +59,8 @@ class UmengUappRetentionInfo extends SDKDomain
     /**
      * 设置相对之后几日的留存用户数，安装日期到今日之间7天（每天），14天后，30天后留存用户占比（不包含今日）
      *
-     * @param array include @see Double[] $retentionRate
-     * 参数示例：<pre></pre>
+     * @param float[] $retentionRate
+     *                               参数示例：<pre></pre>
      * 此参数必填     */
     public function setRetentionRate($retentionRate)
     {
@@ -73,19 +71,18 @@ class UmengUappRetentionInfo extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'date')) {
-            $this->date = $this->stdResult->{'date'};
+            $this->date = $this->stdResult->date;
         }
         if (property_exists($this->stdResult, 'totalInstallUser')) {
-            $this->totalInstallUser = $this->stdResult->{'totalInstallUser'};
+            $this->totalInstallUser = $this->stdResult->totalInstallUser;
         }
         if (property_exists($this->stdResult, 'retentionRate')) {
-            $this->retentionRate = $this->stdResult->{'retentionRate'};
+            $this->retentionRate = $this->stdResult->retentionRate;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('date')) {
             $this->date = $arrayResult['date'];
         }

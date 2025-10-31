@@ -1,22 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UmengOpenApiBundle\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Tourze\PHPUnitSymfonyKernelTest\Attribute\AsRepository;
 use UmengOpenApiBundle\Entity\WeeklyActiveUsers;
 
 /**
- * @method WeeklyActiveUsers|null find($id, $lockMode = null, $lockVersion = null)
- * @method WeeklyActiveUsers|null findOneBy(array $criteria, array $orderBy = null)
- * @method WeeklyActiveUsers[]    findAll()
- * @method WeeklyActiveUsers[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<WeeklyActiveUsers>
  */
+#[AsRepository(entityClass: WeeklyActiveUsers::class)]
 class WeeklyActiveUsersRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, WeeklyActiveUsers::class);
+    }
+
+    public function save(WeeklyActiveUsers $entity, bool $flush = true): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(WeeklyActiveUsers $entity, bool $flush = true): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 }

@@ -2,373 +2,164 @@
 
 namespace UmengOpenApiBundle\Tests\Command;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\Persistence\ObjectRepository;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Tester\CommandTester;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractCommandTestCase;
 use UmengOpenApiBundle\Command\GetAppListCommand;
 use UmengOpenApiBundle\Entity\Account;
 use UmengOpenApiBundle\Entity\App;
-use UmengOpenApiBundle\Repository\AccountRepository;
 use UmengOpenApiBundle\Repository\AppRepository;
+use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
 /**
- * @runTestsInSeparateProcesses
+ * @internal
  */
-class GetAppListCommandTest extends TestCase
+#[CoversClass(GetAppListCommand::class)]
+#[RunTestsInSeparateProcesses]
+final class GetAppListCommandTest extends AbstractCommandTestCase
 {
     private GetAppListCommand $command;
-    private AppRepository|MockObject $appRepository;
-    private AccountRepository|MockObject $accountRepository;
-    private EntityManagerInterface|MockObject $entityManager;
-    private InputInterface|MockObject $input;
-    private OutputInterface|MockObject $output;
 
-    private ReflectionMethod $executeMethod;
+    private CommandTester $commandTester;
 
-    protected function setUp(): void
+    /** @var UmengDataFetcherInterface&MockObject */
+    private MockObject $dataFetcherMock;
+
+    protected function getCommandTester(): CommandTester
     {
-        // 创建所需的模拟对象
-        $this->appRepository = $this->createMock(AppRepository::class);
-        $this->accountRepository = $this->createMock(AccountRepository::class);
-        $this->entityManager = $this->createMock(EntityManagerInterface::class);
-        $this->input = $this->createMock(InputInterface::class);
-        $this->output = $this->createMock(OutputInterface::class);
-
-        // 创建命令对象
-        $this->command = new GetAppListCommand(
-            $this->appRepository,
-            $this->accountRepository,
-            $this->entityManager
-        );
-
-        // 使用反射获取受保护的execute方法
-        $this->executeMethod = new ReflectionMethod(GetAppListCommand::class, 'execute');
-        $this->executeMethod->setAccessible(true);
-
-        // 设置全局类模拟
-        $this->setupMockClasses();
+        return $this->commandTester;
     }
 
-    /**
-     * 设置全局类模拟，避免实际调用友盟API
-     */
-    private function setupMockClasses(): void
+    protected function onSetUp(): void
     {
-        // ClientPolicy
-        if (!class_exists('\ClientPolicy', false)) {
-            eval('
-            class ClientPolicy {
-                public function __construct(string $apiKey, string $apiSecurity, string $gatewayUrl) {}
-            }
-            ');
-        }
+        $this->dataFetcherMock = $this->createMock(UmengDataFetcherInterface::class);
+        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcherMock);
 
-        // RequestPolicy
-        if (!class_exists('\RequestPolicy', false)) {
-            eval('
-            class RequestPolicy {
-                public $httpMethod;
-                public $needAuthorization;
-                public $requestSendTimestamp;
-                public $useHttps;
-                public $useSignture;
-                public $accessPrivateApi;
-            }
-            ');
-        }
-
-        // UmengUappGetAppListParam
-        if (!class_exists('\UmengUappGetAppListParam', false)) {
-            eval('
-            class UmengUappGetAppListParam {
-                public function setPage($page) {}
-                public function setPerPage($perPage) {}
-                public function setAccessToken($token) {}
-            }
-            ');
-        }
-
-        // APIRequest
-        if (!class_exists('\APIRequest', false)) {
-            eval('
-            class APIRequest {
-                public $apiId;
-                public $requestEntity;
-            }
-            ');
-        }
-
-        // APIId
-        if (!class_exists('\APIId', false)) {
-            eval('
-            class APIId {
-                public function __construct($namespace, $name, $version) {}
-            }
-            ');
-        }
-
-        // UmengUappAppInfoData
-        if (!class_exists('\UmengUappAppInfoData', false)) {
-            eval('
-            class UmengUappAppInfoData {
-                private $appkey;
-                private $name;
-                private $platform;
-                private $popular;
-                private $useGameSdk;
-                private $createdAt;
-                
-                public function __construct($appkey = "", $name = "", $platform = "", $popular = false, $useGameSdk = false, $createdAt = "") {
-                    $this->appkey = $appkey;
-                    $this->name = $name;
-                    $this->platform = $platform;
-                    $this->popular = $popular;
-                    $this->useGameSdk = $useGameSdk;
-                    $this->createdAt = $createdAt;
-                }
-                
-                public function getAppkey() { return $this->appkey; }
-                public function getName() { return $this->name; }
-                public function getPlatform() { return $this->platform; }
-                public function getPopular() { return $this->popular; }
-                public function getUseGameSdk() { return $this->useGameSdk; }
-                public function getCreatedAt() { return $this->createdAt; }
-            }
-            ');
-        }
-
-        // UmengUappGetAppListResult
-        if (!class_exists('\UmengUappGetAppListResult', false)) {
-            eval('
-            class UmengUappGetAppListResult {
-                private $appInfos = [];
-                
-                public function setAppInfos($appInfos) {
-                    $this->appInfos = $appInfos;
-                }
-                
-                public function getAppInfos() {
-                    return $this->appInfos;
-                }
-            }
-            ');
-        }
-
-        // SyncAPIClient
-        if (!class_exists('\SyncAPIClient', false)) {
-            eval('
-            class SyncAPIClient {
-                public function __construct($clientPolicy) {}
-                
-                public function send($request, &$result, $reqPolicy) {
-                    if (is_array($GLOBALS["mock_api_response"]) && isset($GLOBALS["mock_api_response"]["appInfos"])) {
-                        $result->setAppInfos($GLOBALS["mock_api_response"]["appInfos"]);
-                    }
-                }
-            }
-            ');
-        }
+        $this->command = self::getService(GetAppListCommand::class);
+        $this->commandTester = new CommandTester($this->command);
     }
 
-    /**
-     * 测试当没有有效账户时的执行情况
-     */
     public function testExecuteWithNoAccounts(): void
     {
-        // 设置 AccountRepository 模拟对象返回空数组
-        $this->accountRepository->expects($this->once())
-            ->method('findBy')
-            ->with(['valid' => true])
-            ->willReturn([]);
+        $exitCode = $this->commandTester->execute([]);
 
-        // 确保 EntityManager 的 persist 和 flush 方法不会被调用
-        $this->entityManager->expects($this->never())
-            ->method('persist');
-        $this->entityManager->expects($this->never())
-            ->method('flush');
-
-        // 使用反射调用受保护的execute方法
-        $result = $this->executeMethod->invoke($this->command, $this->input, $this->output);
-
-        // 验证返回成功状态
-        $this->assertEquals(Command::SUCCESS, $result);
+        $this->assertSame(Command::SUCCESS, $exitCode);
     }
 
-    /**
-     * 测试当有有效账户但API返回空结果时的执行情况
-     */
     public function testExecuteWithAccountButEmptyApiResult(): void
     {
-        // 创建账户模拟对象
-        $account = new Account();
-        $account->setApiKey('test_api_key');
-        $account->setApiSecurity('test_api_security');
+        $account = $this->createAccount();
 
-        // 设置 AccountRepository 模拟对象返回一个账户
-        $this->accountRepository->expects($this->once())
-            ->method('findBy')
-            ->with(['valid' => true])
-            ->willReturn([$account]);
+        $mockResult = $this->createMock(\UmengUappGetAppListResult::class);
+        $mockResult->method('getAppInfos')->willReturn([]);
 
-        // 模拟空的API响应
-        $GLOBALS['mock_api_response'] = ['appInfos' => []];
+        $this->dataFetcherMock->expects($this->atLeastOnce())
+            ->method('fetchAppList')
+            ->with(self::anything(), 1, 100)
+            ->willReturn($mockResult)
+        ;
 
-        // 确保 EntityManager 的 persist 和 flush 方法不会被调用
-        $this->entityManager->expects($this->never())
-            ->method('persist');
-        $this->entityManager->expects($this->never())
-            ->method('flush');
+        $exitCode = $this->commandTester->execute([]);
 
-        // 使用反射调用受保护的execute方法
-        $result = $this->executeMethod->invoke($this->command, $this->input, $this->output);
-
-        // 验证返回成功状态
-        $this->assertEquals(Command::SUCCESS, $result);
+        $this->assertSame(Command::SUCCESS, $exitCode);
     }
 
-    /**
-     * 测试当API返回有效App信息时的执行情况
-     */
     public function testExecuteWithValidAppInfo(): void
     {
-        // 创建账户模拟对象
-        $account = new Account();
-        $account->setApiKey('test_api_key');
-        $account->setApiSecurity('test_api_security');
+        $account = $this->createAccount();
 
-        // 设置 AccountRepository 模拟对象返回一个账户
-        $this->accountRepository->expects($this->once())
-            ->method('findBy')
-            ->with(['valid' => true])
-            ->willReturn([$account]);
+        $mockAppInfo = $this->createMock(\UmengUappAppInfoData::class);
+        $mockAppInfo->method('getAppkey')->willReturn('test-app-key');
+        $mockAppInfo->method('getName')->willReturn('Test App');
+        $mockAppInfo->method('getPlatform')->willReturn('android');
+        $mockAppInfo->method('getPopular')->willReturn(true);
+        $mockAppInfo->method('getUseGameSdk')->willReturn(false);
 
-        // 创建App信息模拟对象
-        $appInfo = new \UmengUappAppInfoData(
-            'test_app_key',
-            'Test App',
-            'android',
-            true,
-            false,
-            '2023-01-01 00:00:00'
-        );
+        $mockResult = $this->createMock(\UmengUappGetAppListResult::class);
+        $mockResult->method('getAppInfos')->willReturn([$mockAppInfo]);
 
-        // 模拟API响应
-        $GLOBALS['mock_api_response'] = ['appInfos' => [$appInfo]];
+        $this->dataFetcherMock->expects($this->atLeastOnce())
+            ->method('fetchAppList')
+            ->with(self::anything(), 1, 100)
+            ->willReturn($mockResult)
+        ;
 
-        // 设置 AppRepository 模拟对象的行为
-        $this->appRepository->expects($this->once())
-            ->method('findOneBy')
-            ->with([
-                'account' => $account,
-                'appKey' => 'test_app_key'
-            ])
-            ->willReturn(null); // 假设App不存在，需要创建新的
+        $exitCode = $this->commandTester->execute([]);
 
-        // 确保 EntityManager 的 persist 和 flush 方法会被调用
-        $this->entityManager->expects($this->once())
-            ->method('persist')
-            ->with($this->callback(function ($app) {
-                return $app instanceof App
-                    && $app->getAppKey() === 'test_app_key'
-                    && $app->getName() === 'Test App'
-                    && $app->getPlatform() === 'android'
-                    && $app->isPopular() === true
-                    && $app->isUseGameSdk() === false;
-            }));
-        $this->entityManager->expects($this->once())->method('flush');
+        $this->assertSame(Command::SUCCESS, $exitCode);
 
-        // 使用反射调用受保护的execute方法
-        $result = $this->executeMethod->invoke($this->command, $this->input, $this->output);
-
-        // 验证返回成功状态
-        $this->assertEquals(Command::SUCCESS, $result);
+        $app = $this->getAppRepository()->findOneBy(['appKey' => 'test-app-key']);
+        $this->assertNotNull($app);
+        $this->assertInstanceOf(App::class, $app);
+        $this->assertSame('Test App', $app->getName());
+        $this->assertSame('android', $app->getPlatform());
+        $this->assertTrue($app->isPopular());
+        $this->assertFalse($app->isUseGameSdk());
     }
 
-    /**
-     * 测试当App已存在时的更新行为
-     */
     public function testExecuteUpdateExistingApp(): void
     {
-        // 创建账户模拟对象
-        $account = new Account();
-        $account->setApiKey('test_api_key');
-        $account->setApiSecurity('test_api_security');
+        $account = $this->createAccount();
 
-        // 创建已存在的App对象
         $existingApp = new App();
         $existingApp->setAccount($account);
-        $existingApp->setAppKey('test_app_key');
-        $existingApp->setName('Old App Name');
+        $existingApp->setAppKey('existing-app-key');
+        $existingApp->setName('Old Name');
         $existingApp->setPlatform('ios');
         $existingApp->setPopular(false);
-        $existingApp->setUseGameSdk(true);
+        $existingApp->setUseGameSdk(false);
 
-        // 设置 AccountRepository 模拟对象返回一个账户
-        $this->accountRepository->expects($this->once())
-            ->method('findBy')
-            ->with(['valid' => true])
-            ->willReturn([$account]);
+        self::getEntityManager()->persist($existingApp);
+        self::getEntityManager()->flush();
 
-        // 创建App信息模拟对象
-        $appInfo = new \UmengUappAppInfoData(
-            'test_app_key',
-            'New App Name',
-            'android',
-            true,
-            false,
-            '2023-01-01 00:00:00'
-        );
+        $mockAppInfo = $this->createMock(\UmengUappAppInfoData::class);
+        $mockAppInfo->method('getAppkey')->willReturn('existing-app-key');
+        $mockAppInfo->method('getName')->willReturn('Updated Name');
+        $mockAppInfo->method('getPlatform')->willReturn('android');
+        $mockAppInfo->method('getPopular')->willReturn(true);
+        $mockAppInfo->method('getUseGameSdk')->willReturn(true);
 
-        // 模拟API响应
-        $GLOBALS['mock_api_response'] = ['appInfos' => [$appInfo]];
+        $mockResult = $this->createMock(\UmengUappGetAppListResult::class);
+        $mockResult->method('getAppInfos')->willReturn([$mockAppInfo]);
 
-        // 设置 AppRepository 模拟对象的行为，返回已存在的App
-        $this->appRepository->expects($this->once())
-            ->method('findOneBy')
-            ->with([
-                'account' => $account,
-                'appKey' => 'test_app_key'
-            ])
-            ->willReturn($existingApp);
+        $this->dataFetcherMock->expects($this->atLeastOnce())
+            ->method('fetchAppList')
+            ->with(self::anything(), 1, 100)
+            ->willReturn($mockResult)
+        ;
 
-        // 确保 EntityManager 的 persist 和 flush 方法会被调用
-        $this->entityManager->expects($this->once())
-            ->method('persist')
-            ->with($this->callback(function ($app) {
-                return $app instanceof App
-                    && $app->getAppKey() === 'test_app_key'
-                    && $app->getName() === 'New App Name'
-                    && $app->getPlatform() === 'android'
-                    && $app->isPopular() === true
-                    && $app->isUseGameSdk() === false;
-            }));
-        $this->entityManager->expects($this->once())->method('flush');
+        $exitCode = $this->commandTester->execute([]);
 
-        // 使用反射调用受保护的execute方法
-        $result = $this->executeMethod->invoke($this->command, $this->input, $this->output);
+        $this->assertSame(Command::SUCCESS, $exitCode);
 
-        // 验证返回成功状态
-        $this->assertEquals(Command::SUCCESS, $result);
-
-        // 验证App的属性已更新
-        $this->assertEquals('New App Name', $existingApp->getName());
-        $this->assertEquals('android', $existingApp->getPlatform());
+        self::getEntityManager()->refresh($existingApp);
+        $this->assertSame('Updated Name', $existingApp->getName());
+        $this->assertSame('android', $existingApp->getPlatform());
         $this->assertTrue($existingApp->isPopular());
-        $this->assertFalse($existingApp->isUseGameSdk());
+        $this->assertTrue($existingApp->isUseGameSdk());
     }
 
-    /**
-     * 清理全局模拟变量
-     */
-    protected function tearDown(): void
+    private function createAccount(): Account
     {
-        // 清理全局变量
-        if (isset($GLOBALS['mock_api_response'])) {
-            unset($GLOBALS['mock_api_response']);
-        }
+        $account = new Account();
+        $account->setName('Test Account');
+        $account->setApiKey('test-api-key');
+        $account->setApiSecurity('test-api-security');
+        $account->setValid(true);
+
+        self::getEntityManager()->persist($account);
+        self::getEntityManager()->flush();
+
+        return $account;
+    }
+
+    private function getAppRepository(): AppRepository
+    {
+        return self::getService(AppRepository::class);
     }
 }

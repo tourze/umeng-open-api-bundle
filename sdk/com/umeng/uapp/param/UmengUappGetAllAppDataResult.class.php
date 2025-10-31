@@ -6,8 +6,6 @@ class UmengUappGetAllAppDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getAllAppData()
     {
         return $this->allAppData;
@@ -16,9 +14,9 @@ class UmengUappGetAllAppDataResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappAllAppData[] $allAppData
+     * @param UmengUappAllAppData[] $allAppData
      * 此参数必填     */
-    public function setAllAppData(UmengUappAllAppData $allAppData)
+    public function setAllAppData(array $allAppData)
     {
         $this->allAppData = $allAppData;
     }
@@ -27,7 +25,7 @@ class UmengUappGetAllAppDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'allAppData')) {
-            $allAppDataResult = $this->stdResult->{'allAppData'};
+            $allAppDataResult = $this->stdResult->allAppData;
             $object = json_decode(json_encode($allAppDataResult), true);
             $this->allAppData = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -41,7 +39,6 @@ class UmengUappGetAllAppDataResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('allAppData')) {
             $allAppDataResult = $arrayResult['allAppData'];
             $this->allAppData = new UmengUappAllAppData();

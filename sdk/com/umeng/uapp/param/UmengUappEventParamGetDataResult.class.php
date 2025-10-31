@@ -6,8 +6,6 @@ class UmengUappEventParamGetDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getParamValueData()
     {
         return $this->paramValueData;
@@ -16,9 +14,9 @@ class UmengUappEventParamGetDataResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappDateCountInfo[] $paramValueData
+     * @param UmengUappDateCountInfo[] $paramValueData
      * 此参数必填     */
-    public function setParamValueData(UmengUappDateCountInfo $paramValueData)
+    public function setParamValueData(array $paramValueData)
     {
         $this->paramValueData = $paramValueData;
     }
@@ -27,7 +25,7 @@ class UmengUappEventParamGetDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'paramValueData')) {
-            $paramValueDataResult = $this->stdResult->{'paramValueData'};
+            $paramValueDataResult = $this->stdResult->paramValueData;
             $object = json_decode(json_encode($paramValueDataResult), true);
             $this->paramValueData = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -41,7 +39,6 @@ class UmengUappEventParamGetDataResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('paramValueData')) {
             $paramValueDataResult = $arrayResult['paramValueData'];
             $this->paramValueData = new UmengUappDateCountInfo();

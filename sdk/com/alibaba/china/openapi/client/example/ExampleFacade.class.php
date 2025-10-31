@@ -43,6 +43,7 @@ class ExampleFacade
      * 根据授权码换取授权令牌
      *
      * @param string $code 授权码
+     *
      * @return AuthorizationToken 授权令牌
      */
     public function getToken($code)
@@ -95,6 +96,7 @@ class ExampleFacade
      * 刷新token
      *
      * @param string $refreshToken refresh令牌
+     *
      * @return AuthorizationToken 授权令牌
      */
     public function refreshToken($refreshToken)

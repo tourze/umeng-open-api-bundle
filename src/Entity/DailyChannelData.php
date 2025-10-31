@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UmengOpenApiBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Stringable;
+use Symfony\Component\Validator\Constraints as Assert;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use UmengOpenApiBundle\Repository\DailyChannelDataRepository;
 
@@ -14,42 +16,52 @@ use UmengOpenApiBundle\Repository\DailyChannelDataRepository;
 #[ORM\Entity(repositoryClass: DailyChannelDataRepository::class)]
 #[ORM\Table(name: 'ims_umeng_daily_channel_data', options: ['comment' => '渠道维度日统计'])]
 #[ORM\UniqueConstraint(name: 'ims_umeng_daily_channel_data_idx_uniq', columns: ['channel_id', 'date'])]
-class DailyChannelData implements Stringable
+class DailyChannelData implements \Stringable
 {
+    use TimestampableAware;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
-    private ?int $id = 0;
+    private int $id = 0;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
-    use TimestampableAware;
 
     #[ORM\ManyToOne(inversedBy: 'dailyData')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Channel $channel = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['comment' => '日期'])]
+    #[Assert\NotNull]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(nullable: true, options: ['comment' => '启动数'])]
+    #[Assert\PositiveOrZero]
     private ?int $launch = null;
 
     #[ORM\Column(length: 10, nullable: true, options: ['comment' => '使用时长(秒)'])]
+    #[Assert\Length(max: 10)]
+    #[Assert\Regex(pattern: '/^\d+$/', message: '使用时长必须是数字')]
     private ?string $duration = null;
 
     #[ORM\Column(nullable: true, options: ['comment' => '当前渠道总用户数在总用户数中的比例'])]
+    #[Assert\Range(min: 0, max: 100)]
+    #[Assert\PositiveOrZero]
     private ?float $totalUserRate = null;
 
     #[ORM\Column(nullable: true, options: ['comment' => '活跃用户'])]
+    #[Assert\PositiveOrZero]
     private ?int $activeUser = null;
 
     #[ORM\Column(nullable: true, options: ['comment' => '新增用户'])]
+    #[Assert\PositiveOrZero]
     private ?int $newUser = null;
 
     #[ORM\Column(nullable: true, options: ['comment' => '总用户数'])]
+    #[Assert\PositiveOrZero]
     private ?int $totalUser = null;
 
     public function getChannel(): ?Channel
@@ -57,23 +69,19 @@ class DailyChannelData implements Stringable
         return $this->channel;
     }
 
-    public function setChannel(?Channel $channel): static
+    public function setChannel(?Channel $channel): void
     {
         $this->channel = $channel;
-
-        return $this;
     }
 
-    public function getDate(): \DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setDate(?\DateTimeInterface $date): void
     {
         $this->date = $date;
-
-        return $this;
     }
 
     public function getLaunch(): ?int
@@ -81,11 +89,9 @@ class DailyChannelData implements Stringable
         return $this->launch;
     }
 
-    public function setLaunch(?int $launch): static
+    public function setLaunch(?int $launch): void
     {
         $this->launch = $launch;
-
-        return $this;
     }
 
     public function getDuration(): ?string
@@ -93,11 +99,9 @@ class DailyChannelData implements Stringable
         return $this->duration;
     }
 
-    public function setDuration(?string $duration): static
+    public function setDuration(?string $duration): void
     {
         $this->duration = $duration;
-
-        return $this;
     }
 
     public function getTotalUserRate(): ?float
@@ -105,11 +109,9 @@ class DailyChannelData implements Stringable
         return $this->totalUserRate;
     }
 
-    public function setTotalUserRate(?float $totalUserRate): static
+    public function setTotalUserRate(?float $totalUserRate): void
     {
         $this->totalUserRate = $totalUserRate;
-
-        return $this;
     }
 
     public function getActiveUser(): ?int
@@ -117,11 +119,9 @@ class DailyChannelData implements Stringable
         return $this->activeUser;
     }
 
-    public function setActiveUser(?int $activeUser): static
+    public function setActiveUser(?int $activeUser): void
     {
         $this->activeUser = $activeUser;
-
-        return $this;
     }
 
     public function getNewUser(): ?int
@@ -129,11 +129,9 @@ class DailyChannelData implements Stringable
         return $this->newUser;
     }
 
-    public function setNewUser(?int $newUser): static
+    public function setNewUser(?int $newUser): void
     {
         $this->newUser = $newUser;
-
-        return $this;
     }
 
     public function getTotalUser(): ?int
@@ -141,11 +139,9 @@ class DailyChannelData implements Stringable
         return $this->totalUser;
     }
 
-    public function setTotalUser(?int $totalUser): static
+    public function setTotalUser(?int $totalUser): void
     {
         $this->totalUser = $totalUser;
-
-        return $this;
     }
 
     public function __toString(): string

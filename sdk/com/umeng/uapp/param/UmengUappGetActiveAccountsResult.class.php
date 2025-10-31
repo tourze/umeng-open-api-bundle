@@ -6,8 +6,6 @@ class UmengUappGetActiveAccountsResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getActiveAccountInfo()
     {
         return $this->activeAccountInfo;
@@ -16,9 +14,9 @@ class UmengUappGetActiveAccountsResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappActiveAccountInfo[] $activeAccountInfo
+     * @param UmengUappActiveAccountInfo[] $activeAccountInfo
      * 此参数必填     */
-    public function setActiveAccountInfo(UmengUappActiveAccountInfo $activeAccountInfo)
+    public function setActiveAccountInfo(array $activeAccountInfo)
     {
         $this->activeAccountInfo = $activeAccountInfo;
     }
@@ -27,7 +25,7 @@ class UmengUappGetActiveAccountsResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'activeAccountInfo')) {
-            $activeAccountInfoResult = $this->stdResult->{'activeAccountInfo'};
+            $activeAccountInfoResult = $this->stdResult->activeAccountInfo;
             $object = json_decode(json_encode($activeAccountInfoResult), true);
             $this->activeAccountInfo = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -41,7 +39,6 @@ class UmengUappGetActiveAccountsResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('activeAccountInfo')) {
             $activeAccountInfoResult = $arrayResult['activeAccountInfo'];
             $this->activeAccountInfo = new UmengUappActiveAccountInfo();

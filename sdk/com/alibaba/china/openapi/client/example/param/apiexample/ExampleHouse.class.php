@@ -12,8 +12,6 @@ class ExampleHouse extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getLocation()
     {
         return $this->location;
@@ -86,22 +84,21 @@ class ExampleHouse extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'location')) {
-            $this->location = $this->stdResult->{'location'};
+            $this->location = $this->stdResult->location;
         }
         if (property_exists($this->stdResult, 'areaSize')) {
-            $this->areaSize = $this->stdResult->{'areaSize'};
+            $this->areaSize = $this->stdResult->areaSize;
         }
         if (property_exists($this->stdResult, 'rent')) {
-            $this->rent = $this->stdResult->{'rent'};
+            $this->rent = $this->stdResult->rent;
         }
         if (property_exists($this->stdResult, 'rooms')) {
-            $this->rooms = $this->stdResult->{'rooms'};
+            $this->rooms = $this->stdResult->rooms;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('location')) {
             $this->location = $arrayResult['location'];
         }

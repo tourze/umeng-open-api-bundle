@@ -8,8 +8,6 @@ class UmengApptrackGetRegisterAnalysisDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return array 注册事件列表
      */
@@ -21,9 +19,9 @@ class UmengApptrackGetRegisterAnalysisDataResult
     /**
      * 设置注册事件列表
      *
-     * @param array include @see UmengApptrackGetRegisterAnalysis[] $data
+     * @param UmengApptrackGetRegisterAnalysis[] $data
      * 此参数必填     */
-    public function setData(UmengApptrackGetRegisterAnalysis $data)
+    public function setData(array $data)
     {
         $this->data = $data;
     }
@@ -50,7 +48,7 @@ class UmengApptrackGetRegisterAnalysisDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'data')) {
-            $dataResult = $this->stdResult->{'data'};
+            $dataResult = $this->stdResult->data;
             $object = json_decode(json_encode($dataResult), true);
             $this->data = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -61,13 +59,12 @@ class UmengApptrackGetRegisterAnalysisDataResult
             }
         }
         if (property_exists($this->stdResult, 'total')) {
-            $this->total = $this->stdResult->{'total'};
+            $this->total = $this->stdResult->total;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('data')) {
             $dataResult = $arrayResult['data'];
             $this->data = new UmengApptrackGetRegisterAnalysis();

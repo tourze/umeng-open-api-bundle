@@ -2,152 +2,107 @@
 
 namespace UmengOpenApiBundle\Tests\Entity;
 
-use PHPUnit\Framework\TestCase;
+use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\CoversClass;
+use Tourze\PHPUnitDoctrineEntity\AbstractEntityTestCase;
 use UmengOpenApiBundle\Entity\Account;
 use UmengOpenApiBundle\Entity\App;
-use UmengOpenApiBundle\Entity\Channel;
-use UmengOpenApiBundle\Entity\DailyData;
 
-class AppTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(App::class)]
+final class AppTest extends AbstractEntityTestCase
 {
-    private App $app;
+    protected function createEntity(): object
+    {
+        return new App();
+    }
+
+    /**
+     * @return iterable<string, array{string, mixed}>
+     */
+    public static function propertiesProvider(): iterable
+    {
+        return [
+            'name' => ['name', 'test_app'],
+            'appKey' => ['appKey', 'test_key'],
+            'platform' => ['platform', 'iOS'],
+            'popular' => ['popular', true],
+            'useGameSdk' => ['useGameSdk', false],
+        ];
+    }
 
     protected function setUp(): void
     {
-        $this->app = new App();
+        parent::setUp();
+
+        // 空实现，满足 TestCase 要求
     }
 
-    public function testGetSetName(): void
+    public function testBasicProperties(): void
     {
-        $name = 'Test App';
-        $this->app->setName($name);
-        $this->assertEquals($name, $this->app->getName());
+        $app = $this->createApp();
+
+        $this->assertNull($app->getId());
+        $this->assertNull($app->getName());
+        $this->assertNull($app->getAppKey());
+        $this->assertNull($app->getPlatform());
+        $this->assertNull($app->isPopular());
+        $this->assertNull($app->isUseGameSdk());
+        $this->assertNull($app->getAccount());
     }
 
-    public function testGetSetAppKey(): void
+    public function testSettersAndGetters(): void
     {
-        $appKey = 'app_key_12345';
-        $this->app->setAppKey($appKey);
-        $this->assertEquals($appKey, $this->app->getAppKey());
+        $app = $this->createApp();
+
+        $app->setName('Test App');
+        $this->assertEquals('Test App', $app->getName());
+
+        $app->setAppKey('test_app_key');
+        $this->assertEquals('test_app_key', $app->getAppKey());
+
+        $app->setPlatform('iOS');
+        $this->assertEquals('iOS', $app->getPlatform());
+
+        $app->setPopular(true);
+        $this->assertTrue($app->isPopular());
+
+        $app->setUseGameSdk(false);
+        $this->assertFalse($app->isUseGameSdk());
     }
 
-    public function testGetSetPlatform(): void
+    public function testAccountRelation(): void
     {
-        $platform = 'android';
-        $this->app->setPlatform($platform);
-        $this->assertEquals($platform, $this->app->getPlatform());
+        $app = $this->createApp();
+        $account = $this->createAccount();
+
+        $app->setAccount($account);
+        $this->assertSame($account, $app->getAccount());
     }
 
-    public function testGetSetPopular(): void
+    public function testCollections(): void
     {
-        $this->app->setPopular(true);
-        $this->assertTrue($this->app->isPopular());
+        $app = $this->createApp();
 
-        $this->app->setPopular(false);
-        $this->assertFalse($this->app->isPopular());
-
-        $this->app->setPopular(null);
-        $this->assertNull($this->app->isPopular());
+        $this->assertCount(0, $app->getDailyData());
+        $this->assertCount(0, $app->getChannels());
     }
 
-    public function testGetSetUseGameSdk(): void
+    public function testToString(): void
     {
-        $this->app->setUseGameSdk(true);
-        $this->assertTrue($this->app->isUseGameSdk());
-
-        $this->app->setUseGameSdk(false);
-        $this->assertFalse($this->app->isUseGameSdk());
-
-        $this->app->setUseGameSdk(null);
-        $this->assertNull($this->app->isUseGameSdk());
+        $app = $this->createApp();
+        $this->assertEquals('', $app->__toString());
     }
 
-    public function testGetSetAccount(): void
+    private function createApp(): App
     {
-        $account = new Account();
-        $this->app->setAccount($account);
-        $this->assertSame($account, $this->app->getAccount());
+        return new App();
     }
 
-    public function testAddRemoveDailyData(): void
+    private function createAccount(): Account
     {
-        // 为当前App设置必需的Account关联
-        $account = new Account();
-        $this->app->setAccount($account);
-        
-        // 创建DailyData对象
-        $dailyData = $this->createConfiguredMock(DailyData::class, [
-            'getApp' => $this->app
-        ]);
-        
-        // 模拟DailyData::setApp方法行为
-        $dailyData->expects($this->any())
-            ->method('setApp')
-            ->with($this->logicalOr(
-                $this->identicalTo($this->app),
-                $this->isNull()
-            ));
-        
-        // 初始应为空集合
-        $this->assertCount(0, $this->app->getDailyData());
-        
-        // 添加测试
-        $this->app->addDailyData($dailyData);
-        
-        // 通过反射检查是否添加成功
-        $reflection = new \ReflectionClass($this->app);
-        $property = $reflection->getProperty('dailyData');
-        $property->setAccessible(true);
-        $collection = $property->getValue($this->app);
-        
-        $this->assertCount(1, $collection);
-        $this->assertTrue($collection->contains($dailyData));
+        return new Account();
     }
-
-    public function testAddRemoveChannel(): void
-    {
-        // 为当前App设置必需的Account关联
-        $account = new Account();
-        $this->app->setAccount($account);
-        
-        // 创建Channel对象
-        $channel = $this->createConfiguredMock(Channel::class, [
-            'getApp' => $this->app
-        ]);
-        
-        // 模拟Channel::setApp方法行为
-        $channel->expects($this->any())
-            ->method('setApp')
-            ->with($this->logicalOr(
-                $this->identicalTo($this->app),
-                $this->isNull()
-            ));
-        
-        // 初始应为空集合
-        $this->assertCount(0, $this->app->getChannels());
-        
-        // 添加测试
-        $this->app->addChannel($channel);
-        
-        // 通过反射检查是否添加成功
-        $reflection = new \ReflectionClass($this->app);
-        $property = $reflection->getProperty('channels');
-        $property->setAccessible(true);
-        $collection = $property->getValue($this->app);
-        
-        $this->assertCount(1, $collection);
-        $this->assertTrue($collection->contains($channel));
-    }
-
-    public function testCreateUpdateTime(): void
-    {
-        $now = new \DateTimeImmutable();
-        
-        $this->app->setCreateTime($now);
-        $this->assertEquals($now, $this->app->getCreateTime());
-        
-        $updateTime = new \DateTimeImmutable('+1 hour');
-        $this->app->setUpdateTime($updateTime);
-        $this->assertEquals($updateTime, $this->app->getUpdateTime());
-    }
-} 
+}

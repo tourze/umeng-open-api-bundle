@@ -12,8 +12,6 @@ class UmengUminiInitMultiLevelTreeResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getMsg()
     {
         return $this->msg;
@@ -78,22 +76,21 @@ class UmengUminiInitMultiLevelTreeResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'msg')) {
-            $this->msg = $this->stdResult->{'msg'};
+            $this->msg = $this->stdResult->msg;
         }
         if (property_exists($this->stdResult, 'code')) {
-            $this->code = $this->stdResult->{'code'};
+            $this->code = $this->stdResult->code;
         }
         if (property_exists($this->stdResult, 'success')) {
-            $this->success = $this->stdResult->{'success'};
+            $this->success = $this->stdResult->success;
         }
         if (property_exists($this->stdResult, 'data')) {
-            $this->data = $this->stdResult->{'data'};
+            $this->data = $this->stdResult->data;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('msg')) {
             $this->msg = $arrayResult['msg'];
         }

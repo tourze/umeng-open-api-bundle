@@ -8,8 +8,6 @@ class ExampleFamilyPostResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return ExampleFamily|null 返回的接听信息
      */
@@ -50,7 +48,6 @@ class ExampleFamilyPostResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('result')) {
             $resultResult = $arrayResult['result'];
             $this->result = new ExampleFamily();
@@ -65,12 +62,12 @@ class ExampleFamilyPostResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'result')) {
-            $resultResult = $this->stdResult->{'result'};
+            $resultResult = $this->stdResult->result;
             $this->result = new ExampleFamily();
             $this->result->setStdResult($resultResult);
         }
         if (property_exists($this->stdResult, 'resultDesc')) {
-            $this->resultDesc = $this->stdResult->{'resultDesc'};
+            $this->resultDesc = $this->stdResult->resultDesc;
         }
     }
 }

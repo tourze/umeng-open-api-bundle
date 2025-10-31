@@ -9,9 +9,7 @@ class UmengUappCreateAppParam
      */
     public function getName()
     {
-        $tempResult = $this->sdkStdResult['name'];
-
-        return $tempResult;
+        return $this->sdkStdResult['name'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUappCreateAppParam
      */
     public function getType()
     {
-        $tempResult = $this->sdkStdResult['type'];
-
-        return $tempResult;
+        return $this->sdkStdResult['type'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUappCreateAppParam
      */
     public function getPlatform()
     {
-        $tempResult = $this->sdkStdResult['platform'];
-
-        return $tempResult;
+        return $this->sdkStdResult['platform'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUappCreateAppParam
      */
     public function getLanguage()
     {
-        $tempResult = $this->sdkStdResult['language'];
-
-        return $tempResult;
+        return $this->sdkStdResult['language'];
     }
 
     /**
@@ -93,9 +85,7 @@ class UmengUappCreateAppParam
      */
     public function getFirstLevel()
     {
-        $tempResult = $this->sdkStdResult['firstLevel'];
-
-        return $tempResult;
+        return $this->sdkStdResult['firstLevel'];
     }
 
     /**
@@ -114,9 +104,7 @@ class UmengUappCreateAppParam
      */
     public function getSecondLevel()
     {
-        $tempResult = $this->sdkStdResult['secondLevel'];
-
-        return $tempResult;
+        return $this->sdkStdResult['secondLevel'];
     }
 
     /**
@@ -135,9 +123,7 @@ class UmengUappCreateAppParam
      */
     public function getDescription()
     {
-        $tempResult = $this->sdkStdResult['description'];
-
-        return $tempResult;
+        return $this->sdkStdResult['description'];
     }
 
     /**

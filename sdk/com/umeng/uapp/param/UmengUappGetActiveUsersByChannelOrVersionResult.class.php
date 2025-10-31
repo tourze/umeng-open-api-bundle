@@ -6,8 +6,6 @@ class UmengUappGetActiveUsersByChannelOrVersionResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getActiveUserInfo()
     {
         return $this->activeUserInfo;
@@ -16,9 +14,9 @@ class UmengUappGetActiveUsersByChannelOrVersionResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappCountData[] $activeUserInfo
+     * @param UmengUappCountData[] $activeUserInfo
      * 此参数必填     */
-    public function setActiveUserInfo(UmengUappCountData $activeUserInfo)
+    public function setActiveUserInfo(array $activeUserInfo)
     {
         $this->activeUserInfo = $activeUserInfo;
     }
@@ -27,7 +25,7 @@ class UmengUappGetActiveUsersByChannelOrVersionResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'activeUserInfo')) {
-            $activeUserInfoResult = $this->stdResult->{'activeUserInfo'};
+            $activeUserInfoResult = $this->stdResult->activeUserInfo;
             $object = json_decode(json_encode($activeUserInfoResult), true);
             $this->activeUserInfo = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -41,7 +39,6 @@ class UmengUappGetActiveUsersByChannelOrVersionResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('activeUserInfo')) {
             $activeUserInfoResult = $arrayResult['activeUserInfo'];
             $this->activeUserInfo = new UmengUappCountData();

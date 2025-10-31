@@ -12,8 +12,6 @@ class UmengUminiGetSceneInfoDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 推广活动值/渠道值
      */
@@ -94,22 +92,21 @@ class UmengUminiGetSceneInfoDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'code')) {
-            $this->code = $this->stdResult->{'code'};
+            $this->code = $this->stdResult->code;
         }
         if (property_exists($this->stdResult, 'name')) {
-            $this->name = $this->stdResult->{'name'};
+            $this->name = $this->stdResult->name;
         }
         if (property_exists($this->stdResult, 'url')) {
-            $this->url = $this->stdResult->{'url'};
+            $this->url = $this->stdResult->url;
         }
         if (property_exists($this->stdResult, 'createDateTime')) {
-            $this->createDateTime = $this->stdResult->{'createDateTime'};
+            $this->createDateTime = $this->stdResult->createDateTime;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('code')) {
             $this->code = $arrayResult['code'];
         }

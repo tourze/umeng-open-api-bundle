@@ -10,8 +10,6 @@ class UmengUappEventListResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getEventInfo()
     {
         return $this->eventInfo;
@@ -20,9 +18,9 @@ class UmengUappEventListResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappEventInfo[] $eventInfo
+     * @param UmengUappEventInfo[] $eventInfo
      * 此参数必填     */
-    public function setEventInfo(UmengUappEventInfo $eventInfo)
+    public function setEventInfo(array $eventInfo)
     {
         $this->eventInfo = $eventInfo;
     }
@@ -67,7 +65,7 @@ class UmengUappEventListResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'eventInfo')) {
-            $eventInfoResult = $this->stdResult->{'eventInfo'};
+            $eventInfoResult = $this->stdResult->eventInfo;
             $object = json_decode(json_encode($eventInfoResult), true);
             $this->eventInfo = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -78,16 +76,15 @@ class UmengUappEventListResult
             }
         }
         if (property_exists($this->stdResult, 'page')) {
-            $this->page = $this->stdResult->{'page'};
+            $this->page = $this->stdResult->page;
         }
         if (property_exists($this->stdResult, 'totalPage')) {
-            $this->totalPage = $this->stdResult->{'totalPage'};
+            $this->totalPage = $this->stdResult->totalPage;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('eventInfo')) {
             $eventInfoResult = $arrayResult['eventInfo'];
             $this->eventInfo = new UmengUappEventInfo();

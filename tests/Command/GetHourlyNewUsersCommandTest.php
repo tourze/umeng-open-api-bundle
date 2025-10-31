@@ -2,61 +2,168 @@
 
 namespace UmengOpenApiBundle\Tests\Command;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Application;
+use Carbon\CarbonImmutable;
+use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractCommandTestCase;
 use UmengOpenApiBundle\Command\GetHourlyNewUsersCommand;
-use Doctrine\ORM\EntityManagerInterface;
+use UmengOpenApiBundle\Entity\App;
+use UmengOpenApiBundle\Entity\HourlyNewUsers;
 use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\HourlyNewUsersRepository;
-use Symfony\Component\PropertyAccess\PropertyAccessor;
+use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
-class GetHourlyNewUsersCommandTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(GetHourlyNewUsersCommand::class)]
+#[RunTestsInSeparateProcesses]
+final class GetHourlyNewUsersCommandTest extends AbstractCommandTestCase
 {
-    public function testConfigure(): void
+    private AppRepository&MockObject $appRepository;
+
+    private HourlyNewUsersRepository&MockObject $newUsersRepository;
+
+    private PropertyAccessor&MockObject $propertyAccessor;
+
+    private UmengDataFetcherInterface&MockObject $dataFetcher;
+
+    public function testExecuteWithoutArgumentsShouldSucceed(): void
     {
-        $entityManager = $this->createMock(EntityManagerInterface::class);
-        $appRepository = $this->createMock(AppRepository::class);
-        $newUsersRepository = $this->createMock(HourlyNewUsersRepository::class);
-        $propertyAccessor = $this->createMock(PropertyAccessor::class);
-        
-        $command = new GetHourlyNewUsersCommand(
-            $appRepository,
-            $newUsersRepository,
-            $propertyAccessor,
-            $entityManager
-        );
-        
-        $this->assertNotNull($command->getName());
-        $this->assertNotNull($command->getDescription());
+        $app = $this->createMockApp();
+        $this->appRepository->method('findAll')->willReturn([$app]);
+
+        $mockResult = $this->createMockResult();
+        $this->dataFetcher
+            ->method('fetchHourlyNewUsers')
+            ->willReturn($mockResult)
+        ;
+
+        $this->newUsersRepository->method('findOneBy')->willReturn(null);
+        $this->propertyAccessor->method('setValue');
+        // EntityManager interactions are handled by the service
+
+        $commandTester = $this->getCommandTester();
+        $exitCode = $commandTester->execute([]);
+
+        $this->assertSame(Command::SUCCESS, $exitCode);
     }
 
-    public function testExecute(): void
+    public function testExecuteWithBothArgumentsShouldSucceed(): void
     {
-        $entityManager = $this->createMock(EntityManagerInterface::class);
-        $appRepository = $this->createMock(AppRepository::class);
-        $newUsersRepository = $this->createMock(HourlyNewUsersRepository::class);
-        $propertyAccessor = $this->createMock(PropertyAccessor::class);
-        
-        // 模拟返回空数组，避免执行实际的 API 调用
-        $appRepository->expects($this->once())
-            ->method('findAll')
-            ->willReturn([]);
-        
-        $command = new GetHourlyNewUsersCommand(
-            $appRepository,
-            $newUsersRepository,
-            $propertyAccessor,
-            $entityManager
-        );
-        
-        $application = new Application();
-        $application->add($command);
-        
-        $commandTester = new CommandTester($command);
-        $commandTester->execute([]);
-        
-        $this->assertEquals(Command::SUCCESS, $commandTester->getStatusCode());
+        $app = $this->createMockApp();
+        $this->appRepository->method('findAll')->willReturn([$app]);
+
+        $mockResult = $this->createMockResult();
+        $this->dataFetcher
+            ->expects($this->once())
+            ->method('fetchHourlyNewUsers')
+            ->with(
+                $app,
+                self::callback(function ($startDate) {
+                    return $startDate instanceof CarbonImmutable && '2024-01-01' === $startDate->format('Y-m-d');
+                }),
+                self::callback(function ($endDate) {
+                    return $endDate instanceof CarbonImmutable && '2024-01-31' === $endDate->format('Y-m-d');
+                })
+            )
+            ->willReturn($mockResult)
+        ;
+
+        $this->newUsersRepository->method('findOneBy')->willReturn(null);
+        $this->propertyAccessor->method('setValue');
+        // EntityManager interactions are handled by the service
+
+        $commandTester = $this->getCommandTester();
+        $exitCode = $commandTester->execute([
+            'startDate' => '2024-01-01',
+            'endDate' => '2024-01-31',
+        ]);
+
+        $this->assertSame(Command::SUCCESS, $exitCode);
+    }
+
+    protected function getCommandTester(): CommandTester
+    {
+        $command = self::getService(GetHourlyNewUsersCommand::class);
+
+        return new CommandTester($command);
+    }
+
+    protected function onSetUp(): void
+    {
+        $this->appRepository = $this->createMock(AppRepository::class);
+        $this->newUsersRepository = $this->createMock(HourlyNewUsersRepository::class);
+        $this->propertyAccessor = $this->createMock(PropertyAccessor::class);
+        $this->dataFetcher = $this->createMock(UmengDataFetcherInterface::class);
+
+        self::getContainer()->set(AppRepository::class, $this->appRepository);
+        self::getContainer()->set(HourlyNewUsersRepository::class, $this->newUsersRepository);
+        self::getContainer()->set(PropertyAccessor::class, $this->propertyAccessor);
+        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcher);
+    }
+
+    private function createMockApp(): App
+    {
+        $app = new App();
+        $app->setName('Test App');
+        $app->setAppKey('test_app_key');
+        $app->setPlatform('ios');
+
+        $persistedApp = $this->persistAndFlush($app);
+        self::assertInstanceOf(App::class, $persistedApp);
+
+        return $persistedApp;
+    }
+
+    private function createMockResult(): \UmengUappGetNewUsersResult
+    {
+        $mockCountData = $this->createMock(\UmengUappCountData::class);
+        $mockCountData->method('getDate')->willReturn('2024-01-01');
+        $mockCountData->method('getHourValue')->willReturn([0 => 100, 1 => 200]);
+
+        $mockResult = $this->createMock(\UmengUappGetNewUsersResult::class);
+        $mockResult->method('getNewUserInfo')->willReturn([$mockCountData]);
+
+        return $mockResult;
+    }
+
+    public function testArgumentStartDate(): void
+    {
+        $app = $this->createMockApp();
+        $this->appRepository->method('findAll')->willReturn([$app]);
+
+        $mockResult = $this->createMockResult();
+        $this->dataFetcher->method('fetchHourlyNewUsers')->willReturn($mockResult);
+        $this->newUsersRepository->method('findOneBy')->willReturn(null);
+        $this->propertyAccessor->method('setValue');
+        // EntityManager interactions are handled by the service
+
+        $commandTester = $this->getCommandTester();
+        $exitCode = $commandTester->execute(['startDate' => '2024-01-01']);
+
+        $this->assertSame(Command::SUCCESS, $exitCode);
+    }
+
+    public function testArgumentEndDate(): void
+    {
+        $app = $this->createMockApp();
+        $this->appRepository->method('findAll')->willReturn([$app]);
+
+        $mockResult = $this->createMockResult();
+        $this->dataFetcher->method('fetchHourlyNewUsers')->willReturn($mockResult);
+        $this->newUsersRepository->method('findOneBy')->willReturn(null);
+        $this->propertyAccessor->method('setValue');
+        // EntityManager interactions are handled by the service
+
+        $commandTester = $this->getCommandTester();
+        $exitCode = $commandTester->execute(['endDate' => '2024-01-31']);
+
+        $this->assertSame(Command::SUCCESS, $exitCode);
     }
 }

@@ -12,8 +12,6 @@ class UmengUminiBatchCreateEventResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return UmengUminiBatchCreateEventResult 数据返回结果
      */
@@ -81,22 +79,21 @@ class UmengUminiBatchCreateEventResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'data')) {
-            $this->data = $this->stdResult->{'data'};
+            $this->data = $this->stdResult->data;
         }
         if (property_exists($this->stdResult, 'msg')) {
-            $this->msg = $this->stdResult->{'msg'};
+            $this->msg = $this->stdResult->msg;
         }
         if (property_exists($this->stdResult, 'code')) {
-            $this->code = $this->stdResult->{'code'};
+            $this->code = $this->stdResult->code;
         }
         if (property_exists($this->stdResult, 'success')) {
-            $this->success = $this->stdResult->{'success'};
+            $this->success = $this->stdResult->success;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('data')) {
             $this->data = $arrayResult['data'];
         }

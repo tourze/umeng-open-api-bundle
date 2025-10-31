@@ -12,8 +12,6 @@ class UmengUappCountData extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return string 统计日期
      */
@@ -44,10 +42,10 @@ class UmengUappCountData extends SDKDomain
     /**
      * 设置按版本或渠道的统计信息
      *
-     * @param array include @see UmengUappCountDataNameValue[] $dailyValue
-     * 参数示例：<pre></pre>
+     * @param UmengUappCountDataNameValue[] $dailyValue
+     *                                                  参数示例：<pre></pre>
      * 此参数必填     */
-    public function setDailyValue(UmengUappCountDataNameValue $dailyValue)
+    public function setDailyValue(array $dailyValue)
     {
         $this->dailyValue = $dailyValue;
     }
@@ -63,8 +61,8 @@ class UmengUappCountData extends SDKDomain
     /**
      * 设置按小时查询返回数组
      *
-     * @param array include @see Integer[] $hourValue
-     * 参数示例：<pre></pre>
+     * @param int[] $hourValue
+     *                         参数示例：<pre></pre>
      * 此参数必填     */
     public function setHourValue($hourValue)
     {
@@ -94,10 +92,10 @@ class UmengUappCountData extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'date')) {
-            $this->date = $this->stdResult->{'date'};
+            $this->date = $this->stdResult->date;
         }
         if (property_exists($this->stdResult, 'dailyValue')) {
-            $dailyValueResult = $this->stdResult->{'dailyValue'};
+            $dailyValueResult = $this->stdResult->dailyValue;
             $object = json_decode(json_encode($dailyValueResult), true);
             $this->dailyValue = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -108,16 +106,15 @@ class UmengUappCountData extends SDKDomain
             }
         }
         if (property_exists($this->stdResult, 'hourValue')) {
-            $this->hourValue = $this->stdResult->{'hourValue'};
+            $this->hourValue = $this->stdResult->hourValue;
         }
         if (property_exists($this->stdResult, 'value')) {
-            $this->value = $this->stdResult->{'value'};
+            $this->value = $this->stdResult->value;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('date')) {
             $this->date = $arrayResult['date'];
         }

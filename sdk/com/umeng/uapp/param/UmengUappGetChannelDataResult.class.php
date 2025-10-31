@@ -10,8 +10,6 @@ class UmengUappGetChannelDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getChannelInfos()
     {
         return $this->channelInfos;
@@ -20,9 +18,9 @@ class UmengUappGetChannelDataResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappChannelInfo[] $channelInfos
+     * @param UmengUappChannelInfo[] $channelInfos
      * 此参数必填     */
-    public function setChannelInfos(UmengUappChannelInfo $channelInfos)
+    public function setChannelInfos(array $channelInfos)
     {
         $this->channelInfos = $channelInfos;
     }
@@ -67,7 +65,7 @@ class UmengUappGetChannelDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'channelInfos')) {
-            $channelInfosResult = $this->stdResult->{'channelInfos'};
+            $channelInfosResult = $this->stdResult->channelInfos;
             $object = json_decode(json_encode($channelInfosResult), true);
             $this->channelInfos = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -78,16 +76,15 @@ class UmengUappGetChannelDataResult
             }
         }
         if (property_exists($this->stdResult, 'page')) {
-            $this->page = $this->stdResult->{'page'};
+            $this->page = $this->stdResult->page;
         }
         if (property_exists($this->stdResult, 'totalPage')) {
-            $this->totalPage = $this->stdResult->{'totalPage'};
+            $this->totalPage = $this->stdResult->totalPage;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('channelInfos')) {
             $channelInfosResult = $arrayResult['channelInfos'];
             $this->channelInfos = new UmengUappChannelInfo();

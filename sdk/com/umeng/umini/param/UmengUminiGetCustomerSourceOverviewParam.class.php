@@ -9,9 +9,7 @@ class UmengUminiGetCustomerSourceOverviewParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUminiGetCustomerSourceOverviewParam
      */
     public function getSourceType()
     {
-        $tempResult = $this->sdkStdResult['sourceType'];
-
-        return $tempResult;
+        return $this->sdkStdResult['sourceType'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUminiGetCustomerSourceOverviewParam
      */
     public function getFromDate()
     {
-        $tempResult = $this->sdkStdResult['fromDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['fromDate'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUminiGetCustomerSourceOverviewParam
      */
     public function getToDate()
     {
-        $tempResult = $this->sdkStdResult['toDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['toDate'];
     }
 
     /**
@@ -93,9 +85,7 @@ class UmengUminiGetCustomerSourceOverviewParam
      */
     public function getTimeUnit()
     {
-        $tempResult = $this->sdkStdResult['timeUnit'];
-
-        return $tempResult;
+        return $this->sdkStdResult['timeUnit'];
     }
 
     /**
@@ -114,9 +104,7 @@ class UmengUminiGetCustomerSourceOverviewParam
      */
     public function getOrderBy()
     {
-        $tempResult = $this->sdkStdResult['orderBy'];
-
-        return $tempResult;
+        return $this->sdkStdResult['orderBy'];
     }
 
     /**
@@ -137,9 +125,7 @@ class UmengUminiGetCustomerSourceOverviewParam
      */
     public function getDirection()
     {
-        $tempResult = $this->sdkStdResult['direction'];
-
-        return $tempResult;
+        return $this->sdkStdResult['direction'];
     }
 
     /**

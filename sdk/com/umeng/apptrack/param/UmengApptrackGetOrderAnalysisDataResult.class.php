@@ -8,8 +8,6 @@ class UmengApptrackGetOrderAnalysisDataResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getData()
     {
         return $this->data;
@@ -18,9 +16,9 @@ class UmengApptrackGetOrderAnalysisDataResult
     /**
      * 设置
      *
-     * @param array include @see UmengApptrackGetPayAnalysis[] $data
+     * @param UmengApptrackGetPayAnalysis[] $data
      * 此参数必填     */
-    public function setData(UmengApptrackGetPayAnalysis $data)
+    public function setData(array $data)
     {
         $this->data = $data;
     }
@@ -47,7 +45,7 @@ class UmengApptrackGetOrderAnalysisDataResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'data')) {
-            $dataResult = $this->stdResult->{'data'};
+            $dataResult = $this->stdResult->data;
             $object = json_decode(json_encode($dataResult), true);
             $this->data = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -58,13 +56,12 @@ class UmengApptrackGetOrderAnalysisDataResult
             }
         }
         if (property_exists($this->stdResult, 'total')) {
-            $this->total = $this->stdResult->{'total'};
+            $this->total = $this->stdResult->total;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('data')) {
             $dataResult = $arrayResult['data'];
             $this->data = new UmengApptrackGetPayAnalysis();

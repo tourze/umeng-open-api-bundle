@@ -14,8 +14,6 @@ class UmengUminiVisitPageDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 页面备注
      */
@@ -115,25 +113,24 @@ class UmengUminiVisitPageDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'displayName')) {
-            $this->displayName = $this->stdResult->{'displayName'};
+            $this->displayName = $this->stdResult->displayName;
         }
         if (property_exists($this->stdResult, 'pageDuration')) {
-            $this->pageDuration = $this->stdResult->{'pageDuration'};
+            $this->pageDuration = $this->stdResult->pageDuration;
         }
         if (property_exists($this->stdResult, 'page')) {
-            $this->page = $this->stdResult->{'page'};
+            $this->page = $this->stdResult->page;
         }
         if (property_exists($this->stdResult, 'visitUser')) {
-            $this->visitUser = $this->stdResult->{'visitUser'};
+            $this->visitUser = $this->stdResult->visitUser;
         }
         if (property_exists($this->stdResult, 'visitTimes')) {
-            $this->visitTimes = $this->stdResult->{'visitTimes'};
+            $this->visitTimes = $this->stdResult->visitTimes;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('displayName')) {
             $this->displayName = $arrayResult['displayName'];
         }

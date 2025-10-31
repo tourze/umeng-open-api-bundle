@@ -20,26 +20,24 @@ class UmengUappAppInfoData extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-    
     public function __construct($appkey = null, $name = null, $platform = null, $popular = null, $useGameSdk = null, $createdAt = null)
     {
-        if ($appkey !== null) {
+        if (null !== $appkey) {
             $this->appkey = $appkey;
         }
-        if ($name !== null) {
+        if (null !== $name) {
             $this->name = $name;
         }
-        if ($platform !== null) {
+        if (null !== $platform) {
             $this->platform = $platform;
         }
-        if ($popular !== null) {
+        if (null !== $popular) {
             $this->popular = $popular;
         }
-        if ($useGameSdk !== null) {
+        if (null !== $useGameSdk) {
             $this->useGameSdk = $useGameSdk;
         }
-        if ($createdAt !== null) {
+        if (null !== $createdAt) {
             $this->createdAt = $createdAt;
         }
     }
@@ -200,34 +198,33 @@ class UmengUappAppInfoData extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'updatedAt')) {
-            $this->updatedAt = $this->stdResult->{'updatedAt'};
+            $this->updatedAt = $this->stdResult->updatedAt;
         }
         if (property_exists($this->stdResult, 'useGameSdk')) {
-            $this->useGameSdk = $this->stdResult->{'useGameSdk'};
+            $this->useGameSdk = $this->stdResult->useGameSdk;
         }
         if (property_exists($this->stdResult, 'name')) {
-            $this->name = $this->stdResult->{'name'};
+            $this->name = $this->stdResult->name;
         }
         if (property_exists($this->stdResult, 'createdAt')) {
-            $this->createdAt = $this->stdResult->{'createdAt'};
+            $this->createdAt = $this->stdResult->createdAt;
         }
         if (property_exists($this->stdResult, 'appkey')) {
-            $this->appkey = $this->stdResult->{'appkey'};
+            $this->appkey = $this->stdResult->appkey;
         }
         if (property_exists($this->stdResult, 'category')) {
-            $this->category = $this->stdResult->{'category'};
+            $this->category = $this->stdResult->category;
         }
         if (property_exists($this->stdResult, 'popular')) {
-            $this->popular = $this->stdResult->{'popular'};
+            $this->popular = $this->stdResult->popular;
         }
         if (property_exists($this->stdResult, 'platform')) {
-            $this->platform = $this->stdResult->{'platform'};
+            $this->platform = $this->stdResult->platform;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('updatedAt')) {
             $this->updatedAt = $arrayResult['updatedAt'];
         }

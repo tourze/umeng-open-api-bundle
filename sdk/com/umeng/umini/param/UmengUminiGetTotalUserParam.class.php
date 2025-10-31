@@ -9,9 +9,7 @@ class UmengUminiGetTotalUserParam
      */
     public function getDataSourceId()
     {
-        $tempResult = $this->sdkStdResult['dataSourceId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['dataSourceId'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengUminiGetTotalUserParam
      */
     public function getFromDate()
     {
-        $tempResult = $this->sdkStdResult['fromDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['fromDate'];
     }
 
     /**
@@ -51,9 +47,7 @@ class UmengUminiGetTotalUserParam
      */
     public function getToDate()
     {
-        $tempResult = $this->sdkStdResult['toDate'];
-
-        return $tempResult;
+        return $this->sdkStdResult['toDate'];
     }
 
     /**
@@ -72,9 +66,7 @@ class UmengUminiGetTotalUserParam
      */
     public function getPageIndex()
     {
-        $tempResult = $this->sdkStdResult['pageIndex'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageIndex'];
     }
 
     /**
@@ -95,9 +87,7 @@ class UmengUminiGetTotalUserParam
      */
     public function getPageSize()
     {
-        $tempResult = $this->sdkStdResult['pageSize'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageSize'];
     }
 
     /**

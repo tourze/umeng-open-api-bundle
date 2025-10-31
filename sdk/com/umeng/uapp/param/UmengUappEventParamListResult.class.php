@@ -6,8 +6,6 @@ class UmengUappEventParamListResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     public function getParamInfos()
     {
         return $this->paramInfos;
@@ -16,9 +14,9 @@ class UmengUappEventParamListResult
     /**
      * 设置
      *
-     * @param array include @see UmengUappParamInfo[] $paramInfos
+     * @param UmengUappParamInfo[] $paramInfos
      * 此参数必填     */
-    public function setParamInfos(UmengUappParamInfo $paramInfos)
+    public function setParamInfos(array $paramInfos)
     {
         $this->paramInfos = $paramInfos;
     }
@@ -27,7 +25,7 @@ class UmengUappEventParamListResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'paramInfos')) {
-            $paramInfosResult = $this->stdResult->{'paramInfos'};
+            $paramInfosResult = $this->stdResult->paramInfos;
             $object = json_decode(json_encode($paramInfosResult), true);
             $this->paramInfos = [];
             for ($i = 0; $i < count($object); ++$i) {
@@ -41,7 +39,6 @@ class UmengUappEventParamListResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('paramInfos')) {
             $paramInfosResult = $arrayResult['paramInfos'];
             $this->paramInfos = new UmengUappParamInfo();

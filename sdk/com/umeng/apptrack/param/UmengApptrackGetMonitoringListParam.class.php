@@ -9,9 +9,7 @@ class UmengApptrackGetMonitoringListParam
      */
     public function getPlanId()
     {
-        $tempResult = $this->sdkStdResult['planId'];
-
-        return $tempResult;
+        return $this->sdkStdResult['planId'];
     }
 
     /**
@@ -30,9 +28,7 @@ class UmengApptrackGetMonitoringListParam
      */
     public function getPageNum()
     {
-        $tempResult = $this->sdkStdResult['pageNum'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageNum'];
     }
 
     /**
@@ -53,9 +49,7 @@ class UmengApptrackGetMonitoringListParam
      */
     public function getPageSize()
     {
-        $tempResult = $this->sdkStdResult['pageSize'];
-
-        return $tempResult;
+        return $this->sdkStdResult['pageSize'];
     }
 
     /**

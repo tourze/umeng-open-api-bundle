@@ -10,8 +10,6 @@ class UmengUminiPropertyValueCountDTO extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return int 触发次数
      */
@@ -73,19 +71,18 @@ class UmengUminiPropertyValueCountDTO extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'count')) {
-            $this->count = $this->stdResult->{'count'};
+            $this->count = $this->stdResult->count;
         }
         if (property_exists($this->stdResult, 'propertyValue')) {
-            $this->propertyValue = $this->stdResult->{'propertyValue'};
+            $this->propertyValue = $this->stdResult->propertyValue;
         }
         if (property_exists($this->stdResult, 'countRatio')) {
-            $this->countRatio = $this->stdResult->{'countRatio'};
+            $this->countRatio = $this->stdResult->countRatio;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('count')) {
             $this->count = $arrayResult['count'];
         }

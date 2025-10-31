@@ -14,8 +14,6 @@ class UmengApptrackAppMonitors extends SDKDomain
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return mixed 单元id
      */
@@ -115,25 +113,24 @@ class UmengApptrackAppMonitors extends SDKDomain
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'mid')) {
-            $this->mid = $this->stdResult->{'mid'};
+            $this->mid = $this->stdResult->mid;
         }
         if (property_exists($this->stdResult, 'mName')) {
-            $this->mName = $this->stdResult->{'mName'};
+            $this->mName = $this->stdResult->mName;
         }
         if (property_exists($this->stdResult, 'chanName')) {
-            $this->chanName = $this->stdResult->{'chanName'};
+            $this->chanName = $this->stdResult->chanName;
         }
         if (property_exists($this->stdResult, 'downloadUrl')) {
-            $this->downloadUrl = $this->stdResult->{'downloadUrl'};
+            $this->downloadUrl = $this->stdResult->downloadUrl;
         }
         if (property_exists($this->stdResult, 'shortUrl')) {
-            $this->shortUrl = $this->stdResult->{'shortUrl'};
+            $this->shortUrl = $this->stdResult->shortUrl;
         }
     }
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('mid')) {
             $this->mid = $arrayResult['mid'];
         }

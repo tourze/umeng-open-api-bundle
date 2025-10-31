@@ -12,8 +12,6 @@ class UmengUminiGetRetentionByDataSourceIdResult
 
     private $stdResult;
 
-    private $arrayResult;
-
     /**
      * @return UmengUminiGetRetentionByData 返回留存数据
      */
@@ -88,7 +86,6 @@ class UmengUminiGetRetentionByDataSourceIdResult
 
     public function setArrayResult(ArrayObject $arrayResult)
     {
-        $this->arrayResult = $arrayResult;
         if ($arrayResult->offsetExists('data')) {
             $dataResult = $arrayResult['data'];
             $this->data = new UmengUminiGetRetentionByDataSourceIdListDTO();
@@ -109,18 +106,18 @@ class UmengUminiGetRetentionByDataSourceIdResult
     {
         $this->stdResult = $stdResult;
         if (property_exists($this->stdResult, 'data')) {
-            $dataResult = $this->stdResult->{'data'};
+            $dataResult = $this->stdResult->data;
             $this->data = new UmengUminiGetRetentionByDataSourceIdListDTO();
             $this->data->setStdResult($dataResult);
         }
         if (property_exists($this->stdResult, 'code')) {
-            $this->code = $this->stdResult->{'code'};
+            $this->code = $this->stdResult->code;
         }
         if (property_exists($this->stdResult, 'success')) {
-            $this->success = $this->stdResult->{'success'};
+            $this->success = $this->stdResult->success;
         }
         if (property_exists($this->stdResult, 'msg')) {
-            $this->msg = $this->stdResult->{'msg'};
+            $this->msg = $this->stdResult->msg;
         }
     }
 }
