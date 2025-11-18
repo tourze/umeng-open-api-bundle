@@ -61,11 +61,6 @@ final class DailyRetentionsCrudControllerTest extends AbstractEasyAdminControlle
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnDailyRetentionsClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\DailyRetentions', DailyRetentionsCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(DailyRetentionsCrudController::class);

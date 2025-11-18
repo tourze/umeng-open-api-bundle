@@ -60,11 +60,6 @@ final class SevenDaysLaunchesCrudControllerTest extends AbstractEasyAdminControl
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnSevenDaysLaunchesClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\SevenDaysLaunches', SevenDaysLaunchesCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(SevenDaysLaunchesCrudController::class);

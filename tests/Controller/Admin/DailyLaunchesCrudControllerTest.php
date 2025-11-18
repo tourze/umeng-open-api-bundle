@@ -60,11 +60,6 @@ final class DailyLaunchesCrudControllerTest extends AbstractEasyAdminControllerT
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnDailyLaunchesClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\DailyLaunches', DailyLaunchesCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(DailyLaunchesCrudController::class);

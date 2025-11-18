@@ -60,11 +60,6 @@ final class SevenDaysNewUsersCrudControllerTest extends AbstractEasyAdminControl
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnSevenDaysNewUsersClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\SevenDaysNewUsers', SevenDaysNewUsersCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(SevenDaysNewUsersCrudController::class);

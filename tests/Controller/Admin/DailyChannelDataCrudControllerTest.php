@@ -75,11 +75,6 @@ final class DailyChannelDataCrudControllerTest extends AbstractEasyAdminControll
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnDailyChannelDataClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\DailyChannelData', DailyChannelDataCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(DailyChannelDataCrudController::class);

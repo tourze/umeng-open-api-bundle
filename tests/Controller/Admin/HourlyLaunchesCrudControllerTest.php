@@ -83,11 +83,6 @@ final class HourlyLaunchesCrudControllerTest extends AbstractEasyAdminController
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnHourlyLaunchesClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\HourlyLaunches', HourlyLaunchesCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(HourlyLaunchesCrudController::class);

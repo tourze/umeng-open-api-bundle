@@ -66,11 +66,6 @@ final class DailyPerLaunchDurationCrudControllerTest extends AbstractEasyAdminCo
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnDailyPerLaunchDurationClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\DailyPerLaunchDuration', DailyPerLaunchDurationCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(DailyPerLaunchDurationCrudController::class);

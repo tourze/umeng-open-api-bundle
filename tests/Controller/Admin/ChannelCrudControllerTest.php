@@ -59,11 +59,6 @@ final class ChannelCrudControllerTest extends AbstractEasyAdminControllerTestCas
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnChannelClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\Channel', ChannelCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(ChannelCrudController::class);

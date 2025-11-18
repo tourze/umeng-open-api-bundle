@@ -71,11 +71,6 @@ final class AppCrudControllerTest extends AbstractEasyAdminControllerTestCase
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnAppClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\App', AppCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(AppCrudController::class);

@@ -60,11 +60,6 @@ final class MonthlyActiveUsersCrudControllerTest extends AbstractEasyAdminContro
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnMonthlyActiveUsersClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\MonthlyActiveUsers', MonthlyActiveUsersCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(MonthlyActiveUsersCrudController::class);

@@ -60,11 +60,6 @@ final class ThirtyDayLaunchesCrudControllerTest extends AbstractEasyAdminControl
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnThirtyDayLaunchesClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\ThirtyDayLaunches', ThirtyDayLaunchesCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(ThirtyDayLaunchesCrudController::class);

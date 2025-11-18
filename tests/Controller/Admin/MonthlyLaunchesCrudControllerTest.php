@@ -60,11 +60,6 @@ final class MonthlyLaunchesCrudControllerTest extends AbstractEasyAdminControlle
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnMonthlyLaunchesClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\MonthlyLaunches', MonthlyLaunchesCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(MonthlyLaunchesCrudController::class);

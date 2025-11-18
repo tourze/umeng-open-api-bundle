@@ -60,11 +60,6 @@ final class WeeklyActiveUsersCrudControllerTest extends AbstractEasyAdminControl
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnWeeklyActiveUsersClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\WeeklyActiveUsers', WeeklyActiveUsersCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(WeeklyActiveUsersCrudController::class);

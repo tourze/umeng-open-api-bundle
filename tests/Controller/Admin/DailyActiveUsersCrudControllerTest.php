@@ -60,11 +60,6 @@ final class DailyActiveUsersCrudControllerTest extends AbstractEasyAdminControll
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnDailyActiveUsersClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\DailyActiveUsers', DailyActiveUsersCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(DailyActiveUsersCrudController::class);

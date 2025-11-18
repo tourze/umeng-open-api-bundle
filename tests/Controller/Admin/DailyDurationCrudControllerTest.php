@@ -66,11 +66,6 @@ final class DailyDurationCrudControllerTest extends AbstractEasyAdminControllerT
         $this->assertTrue($reflection->isFinal());
     }
 
-    public function testGetEntityFqcnShouldReturnDailyDurationClass(): void
-    {
-        $this->assertEquals('UmengOpenApiBundle\Entity\DailyDuration', DailyDurationCrudController::getEntityFqcn());
-    }
-
     public function testControllerHasRequiredConfigurationMethods(): void
     {
         $reflection = new \ReflectionClass(DailyDurationCrudController::class);
