@@ -13,7 +13,7 @@ use UmengOpenApiBundle\Entity\HourlyActiveUsers;
  * @extends ServiceEntityRepository<HourlyActiveUsers>
  */
 #[AsRepository(entityClass: HourlyActiveUsers::class)]
-class HourlyActiveUsersRepository extends ServiceEntityRepository
+final class HourlyActiveUsersRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

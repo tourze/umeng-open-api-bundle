@@ -26,7 +26,7 @@ use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 #[WithMonologChannel(channel: 'umeng_open_api')]
 #[AsCronTask(expression: '15 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App启动次数(小时)')]
-class GetHourlyLaunchesCommand extends Command
+final class GetHourlyLaunchesCommand extends Command
 {
     public const NAME = 'umeng-open-api:get-hourly-launches';
 

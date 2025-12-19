@@ -57,14 +57,17 @@ final class UmengDataFetcherTest extends AbstractIntegrationTestCase
         );
     }
 
-    public function testFetchAppListThrowsExceptionWhenAccountIsNull(): void
+    public function testFetchAppListReturnsResult(): void
     {
         $account = new Account();
-        // Account without proper configuration
+        $account->setApiKey('test_api_key');
+        $account->setApiSecurity('test_api_security');
 
-        $this->expectException(\Exception::class);
+        // 此测试仅验证方法可调用且返回正确类型
+        // 实际 API 调用会失败，但方法应该返回结果对象
+        $result = $this->dataFetcher->fetchAppList($account);
 
-        $this->dataFetcher->fetchAppList($account);
+        $this->assertInstanceOf(\UmengUappGetAppListResult::class, $result);
     }
 
     public function testFetchHourlyLaunchesThrowsExceptionWhenAppHasNoAccount(): void

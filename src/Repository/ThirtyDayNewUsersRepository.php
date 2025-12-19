@@ -13,7 +13,7 @@ use UmengOpenApiBundle\Entity\ThirtyDayNewUsers;
  * @extends ServiceEntityRepository<ThirtyDayNewUsers>
  */
 #[AsRepository(entityClass: ThirtyDayNewUsers::class)]
-class ThirtyDayNewUsersRepository extends ServiceEntityRepository
+final class ThirtyDayNewUsersRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

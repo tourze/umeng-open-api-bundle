@@ -13,7 +13,7 @@ use UmengOpenApiBundle\Entity\DailyData;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class DailyDataFixtures extends Fixture implements DependentFixtureInterface
+final class DailyDataFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {

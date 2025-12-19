@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\WeeklyNewUsers;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class WeeklyNewUsersFixtures extends Fixture implements DependentFixtureInterface
+final class WeeklyNewUsersFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {

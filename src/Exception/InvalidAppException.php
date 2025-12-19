@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace UmengOpenApiBundle\Exception;
 
-class InvalidAppException extends \RuntimeException
+final class InvalidAppException extends \RuntimeException
 {
 }

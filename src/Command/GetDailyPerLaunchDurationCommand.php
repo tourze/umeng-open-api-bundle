@@ -25,7 +25,7 @@ use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 #[WithMonologChannel(channel: 'umeng_open_api')]
 #[AsCronTask(expression: '*/35 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App使用时长-daily_per_launch')]
-class GetDailyPerLaunchDurationCommand extends Command
+final class GetDailyPerLaunchDurationCommand extends Command
 {
     public const NAME = 'umeng-open-api:get-daily-per-launch-duration';
 

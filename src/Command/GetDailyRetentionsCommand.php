@@ -24,7 +24,7 @@ use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 #[WithMonologChannel(channel: 'umeng_open_api')]
 #[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App新增用户留存率(天)')]
-class GetDailyRetentionsCommand extends Command
+final class GetDailyRetentionsCommand extends Command
 {
     public const NAME = 'umeng-open-api:get-daily-retentions';
 

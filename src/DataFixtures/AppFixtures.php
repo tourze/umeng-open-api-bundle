@@ -13,7 +13,7 @@ use UmengOpenApiBundle\Entity\App;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class AppFixtures extends Fixture implements DependentFixtureInterface
+final class AppFixtures extends Fixture implements DependentFixtureInterface
 {
     public const VALID_ANDROID_APP_REFERENCE = 'valid-android-app';
     public const VALID_IOS_APP_REFERENCE = 'valid-ios-app';

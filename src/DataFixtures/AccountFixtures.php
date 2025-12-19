@@ -11,7 +11,7 @@ use UmengOpenApiBundle\Entity\Account;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class AccountFixtures extends Fixture
+final class AccountFixtures extends Fixture
 {
     public const VALID_ACCOUNT_REFERENCE = 'valid-account';
     public const INVALID_ACCOUNT_REFERENCE = 'invalid-account';

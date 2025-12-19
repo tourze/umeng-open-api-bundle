@@ -6,7 +6,7 @@ namespace UmengOpenApiBundle\DependencyInjection;
 
 use Tourze\SymfonyDependencyServiceLoader\AutoExtension;
 
-class UmengOpenApiExtension extends AutoExtension
+final class UmengOpenApiExtension extends AutoExtension
 {
     protected function getConfigDir(): string
     {

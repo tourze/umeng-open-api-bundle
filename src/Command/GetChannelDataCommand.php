@@ -28,7 +28,7 @@ use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 #[AsCommand(name: self::NAME, description: '获取渠道维度统计数据')]
 #[Autoconfigure(public: true)]
 #[WithMonologChannel(channel: 'umeng_open_api')]
-class GetChannelDataCommand extends Command
+final class GetChannelDataCommand extends Command
 {
     public const NAME = 'umeng-open-api:get-channel-data';
 

@@ -22,7 +22,7 @@ use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 #[RunTestsInSeparateProcesses]
 final class GetWeeklyActiveUsersCommandTest extends AbstractCommandTestCase
 {
-    private UmengDataFetcherInterface&MockObject $dataFetcher;
+    private UmengDataFetcherInterface $dataFetcher;
 
     public function testExecuteWithoutArgumentsShouldSucceed(): void
     {

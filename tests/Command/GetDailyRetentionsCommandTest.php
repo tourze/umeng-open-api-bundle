@@ -3,7 +3,6 @@
 namespace UmengOpenApiBundle\Tests\Command;
 
 use Carbon\CarbonImmutable;
-use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -13,8 +12,6 @@ use Tourze\PHPUnitSymfonyKernelTest\AbstractCommandTestCase;
 use UmengOpenApiBundle\Command\GetDailyRetentionsCommand;
 use UmengOpenApiBundle\Entity\Account;
 use UmengOpenApiBundle\Entity\App;
-use UmengOpenApiBundle\Repository\AppRepository;
-use UmengOpenApiBundle\Repository\DailyRetentionsRepository;
 use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
 /**
@@ -24,25 +21,19 @@ use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 #[RunTestsInSeparateProcesses]
 final class GetDailyRetentionsCommandTest extends AbstractCommandTestCase
 {
-    private AppRepository&MockObject $appRepository;
-
-    private DailyRetentionsRepository&MockObject $retentionsRepository;
-
     private UmengDataFetcherInterface&MockObject $dataFetcher;
 
     public function testExecuteWithoutArgumentsShouldSucceed(): void
     {
-        $app = $this->createMockApp();
-        $this->appRepository->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
         $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDailyRetentions')
+            ->with(self::isInstanceOf(App::class), self::isInstanceOf(CarbonImmutable::class), self::isInstanceOf(CarbonImmutable::class))
             ->willReturn($mockResult)
         ;
-
-        $this->retentionsRepository->method('findOneBy')->willReturn(null);
-        // EntityManager interactions are handled by the service
 
         $commandTester = $this->getCommandTester();
         $exitCode = $commandTester->execute([]);
@@ -50,51 +41,22 @@ final class GetDailyRetentionsCommandTest extends AbstractCommandTestCase
         $this->assertSame(Command::SUCCESS, $exitCode);
     }
 
-    public function testExecuteWithBothArgumentsShouldSucceed(): void
+    public function testArgumentStartDate(): void
     {
-        $app = $this->createMockApp();
-        $this->appRepository->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
+        $expectedStartDate = CarbonImmutable::parse('2024-01-01')->startOfDay();
         $this->dataFetcher
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('fetchDailyRetentions')
             ->with(
-                $app,
-                self::callback(function ($startDate) {
-                    return $startDate instanceof CarbonImmutable && '2024-01-01' === $startDate->format('Y-m-d');
-                }),
-                self::callback(function ($endDate) {
-                    return $endDate instanceof CarbonImmutable && '2024-01-31' === $endDate->format('Y-m-d');
-                })
+                self::isInstanceOf(App::class),
+                self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedStartDate)),
+                self::isInstanceOf(CarbonImmutable::class)
             )
             ->willReturn($mockResult)
         ;
-
-        $this->retentionsRepository->method('findOneBy')->willReturn(null);
-        // EntityManager interactions are handled by the service
-
-        $commandTester = $this->getCommandTester();
-        $exitCode = $commandTester->execute([
-            'startDate' => '2024-01-01',
-            'endDate' => '2024-01-31',
-        ]);
-
-        $this->assertSame(Command::SUCCESS, $exitCode);
-    }
-
-    public function testArgumentStartDate(): void
-    {
-        $app = $this->createMockApp();
-        $this->appRepository->method('findAll')->willReturn([$app]);
-
-        $mockResult = $this->createMockResult();
-        $this->dataFetcher
-            ->method('fetchDailyRetentions')
-            ->willReturn($mockResult)
-        ;
-
-        $this->retentionsRepository->method('findOneBy')->willReturn(null);
 
         $commandTester = $this->getCommandTester();
         $exitCode = $commandTester->execute(['startDate' => '2024-01-01']);
@@ -104,19 +66,50 @@ final class GetDailyRetentionsCommandTest extends AbstractCommandTestCase
 
     public function testArgumentEndDate(): void
     {
-        $app = $this->createMockApp();
-        $this->appRepository->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
+        $expectedEndDate = CarbonImmutable::parse('2024-01-01')->startOfDay();
         $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDailyRetentions')
+            ->with(
+                self::isInstanceOf(App::class),
+                self::isInstanceOf(CarbonImmutable::class),
+                self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedEndDate))
+            )
             ->willReturn($mockResult)
         ;
 
-        $this->retentionsRepository->method('findOneBy')->willReturn(null);
-
         $commandTester = $this->getCommandTester();
         $exitCode = $commandTester->execute(['endDate' => '2024-01-01']);
+
+        $this->assertSame(Command::SUCCESS, $exitCode);
+    }
+
+    public function testExecuteWithBothArgumentsShouldSucceed(): void
+    {
+        $app = $this->createTestApp();
+
+        $mockResult = $this->createMockResult();
+        $expectedStartDate = CarbonImmutable::parse('2024-01-01')->startOfDay();
+        $expectedEndDate = CarbonImmutable::parse('2024-01-31')->startOfDay();
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
+            ->method('fetchDailyRetentions')
+            ->with(
+                self::isInstanceOf(App::class),
+                self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedStartDate)),
+                self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedEndDate))
+            )
+            ->willReturn($mockResult)
+        ;
+
+        $commandTester = $this->getCommandTester();
+        $exitCode = $commandTester->execute([
+            'startDate' => '2024-01-01',
+            'endDate' => '2024-01-31',
+        ]);
 
         $this->assertSame(Command::SUCCESS, $exitCode);
     }
@@ -130,29 +123,26 @@ final class GetDailyRetentionsCommandTest extends AbstractCommandTestCase
 
     protected function onSetUp(): void
     {
-        $this->appRepository = $this->createMock(AppRepository::class);
-        $this->retentionsRepository = $this->createMock(DailyRetentionsRepository::class);
         $this->dataFetcher = $this->createMock(UmengDataFetcherInterface::class);
 
-        self::getContainer()->set(AppRepository::class, $this->appRepository);
-        self::getContainer()->set(DailyRetentionsRepository::class, $this->retentionsRepository);
         self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcher);
     }
 
-    private function createMockApp(): App
+    private function createTestApp(string $suffix = ''): App
     {
         $account = new Account();
-        $account->setName('Test Account');
-        $account->setApiKey('test_api_key');
-        $account->setApiSecurity('test_secret');
+        $account->setName('Test Account ' . $suffix);
+        $account->setApiKey('test_api_key_' . $suffix);
+        $account->setApiSecurity('test_secret_' . $suffix);
+        $account->setValid(true);
 
         self::getEntityManager()->persist($account);
         self::getEntityManager()->flush();
 
         $app = new App();
         $app->setAccount($account);
-        $app->setAppKey('test_app_key');
-        $app->setName('Test App');
+        $app->setAppKey('test_app_key_' . $suffix);
+        $app->setName('Test App ' . $suffix);
         $app->setPlatform('android');
         $app->setPopular(false);
         $app->setUseGameSdk(false);

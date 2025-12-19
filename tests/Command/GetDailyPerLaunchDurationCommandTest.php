@@ -2,7 +2,6 @@
 
 namespace UmengOpenApiBundle\Tests\Command;
 
-use Carbon\CarbonImmutable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -12,8 +11,6 @@ use Tourze\PHPUnitSymfonyKernelTest\AbstractCommandTestCase;
 use UmengOpenApiBundle\Command\GetDailyPerLaunchDurationCommand;
 use UmengOpenApiBundle\Entity\Account;
 use UmengOpenApiBundle\Entity\App;
-use UmengOpenApiBundle\Repository\AppRepository;
-use UmengOpenApiBundle\Repository\DailyPerLaunchDurationRepository;
 use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
 /**
@@ -27,28 +24,19 @@ final class GetDailyPerLaunchDurationCommandTest extends AbstractCommandTestCase
 
     private CommandTester $commandTester;
 
-    /** @var UmengDataFetcherInterface&MockObject */
-    private MockObject $dataFetcherMock;
-
-    /** @var AppRepository&MockObject */
-    private MockObject $appRepositoryMock;
-
-    /** @var DailyPerLaunchDurationRepository&MockObject */
-    private MockObject $durationRepositoryMock;
+    private UmengDataFetcherInterface&MockObject $dataFetcher;
 
     public function testExecuteWithoutArgumentsShouldSucceed(): void
     {
-        $app = $this->createMockApp();
-
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDurationData')
+            ->with(self::isInstanceOf(App::class))
             ->willReturn($mockResult)
         ;
-
-        $this->durationRepositoryMock->method('findOneBy')->willReturn(null);
 
         $exitCode = $this->commandTester->execute([]);
 
@@ -57,17 +45,15 @@ final class GetDailyPerLaunchDurationCommandTest extends AbstractCommandTestCase
 
     public function testExecuteWithBothArgumentsShouldSucceed(): void
     {
-        $app = $this->createMockApp();
-
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDurationData')
+            ->with(self::isInstanceOf(App::class))
             ->willReturn($mockResult)
         ;
-
-        $this->durationRepositoryMock->method('findOneBy')->willReturn(null);
 
         $exitCode = $this->commandTester->execute([
             'startDate' => '2024-01-01',
@@ -79,17 +65,15 @@ final class GetDailyPerLaunchDurationCommandTest extends AbstractCommandTestCase
 
     public function testArgumentStartDate(): void
     {
-        $app = $this->createMockApp();
-
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDurationData')
+            ->with(self::isInstanceOf(App::class))
             ->willReturn($mockResult)
         ;
-
-        $this->durationRepositoryMock->method('findOneBy')->willReturn(null);
 
         $exitCode = $this->commandTester->execute(['startDate' => '2024-01-01']);
         $this->assertSame(Command::SUCCESS, $exitCode);
@@ -97,17 +81,15 @@ final class GetDailyPerLaunchDurationCommandTest extends AbstractCommandTestCase
 
     public function testArgumentEndDate(): void
     {
-        $app = $this->createMockApp();
-
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDurationData')
+            ->with(self::isInstanceOf(App::class))
             ->willReturn($mockResult)
         ;
-
-        $this->durationRepositoryMock->method('findOneBy')->willReturn(null);
 
         $exitCode = $this->commandTester->execute(['endDate' => '2024-01-01']);
         $this->assertSame(Command::SUCCESS, $exitCode);
@@ -120,32 +102,29 @@ final class GetDailyPerLaunchDurationCommandTest extends AbstractCommandTestCase
 
     protected function onSetUp(): void
     {
-        $this->dataFetcherMock = $this->createMock(UmengDataFetcherInterface::class);
-        $this->appRepositoryMock = $this->createMock(AppRepository::class);
-        $this->durationRepositoryMock = $this->createMock(DailyPerLaunchDurationRepository::class);
+        $this->dataFetcher = $this->createMock(UmengDataFetcherInterface::class);
 
-        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcherMock);
-        self::getContainer()->set(AppRepository::class, $this->appRepositoryMock);
-        self::getContainer()->set(DailyPerLaunchDurationRepository::class, $this->durationRepositoryMock);
+        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcher);
 
         $this->command = self::getService(GetDailyPerLaunchDurationCommand::class);
         $this->commandTester = new CommandTester($this->command);
     }
 
-    private function createMockApp(): App
+    private function createTestApp(string $suffix = ''): App
     {
         $account = new Account();
-        $account->setName('Test Account');
-        $account->setApiKey('test_api_key');
-        $account->setApiSecurity('test_secret');
+        $account->setName('Test Account ' . $suffix);
+        $account->setApiKey('test_api_key_' . $suffix);
+        $account->setApiSecurity('test_secret_' . $suffix);
+        $account->setValid(true);
 
         self::getEntityManager()->persist($account);
         self::getEntityManager()->flush();
 
         $app = new App();
         $app->setAccount($account);
-        $app->setAppKey('test_app_key');
-        $app->setName('Test App');
+        $app->setAppKey('test_app_key_' . $suffix);
+        $app->setName('Test App ' . $suffix);
         $app->setPlatform('android');
         $app->setPopular(false);
         $app->setUseGameSdk(false);

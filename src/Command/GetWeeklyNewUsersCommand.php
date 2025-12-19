@@ -25,7 +25,7 @@ use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 #[WithMonologChannel(channel: 'umeng_open_api')]
 #[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App新增用户数(周)')]
-class GetWeeklyNewUsersCommand extends Command
+final class GetWeeklyNewUsersCommand extends Command
 {
     public const NAME = 'umeng-open-api:get-weekly-new-users';
 

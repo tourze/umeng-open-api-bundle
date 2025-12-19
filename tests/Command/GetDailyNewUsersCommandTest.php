@@ -12,8 +12,6 @@ use Tourze\PHPUnitSymfonyKernelTest\AbstractCommandTestCase;
 use UmengOpenApiBundle\Command\GetDailyNewUsersCommand;
 use UmengOpenApiBundle\Entity\Account;
 use UmengOpenApiBundle\Entity\App;
-use UmengOpenApiBundle\Repository\AppRepository;
-use UmengOpenApiBundle\Repository\DailyNewUsersRepository;
 use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
 /**
@@ -27,28 +25,19 @@ final class GetDailyNewUsersCommandTest extends AbstractCommandTestCase
 
     private CommandTester $commandTester;
 
-    /** @var UmengDataFetcherInterface&MockObject */
-    private MockObject $dataFetcherMock;
-
-    /** @var AppRepository&MockObject */
-    private MockObject $appRepositoryMock;
-
-    /** @var DailyNewUsersRepository&MockObject */
-    private MockObject $newUsersRepositoryMock;
+    private UmengDataFetcherInterface&MockObject $dataFetcher;
 
     public function testExecuteWithoutArgumentsShouldSucceed(): void
     {
-        $app = $this->createMockApp();
-
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDailyNewUsers')
+            ->with(self::isInstanceOf(App::class))
             ->willReturn($mockResult)
         ;
-
-        $this->newUsersRepositoryMock->method('findOneBy')->willReturn(null);
 
         $exitCode = $this->commandTester->execute([]);
 
@@ -57,16 +46,14 @@ final class GetDailyNewUsersCommandTest extends AbstractCommandTestCase
 
     public function testExecuteWithBothArgumentsShouldSucceed(): void
     {
-        $app = $this->createMockApp();
-
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
-            ->expects($this->once())
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDailyNewUsers')
             ->with(
-                $app,
+                self::isInstanceOf(App::class),
                 self::callback(function ($startDate) {
                     return $startDate instanceof CarbonImmutable && '2024-01-01' === $startDate->format('Y-m-d');
                 }),
@@ -76,8 +63,6 @@ final class GetDailyNewUsersCommandTest extends AbstractCommandTestCase
             )
             ->willReturn($mockResult)
         ;
-
-        $this->newUsersRepositoryMock->method('findOneBy')->willReturn(null);
 
         $exitCode = $this->commandTester->execute([
             'startDate' => '2024-01-01',
@@ -89,10 +74,15 @@ final class GetDailyNewUsersCommandTest extends AbstractCommandTestCase
 
     public function testArgumentStartDate(): void
     {
+        $app = $this->createTestApp();
+
         $mockResult = $this->createMock(\UmengUappGetNewUsersResult::class);
         $mockResult->method('getNewUserInfo')->willReturn([]);
 
-        $this->dataFetcherMock->method('fetchDailyNewUsers')
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
+            ->method('fetchDailyNewUsers')
+            ->with(self::isInstanceOf(App::class))
             ->willReturn($mockResult)
         ;
 
@@ -102,10 +92,15 @@ final class GetDailyNewUsersCommandTest extends AbstractCommandTestCase
 
     public function testArgumentEndDate(): void
     {
+        $app = $this->createTestApp();
+
         $mockResult = $this->createMock(\UmengUappGetNewUsersResult::class);
         $mockResult->method('getNewUserInfo')->willReturn([]);
 
-        $this->dataFetcherMock->method('fetchDailyNewUsers')
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
+            ->method('fetchDailyNewUsers')
+            ->with(self::isInstanceOf(App::class))
             ->willReturn($mockResult)
         ;
 
@@ -120,32 +115,29 @@ final class GetDailyNewUsersCommandTest extends AbstractCommandTestCase
 
     protected function onSetUp(): void
     {
-        $this->dataFetcherMock = $this->createMock(UmengDataFetcherInterface::class);
-        $this->appRepositoryMock = $this->createMock(AppRepository::class);
-        $this->newUsersRepositoryMock = $this->createMock(DailyNewUsersRepository::class);
+        $this->dataFetcher = $this->createMock(UmengDataFetcherInterface::class);
 
-        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcherMock);
-        self::getContainer()->set(AppRepository::class, $this->appRepositoryMock);
-        self::getContainer()->set(DailyNewUsersRepository::class, $this->newUsersRepositoryMock);
+        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcher);
 
         $this->command = self::getService(GetDailyNewUsersCommand::class);
         $this->commandTester = new CommandTester($this->command);
     }
 
-    private function createMockApp(): App
+    private function createTestApp(string $suffix = ''): App
     {
         $account = new Account();
-        $account->setName('Test Account');
-        $account->setApiKey('test_api_key');
-        $account->setApiSecurity('test_secret');
+        $account->setName('Test Account ' . $suffix);
+        $account->setApiKey('test_api_key_' . $suffix);
+        $account->setApiSecurity('test_secret_' . $suffix);
+        $account->setValid(true);
 
         self::getEntityManager()->persist($account);
         self::getEntityManager()->flush();
 
         $app = new App();
         $app->setAccount($account);
-        $app->setAppKey('test_app_key');
-        $app->setName('Test App');
+        $app->setAppKey('test_app_key_' . $suffix);
+        $app->setName('Test App ' . $suffix);
         $app->setPlatform('android');
         $app->setPopular(false);
         $app->setUseGameSdk(false);

@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\HourlyActiveUsers;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class HourlyActiveUsersFixtures extends Fixture implements DependentFixtureInterface
+final class HourlyActiveUsersFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {

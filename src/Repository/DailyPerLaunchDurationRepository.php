@@ -13,7 +13,7 @@ use UmengOpenApiBundle\Entity\DailyPerLaunchDuration;
  * @extends ServiceEntityRepository<DailyPerLaunchDuration>
  */
 #[AsRepository(entityClass: DailyPerLaunchDuration::class)]
-class DailyPerLaunchDurationRepository extends ServiceEntityRepository
+final class DailyPerLaunchDurationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

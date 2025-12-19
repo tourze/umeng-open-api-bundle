@@ -10,9 +10,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Tourze\PHPUnitSymfonyKernelTest\AbstractCommandTestCase;
 use UmengOpenApiBundle\Command\GetMonthlyLaunchesCommand;
+use UmengOpenApiBundle\Entity\Account;
 use UmengOpenApiBundle\Entity\App;
-use UmengOpenApiBundle\Repository\AppRepository;
-use UmengOpenApiBundle\Repository\MonthlyLaunchesRepository;
 use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
 /**
@@ -22,27 +21,19 @@ use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 #[RunTestsInSeparateProcesses]
 final class GetMonthlyLaunchesCommandTest extends AbstractCommandTestCase
 {
-    /** @var MockObject&UmengDataFetcherInterface */
-    private UmengDataFetcherInterface $dataFetcher;
-
-    /** @var MockObject&AppRepository */
-    private AppRepository $appRepository;
-
-    /** @var MockObject&MonthlyLaunchesRepository */
-    private MonthlyLaunchesRepository $launchesRepository;
+    private UmengDataFetcherInterface&MockObject $dataFetcher;
 
     public function testExecuteWithoutArgumentsShouldSucceed(): void
     {
-        $app = $this->createMock(App::class);
-        $this->appRepository->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $result = $this->createMock(\UmengUappGetLaunchesResult::class);
         $result->method('getLaunchInfo')->willReturn([]);
 
         $this->dataFetcher
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('fetchMonthlyLaunches')
-            ->with($app, self::isInstanceOf(CarbonImmutable::class), self::isInstanceOf(CarbonImmutable::class))
+            ->with(self::isInstanceOf(App::class), self::isInstanceOf(CarbonImmutable::class), self::isInstanceOf(CarbonImmutable::class))
             ->willReturn($result)
         ;
 
@@ -53,18 +44,17 @@ final class GetMonthlyLaunchesCommandTest extends AbstractCommandTestCase
 
     public function testArgumentStartDate(): void
     {
-        $app = $this->createMock(App::class);
-        $this->appRepository->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $result = $this->createMock(\UmengUappGetLaunchesResult::class);
         $result->method('getLaunchInfo')->willReturn([]);
 
         $expectedStartDate = CarbonImmutable::parse('2024-01-01')->startOfDay();
         $this->dataFetcher
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('fetchMonthlyLaunches')
             ->with(
-                $app,
+                self::isInstanceOf(App::class),
                 self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedStartDate)),
                 self::isInstanceOf(CarbonImmutable::class)
             )
@@ -78,18 +68,17 @@ final class GetMonthlyLaunchesCommandTest extends AbstractCommandTestCase
 
     public function testArgumentEndDate(): void
     {
-        $app = $this->createMock(App::class);
-        $this->appRepository->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $result = $this->createMock(\UmengUappGetLaunchesResult::class);
         $result->method('getLaunchInfo')->willReturn([]);
 
         $expectedEndDate = CarbonImmutable::parse('2024-01-31')->startOfDay();
         $this->dataFetcher
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('fetchMonthlyLaunches')
             ->with(
-                $app,
+                self::isInstanceOf(App::class),
                 self::isInstanceOf(CarbonImmutable::class),
                 self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedEndDate))
             )
@@ -103,8 +92,7 @@ final class GetMonthlyLaunchesCommandTest extends AbstractCommandTestCase
 
     public function testExecuteWithBothArgumentsShouldSucceed(): void
     {
-        $app = $this->createMock(App::class);
-        $this->appRepository->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $result = $this->createMock(\UmengUappGetLaunchesResult::class);
         $result->method('getLaunchInfo')->willReturn([]);
@@ -112,10 +100,10 @@ final class GetMonthlyLaunchesCommandTest extends AbstractCommandTestCase
         $expectedStartDate = CarbonImmutable::parse('2024-01-01')->startOfDay();
         $expectedEndDate = CarbonImmutable::parse('2024-01-31')->startOfDay();
         $this->dataFetcher
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('fetchMonthlyLaunches')
             ->with(
-                $app,
+                self::isInstanceOf(App::class),
                 self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedStartDate)),
                 self::callback(fn (mixed $date): bool => $date instanceof CarbonImmutable && $date->equalTo($expectedEndDate))
             )
@@ -140,11 +128,32 @@ final class GetMonthlyLaunchesCommandTest extends AbstractCommandTestCase
     protected function onSetUp(): void
     {
         $this->dataFetcher = $this->createMock(UmengDataFetcherInterface::class);
-        $this->appRepository = $this->createMock(AppRepository::class);
-        $this->launchesRepository = $this->createMock(MonthlyLaunchesRepository::class);
 
         self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcher);
-        self::getContainer()->set(AppRepository::class, $this->appRepository);
-        self::getContainer()->set(MonthlyLaunchesRepository::class, $this->launchesRepository);
+    }
+
+    private function createTestApp(string $suffix = ''): App
+    {
+        $account = new Account();
+        $account->setName('Test Account ' . $suffix);
+        $account->setApiKey('test_api_key_' . $suffix);
+        $account->setApiSecurity('test_secret_' . $suffix);
+        $account->setValid(true);
+
+        self::getEntityManager()->persist($account);
+        self::getEntityManager()->flush();
+
+        $app = new App();
+        $app->setAccount($account);
+        $app->setAppKey('test_app_key_' . $suffix);
+        $app->setName('Test App ' . $suffix);
+        $app->setPlatform('android');
+        $app->setPopular(false);
+        $app->setUseGameSdk(false);
+
+        self::getEntityManager()->persist($app);
+        self::getEntityManager()->flush();
+
+        return $app;
     }
 }

@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\MonthlyRetentions;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class MonthlyRetentionsFixtures extends Fixture implements DependentFixtureInterface
+final class MonthlyRetentionsFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {

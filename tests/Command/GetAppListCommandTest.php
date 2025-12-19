@@ -27,7 +27,6 @@ final class GetAppListCommandTest extends AbstractCommandTestCase
 
     private CommandTester $commandTester;
 
-    /** @var UmengDataFetcherInterface&MockObject */
     private MockObject $dataFetcherMock;
 
     protected function getCommandTester(): CommandTester

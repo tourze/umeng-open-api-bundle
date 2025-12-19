@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\DailyRetentions;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class DailyRetentionsFixtures extends Fixture implements DependentFixtureInterface
+final class DailyRetentionsFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {

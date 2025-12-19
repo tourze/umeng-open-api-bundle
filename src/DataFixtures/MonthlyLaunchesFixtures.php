@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\MonthlyLaunches;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class MonthlyLaunchesFixtures extends Fixture implements DependentFixtureInterface
+final class MonthlyLaunchesFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {

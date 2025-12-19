@@ -25,7 +25,7 @@ use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 #[WithMonologChannel(channel: 'umeng_open_api')]
 #[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App活跃用户数(30天)')]
-class GetThirtyDayActiveUsersCommand extends Command
+final class GetThirtyDayActiveUsersCommand extends Command
 {
     public const NAME = 'umeng-open-api:get-thirty-day-active-users';
 

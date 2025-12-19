@@ -12,7 +12,6 @@ use Tourze\PHPUnitSymfonyKernelTest\AbstractCommandTestCase;
 use UmengOpenApiBundle\Command\GetDailyLaunchesCommand;
 use UmengOpenApiBundle\Entity\Account;
 use UmengOpenApiBundle\Entity\App;
-use UmengOpenApiBundle\Repository\AppRepository;
 use UmengOpenApiBundle\Repository\DailyLaunchesRepository;
 use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
@@ -27,46 +26,38 @@ final class GetDailyLaunchesCommandTest extends AbstractCommandTestCase
 
     private CommandTester $commandTester;
 
-    /** @var UmengDataFetcherInterface&MockObject */
-    private MockObject $dataFetcherMock;
-
-    /** @var AppRepository&MockObject */
-    private MockObject $appRepositoryMock;
-
-    /** @var DailyLaunchesRepository&MockObject */
-    private MockObject $dailyLaunchesRepositoryMock;
+    private MockObject $dataFetcher;
 
     public function testExecuteWithoutArgumentsShouldSucceed(): void
     {
-        $app = $this->createMockApp();
-
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
+        $this->dataFetcher
             ->method('fetchDailyLaunches')
             ->willReturn($mockResult)
         ;
 
-        $this->dailyLaunchesRepositoryMock->method('findOneBy')->willReturn(null);
-
         $exitCode = $this->commandTester->execute([]);
 
         $this->assertSame(Command::SUCCESS, $exitCode);
+
+        // 验证数据被正确保存到数据库
+        $repository = self::getService(DailyLaunchesRepository::class);
+        $savedData = $repository->findOneBy(['app' => $app]);
+        $this->assertNotNull($savedData);
     }
 
     public function testExecuteWithBothArgumentsShouldSucceed(): void
     {
-        $app = $this->createMockApp();
-
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp('batch');
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
-            ->expects($this->once())
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDailyLaunches')
             ->with(
-                $app,
+                self::isInstanceOf(App::class),
                 self::callback(function ($startDate) {
                     return $startDate instanceof CarbonImmutable && '2024-01-01' === $startDate->format('Y-m-d');
                 }),
@@ -77,22 +68,27 @@ final class GetDailyLaunchesCommandTest extends AbstractCommandTestCase
             ->willReturn($mockResult)
         ;
 
-        $this->dailyLaunchesRepositoryMock->method('findOneBy')->willReturn(null);
-
         $exitCode = $this->commandTester->execute([
             'startDate' => '2024-01-01',
             'endDate' => '2024-01-31',
         ]);
 
         $this->assertSame(Command::SUCCESS, $exitCode);
+
+        // 验证数据被正确保存到数据库
+        $repository = self::getService(DailyLaunchesRepository::class);
+        $savedData = $repository->findOneBy(['app' => $app]);
+        $this->assertNotNull($savedData);
     }
 
     public function testArgumentStartDate(): void
     {
+        $this->createTestApp('startdate');
+
         $mockResult = $this->createMock(\UmengUappGetLaunchesResult::class);
         $mockResult->method('getLaunchInfo')->willReturn([]);
 
-        $this->dataFetcherMock->method('fetchDailyLaunches')
+        $this->dataFetcher->method('fetchDailyLaunches')
             ->willReturn($mockResult)
         ;
 
@@ -102,10 +98,12 @@ final class GetDailyLaunchesCommandTest extends AbstractCommandTestCase
 
     public function testArgumentEndDate(): void
     {
+        $this->createTestApp('enddate');
+
         $mockResult = $this->createMock(\UmengUappGetLaunchesResult::class);
         $mockResult->method('getLaunchInfo')->willReturn([]);
 
-        $this->dataFetcherMock->method('fetchDailyLaunches')
+        $this->dataFetcher->method('fetchDailyLaunches')
             ->willReturn($mockResult)
         ;
 
@@ -120,32 +118,29 @@ final class GetDailyLaunchesCommandTest extends AbstractCommandTestCase
 
     protected function onSetUp(): void
     {
-        $this->dataFetcherMock = $this->createMock(UmengDataFetcherInterface::class);
-        $this->appRepositoryMock = $this->createMock(AppRepository::class);
-        $this->dailyLaunchesRepositoryMock = $this->createMock(DailyLaunchesRepository::class);
-
-        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcherMock);
-        self::getContainer()->set(AppRepository::class, $this->appRepositoryMock);
-        self::getContainer()->set(DailyLaunchesRepository::class, $this->dailyLaunchesRepositoryMock);
+        // 只Mock外部API调用,保持内部服务的真实性
+        $this->dataFetcher = $this->createMock(UmengDataFetcherInterface::class);
+        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcher);
 
         $this->command = self::getService(GetDailyLaunchesCommand::class);
         $this->commandTester = new CommandTester($this->command);
     }
 
-    private function createMockApp(): App
+    private function createTestApp(string $suffix = ''): App
     {
         $account = new Account();
-        $account->setName('Test Account');
-        $account->setApiKey('test-api-key');
-        $account->setApiSecurity('test-api-security');
+        $account->setName('Test Account ' . $suffix);
+        $account->setApiKey('test_api_key_' . $suffix);
+        $account->setApiSecurity('test_secret_' . $suffix);
         $account->setValid(true);
 
         self::getEntityManager()->persist($account);
+        self::getEntityManager()->flush();
 
         $app = new App();
         $app->setAccount($account);
-        $app->setAppKey('test_app_key');
-        $app->setName('Test App');
+        $app->setAppKey('test_app_key_' . $suffix);
+        $app->setName('Test App ' . $suffix);
         $app->setPlatform('android');
         $app->setPopular(false);
         $app->setUseGameSdk(false);

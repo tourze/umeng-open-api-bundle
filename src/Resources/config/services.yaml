@@ -3,17 +3,18 @@ services:
   _defaults:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false
 
-  UmengOpenApiBundle\Command\:
-    resource: '../../Command/'
   UmengOpenApiBundle\Controller\:
     resource: '../../Controller/'
-  UmengOpenApiBundle\EventSubscriber\:
-    resource: '../../EventSubscriber/'
   UmengOpenApiBundle\Repository\:
     resource: '../../Repository/'
+    public: true
   UmengOpenApiBundle\Service\:
     resource: '../../Service/'
+    public: true
+  UmengOpenApiBundle\Command\:
+    resource: '../../Command/'
 
   UmengOpenApiBundle\Service\UmengDataFetcherInterface:
     alias: UmengOpenApiBundle\Service\UmengDataFetcher

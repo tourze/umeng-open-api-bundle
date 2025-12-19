@@ -25,7 +25,7 @@ use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 #[WithMonologChannel(channel: 'umeng_open_api')]
 #[AsCronTask(expression: '*/30 * * * *')]
 #[AsCommand(name: self::NAME, description: '获取App启动次数(30天)')]
-class GetThirtyDayLaunchesCommand extends Command
+final class GetThirtyDayLaunchesCommand extends Command
 {
     public const NAME = 'umeng-open-api:get-thirty-day-launches';
 

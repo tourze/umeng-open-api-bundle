@@ -2,7 +2,6 @@
 
 namespace UmengOpenApiBundle\Tests\Command;
 
-use Carbon\CarbonImmutable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -12,8 +11,6 @@ use Tourze\PHPUnitSymfonyKernelTest\AbstractCommandTestCase;
 use UmengOpenApiBundle\Command\GetDailyDataCommand;
 use UmengOpenApiBundle\Entity\Account;
 use UmengOpenApiBundle\Entity\App;
-use UmengOpenApiBundle\Repository\AppRepository;
-use UmengOpenApiBundle\Repository\DailyDataRepository;
 use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 
 /**
@@ -27,28 +24,19 @@ final class GetDailyDataCommandTest extends AbstractCommandTestCase
 
     private CommandTester $commandTester;
 
-    /** @var UmengDataFetcherInterface&MockObject */
-    private MockObject $dataFetcherMock;
-
-    /** @var AppRepository&MockObject */
-    private MockObject $appRepositoryMock;
-
-    /** @var DailyDataRepository&MockObject */
-    private MockObject $dailyDataRepositoryMock;
+    private UmengDataFetcherInterface&MockObject $dataFetcher;
 
     public function testExecuteWithoutArgumentsShouldSucceed(): void
     {
-        $app = $this->createMockApp();
-
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDailyData')
+            ->with(self::isInstanceOf(App::class))
             ->willReturn($mockResult)
         ;
-
-        $this->dailyDataRepositoryMock->method('findOneBy')->willReturn(null);
 
         $exitCode = $this->commandTester->execute([]);
 
@@ -57,17 +45,15 @@ final class GetDailyDataCommandTest extends AbstractCommandTestCase
 
     public function testExecuteWithBothArgumentsShouldSucceed(): void
     {
-        $app = $this->createMockApp();
-
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDailyData')
+            ->with(self::isInstanceOf(App::class))
             ->willReturn($mockResult)
         ;
-
-        $this->dailyDataRepositoryMock->method('findOneBy')->willReturn(null);
 
         $exitCode = $this->commandTester->execute([
             'startDate' => '2024-01-01',
@@ -79,16 +65,15 @@ final class GetDailyDataCommandTest extends AbstractCommandTestCase
 
     public function testArgumentStartDate(): void
     {
-        $app = $this->createMockApp();
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDailyData')
+            ->with(self::isInstanceOf(App::class))
             ->willReturn($mockResult)
         ;
-
-        $this->dailyDataRepositoryMock->method('findOneBy')->willReturn(null);
 
         $exitCode = $this->commandTester->execute(['startDate' => '2024-01-01']);
         $this->assertSame(Command::SUCCESS, $exitCode);
@@ -96,16 +81,15 @@ final class GetDailyDataCommandTest extends AbstractCommandTestCase
 
     public function testArgumentEndDate(): void
     {
-        $app = $this->createMockApp();
-        $this->appRepositoryMock->method('findAll')->willReturn([$app]);
+        $app = $this->createTestApp();
 
         $mockResult = $this->createMockResult();
-        $this->dataFetcherMock
+        $this->dataFetcher
+            ->expects($this->atLeastOnce())
             ->method('fetchDailyData')
+            ->with(self::isInstanceOf(App::class))
             ->willReturn($mockResult)
         ;
-
-        $this->dailyDataRepositoryMock->method('findOneBy')->willReturn(null);
 
         $exitCode = $this->commandTester->execute(['endDate' => '2024-01-01']);
         $this->assertSame(Command::SUCCESS, $exitCode);
@@ -118,34 +102,29 @@ final class GetDailyDataCommandTest extends AbstractCommandTestCase
 
     protected function onSetUp(): void
     {
-        // Mock所有依赖
-        $this->dataFetcherMock = $this->createMock(UmengDataFetcherInterface::class);
-        $this->appRepositoryMock = $this->createMock(AppRepository::class);
-        $this->dailyDataRepositoryMock = $this->createMock(DailyDataRepository::class);
+        $this->dataFetcher = $this->createMock(UmengDataFetcherInterface::class);
 
-        // 注入到容器中
-        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcherMock);
-        self::getContainer()->set(AppRepository::class, $this->appRepositoryMock);
-        self::getContainer()->set(DailyDataRepository::class, $this->dailyDataRepositoryMock);
+        self::getContainer()->set(UmengDataFetcherInterface::class, $this->dataFetcher);
 
         $this->command = self::getService(GetDailyDataCommand::class);
         $this->commandTester = new CommandTester($this->command);
     }
 
-    private function createMockApp(): App
+    private function createTestApp(string $suffix = ''): App
     {
         $account = new Account();
-        $account->setName('Test Account');
-        $account->setApiKey('test-api-key');
-        $account->setApiSecurity('test-api-security');
+        $account->setName('Test Account ' . $suffix);
+        $account->setApiKey('test_api_key_' . $suffix);
+        $account->setApiSecurity('test_secret_' . $suffix);
         $account->setValid(true);
 
         self::getEntityManager()->persist($account);
+        self::getEntityManager()->flush();
 
         $app = new App();
         $app->setAccount($account);
-        $app->setAppKey('test_app_key');
-        $app->setName('Test App');
+        $app->setAppKey('test_app_key_' . $suffix);
+        $app->setName('Test App ' . $suffix);
         $app->setPlatform('android');
         $app->setPopular(false);
         $app->setUseGameSdk(false);

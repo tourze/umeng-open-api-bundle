@@ -29,8 +29,7 @@ final class GetDailyActiveUsersCommandTest extends AbstractCommandTestCase
 
     private CommandTester $commandTester;
 
-    /** @var UmengDataFetcherInterface&MockObject */
-    private MockObject $dataFetcherMock;
+    private UmengDataFetcherInterface $dataFetcherMock;
 
     public function testExecuteWithoutArgumentsShouldSucceed(): void
     {

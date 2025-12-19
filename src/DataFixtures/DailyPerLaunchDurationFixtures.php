@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\DailyPerLaunchDuration;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class DailyPerLaunchDurationFixtures extends Fixture implements DependentFixtureInterface
+final class DailyPerLaunchDurationFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {

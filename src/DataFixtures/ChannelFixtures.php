@@ -13,7 +13,7 @@ use UmengOpenApiBundle\Entity\Channel;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class ChannelFixtures extends Fixture implements DependentFixtureInterface
+final class ChannelFixtures extends Fixture implements DependentFixtureInterface
 {
     public const ANDROID_OFFICIAL_CHANNEL_REFERENCE = 'android-official-channel';
     public const ANDROID_HUAWEI_CHANNEL_REFERENCE = 'android-huawei-channel';

@@ -23,7 +23,7 @@ use UmengOpenApiBundle\Service\UmengDataFetcherInterface;
 #[AsCommand(name: self::NAME, description: '获取App列表')]
 #[Autoconfigure(public: true)]
 #[WithMonologChannel(channel: 'umeng_open_api')]
-class GetAppListCommand extends Command
+final class GetAppListCommand extends Command
 {
     public const NAME = 'umeng-open-api:get-app-list';
 

@@ -13,7 +13,7 @@ use UmengOpenApiBundle\Entity\MonthlyRetentions;
  * @extends ServiceEntityRepository<MonthlyRetentions>
  */
 #[AsRepository(entityClass: MonthlyRetentions::class)]
-class MonthlyRetentionsRepository extends ServiceEntityRepository
+final class MonthlyRetentionsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

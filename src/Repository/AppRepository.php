@@ -13,7 +13,7 @@ use UmengOpenApiBundle\Entity\App;
  * @extends ServiceEntityRepository<App>
  */
 #[AsRepository(entityClass: App::class)]
-class AppRepository extends ServiceEntityRepository
+final class AppRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

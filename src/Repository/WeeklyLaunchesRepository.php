@@ -13,7 +13,7 @@ use UmengOpenApiBundle\Entity\WeeklyLaunches;
  * @extends ServiceEntityRepository<WeeklyLaunches>
  */
 #[AsRepository(entityClass: WeeklyLaunches::class)]
-class WeeklyLaunchesRepository extends ServiceEntityRepository
+final class WeeklyLaunchesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

@@ -14,7 +14,7 @@ use UmengOpenApiBundle\Entity\HourlyLaunches;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class HourlyLaunchesFixtures extends Fixture implements DependentFixtureInterface
+final class HourlyLaunchesFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {

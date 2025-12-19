@@ -13,7 +13,7 @@ use UmengOpenApiBundle\Entity\DailyRetentions;
  * @extends ServiceEntityRepository<DailyRetentions>
  */
 #[AsRepository(entityClass: DailyRetentions::class)]
-class DailyRetentionsRepository extends ServiceEntityRepository
+final class DailyRetentionsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

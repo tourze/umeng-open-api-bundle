@@ -32,8 +32,7 @@ final class GetChannelDataCommandTest extends AbstractCommandTestCase
 
     private CommandTester $commandTester;
 
-    /** @var UmengDataFetcherInterface&MockObject */
-    private MockObject $dataFetcherMock;
+    private UmengDataFetcherInterface $dataFetcherMock;
 
     protected function onSetUp(): void
     {

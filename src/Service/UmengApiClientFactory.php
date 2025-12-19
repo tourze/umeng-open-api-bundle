@@ -6,7 +6,7 @@ namespace UmengOpenApiBundle\Service;
 
 use UmengOpenApiBundle\Entity\Account;
 
-class UmengApiClientFactory
+final class UmengApiClientFactory
 {
     public function createClient(Account $account): \SyncAPIClient
     {

@@ -13,7 +13,7 @@ use UmengOpenApiBundle\Entity\DailyActiveUsers;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class DailyActiveUsersFixtures extends Fixture implements DependentFixtureInterface
+final class DailyActiveUsersFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
